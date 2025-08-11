@@ -398,6 +398,7 @@ export default function TechPrepApp() {
   };
 
   const handleNextQuestion = () => {
+    if (evaluating || loading) return;
     const current = questions[currentQuestionIndex];
     if (!current) return;
 

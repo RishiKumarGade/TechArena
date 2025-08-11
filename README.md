@@ -90,7 +90,7 @@ Your battleground will be ready at **http://localhost:5173**.
 
 ### 🌍 Live Deployment
 TechArena is also deployed on **Vercel** for instant access:  
-**[Live Demo (Coming Soon)](https://your-vercel-app-url.vercel.app)**  
+**[TechArena Live Demo](https://tech-arena-beta.vercel.app/)**  
 
 ⚠ **Note:** Even on the Live Demo, you must **enter your own Gemini API key** in the Settings before you can start generating questions.
 
