@@ -675,7 +675,7 @@ export default function TechPrepApp() {
             <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
               <h3 className="text-xl font-semibold mb-4">Settings</h3>
               <div>
-                <label className="block text-sm font-medium mb-2 flex items-center">
+                <label className="block text-sm font-medium mb-2 text-black flex items-center">
                   Gemini API Key
                   {!geminiApiKey && (
                     <span className="ml-2 text-red-500 flex items-center">
@@ -685,11 +685,11 @@ export default function TechPrepApp() {
                   )}
                 </label>
                 <input
-                  type="password"
+                  type="text"
                   value={tempKey}
                   onChange={(e) => setTempKey(e.target.value)}
                   placeholder="Enter your Gemini API Key here"
-                  className={`w-full px-4 py-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 ${
+                  className={`w-full text-black px-4 py-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 ${
                     !geminiApiKey
                       ? "border-red-500 focus:border-red-500"
                       : "border-gray-300"
