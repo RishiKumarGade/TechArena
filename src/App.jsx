@@ -638,8 +638,8 @@ export default function TechPrepApp() {
             <div className="flex items-center justify-center mb-4">
               {/* <Brain className="w-12 h-12 text-indigo-600 mr-3" /> */}
               <h1
-                className="text-xl md:text-sm font-bold text-black"
-                style={{ fontFamily: "monospace", whiteSpace: "pre" }}
+                className=" font-bold text-black text-xs sm:text-sm md:text-base overflow-y-auto overflow-x-auto whitespace-pre-wrap max-h-60"
+                style={{ fontFamily: "'Fira Code', monospace", whiteSpace: "pre" }}
               >
                 {`
 ████████╗███████╗  ██████╗██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ██╗ █████╗ 
