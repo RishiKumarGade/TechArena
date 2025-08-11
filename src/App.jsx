@@ -85,7 +85,12 @@ Rules:
 - Compare meaning (not exact characters). If the student's answer matches the canonical meaning, mark correct: true.
 - If partially correct, mark correct: false but provide constructive feedback and a confidence score.
 - Be strict but fair.
-- Provide both a short "feedback" summary and a longer "explanation" describing exactly why the answer is correct or incorrect.
+- Provide both a short "feedback" summary and a longer "explanation" paragraph.
+- The explanation should be a detailed, comprehensive paragraph that includes:
+  * Clear reasoning on why the answer is correct or incorrect,
+  * Background information on the main topic or keywords of the question,
+  * Relevant concepts or related topics that help deepen understanding.
+- Make sure all strings in the JSON output properly escape quotes, newlines, and special characters to produce valid JSON.
 - Provide a single "suggestions" text with practical advice for improvement or learning next steps.
 
 Output format: JSON only (no extra text), with these keys:
@@ -93,10 +98,11 @@ Output format: JSON only (no extra text), with these keys:
   "correct": true|false,
   "confidence": 0-100,
   "feedback": "short 1-2 sentence summary",
-  "explanation": "detailed reasoning on correctness",
+  "explanation": "a detailed, informative paragraph explaining the correctness, including background on the topic and related concepts",
   "suggestions": "single paragraph of relevant advice"
 }`;
 }
+
 
 export default function TechPrepApp() {
   const [currentScreen, setCurrentScreen] = useState("home");
@@ -277,27 +283,97 @@ export default function TechPrepApp() {
     }
   }
 
-  async function generateQuestionsViaLLM(topicName, difficulty, count) {
-    const seed = Date.now();
-    const prompt = buildGenerationPrompt(topicName, difficulty, count, seed);
-
-    const payload = {
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: Math.min(0.95, 0.2 + (difficulty / 10) * 0.6),
-        maxOutputTokens: 8192,
-      },
-    };
-
-    const resp = await callLLM(payload);
-    const parsed = extractJSONFromResponse(resp);
-
-    if (!Array.isArray(parsed.questions)) {
-      throw new Error("No questions array found in response");
+  // A helper function to generate the schema dynamically
+function buildQuestionSchema(count) {
+  return {
+    type: "object",
+    properties: {
+      questions: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            id: { type: "string" },
+            type: {
+              type: "string",
+              enum: ["mcq", "truefalse", "fill", "code"]
+            },
+            q: { type: "string" },
+            difficulty: { type: "integer" },
+            options: {
+              type: "array",
+              items: { type: "string" }
+            },
+            answerIndex: { type: "integer" },
+            answerText: { type: "string" },
+            explanation: { type: "string" },
+            instructions: { type: "string" }
+          },
+          required: ["id", "type", "q", "difficulty"]
+        },
+        minItems: count,
+        maxItems: count
+      }
     }
+  };
+}
 
-    return parsed.questions;
+async function generateQuestionsViaLLM(topicName, difficulty, count) {
+  const seed = Date.now();
+  const prompt = buildGenerationPrompt(topicName, difficulty, count, seed);
+
+  const payload = {
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: {
+      temperature: Math.min(0.95, 0.2 + (difficulty / 10) * 0.6),
+      maxOutputTokens: 8192,
+      responseMimeType: "application/json",
+      responseSchema: buildQuestionSchema(count),
+    },
+  };
+
+  const resp = await callLLM(payload);
+  const parsed = extractJSONFromResponse(resp);
+
+  if (!Array.isArray(parsed.questions)) {
+    throw new Error("No questions array found in response");
   }
+
+  return parsed.questions;
+}
+//   async function generateQuestionsViaLLM(topicName, difficulty, count) {
+//     const seed = Date.now();
+//     const prompt = buildGenerationPrompt(topicName, difficulty, count, seed);
+
+//     const payload = {
+//   contents: [{ parts: [{ text: prompt }] }],
+//   generationConfig: {
+//     temperature: Math.min(0.95, 0.2 + (difficulty / 10) * 0.6),
+//     maxOutputTokens: 8192,
+
+//     responseMimeType: "application/json",
+//     responseSchema: {
+//       "type": "object",
+//       "properties": {
+//         "example_key": { "type": "string" },
+//         "example_array": {
+//           "type": "array",
+//           "items": { "type": "string" }
+//         }
+//       }
+//     }
+//   },
+// };
+
+//     const resp = await callLLM(payload);
+//     const parsed = extractJSONFromResponse(resp);
+
+//     if (!Array.isArray(parsed.questions)) {
+//       throw new Error("No questions array found in response");
+//     }
+
+//     return parsed.questions;
+//   }
 
   async function evaluateAnswerWithLLM(
     questionText,
@@ -313,7 +389,7 @@ export default function TechPrepApp() {
       contents: [{ parts: [{ text: prompt }] }],
       generationConfig: {
         temperature: 0.0,
-        maxOutputTokens: 200,
+        maxOutputTokens: 8192,
       },
     };
 
@@ -1290,7 +1366,7 @@ export default function TechPrepApp() {
 
                         {/* Question text */}
                         <p className="font-semibold text-gray-900 mb-4 leading-relaxed">
-                          {q.q}
+                          {renderQuestionContent(q.q)}
                         </p>
 
                         {/* Answer details */}
@@ -1343,7 +1419,6 @@ export default function TechPrepApp() {
                             </>
                           )}
 
-                          {/* AI Evaluation feedback */}
                           {evaluation?.feedback && (
                             <div className="bg-blue-50 p-3 rounded-md border border-blue-100">
                               <p className="font-medium text-gray-800">
