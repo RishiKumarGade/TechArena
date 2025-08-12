@@ -25,9 +25,10 @@ import {
   Coffee,
 } from "lucide-react";
 import techTopics from "./topics";
+import { GoogleGenAI } from "@google/genai";
 
 const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 function buildGenerationPrompt(topicName, difficulty, count, sessionSeed) {
   return `Generate exactly ${count} exam questions for topic "${topicName}" (difficulty ${difficulty} on a scale of 1–10).
@@ -215,23 +216,44 @@ export default function TechPrepApp() {
     [progress]
   );
 
-  async function callLLM(payload) {
-    if (!geminiApiKey) {
-      throw new Error("API Key is not set.");
-    }
-    const urlWithKey = `${GEMINI_API_URL}?key=${geminiApiKey}`;
-    const res = await fetch(urlWithKey, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+  // async function callLLM(payload) {
+  //   if (!geminiApiKey) {
+  //     throw new Error("API Key is not set.");
+  //   }
+  //   const urlWithKey = `${GEMINI_API_URL}?key=${geminiApiKey}`;
+  //   const res = await fetch(urlWithKey, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(payload),
+  //   });
 
-    if (!res.ok) {
-      const txt = await res.text().catch(() => "");
-      throw new Error(`LLM error ${res.status}: ${txt}`);
-    }
-    return res.json();
+  //   if (!res.ok) {
+  //     const txt = await res.text().catch(() => "");
+  //     throw new Error(`LLM error ${res.status}: ${txt}`);
+  //   }
+  //   return res.json();
+  // }
+
+  async function callLLM(payload) {
+  if (!geminiApiKey) {
+    throw new Error("API Key is not set.");
   }
+  const ai = new GoogleGenAI({
+    apiKey:geminiApiKey ,
+  });
+
+  const model = payload.model || "gemini-2.0-flash";
+  const config = payload.config || {};
+  const contents = payload.contents;
+
+  const response = await ai.models.generateContent({
+    model,
+    config,
+    contents,
+  });
+
+  return response;
+}
 
   function extractJSONFromResponse(response) {
     let rawText = "";
@@ -407,7 +429,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     }
   }
 
-  /* ---------- Question Generation ---------- */
   const generateQuestions = async () => {
     if (!selectedTech) {
       alert("Pick a topic first");
@@ -458,6 +479,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
       setCurrentScreen("quiz");
       setIsTimerRunning(true);
     } catch (err) {
+      console.log(err)
   setErrorMessage("❌ Failed to generate questions. Please check your API key or try again later.");
   setCurrentScreen("error");
     } finally {
@@ -465,7 +487,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     }
   };
 
-  /* ---------- Quiz Flow ---------- */
   const handleAnswerSelect = (answer) => {
     setSelectedAnswer(answer);
     const newAnswers = [...userAnswers];
