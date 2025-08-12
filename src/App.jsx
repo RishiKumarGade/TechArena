@@ -36,7 +36,7 @@ Types allowed: "mcq", "truefalse", "fill", "code".
 
 Return a single valid JSON object with a top-level key "questions" that is an array of objects.
 
-Each object must follow:
+Each object must follow exactly this format:
 {
   "id": "string",
   "type": "mcq" | "truefalse" | "fill" | "code",
@@ -59,16 +59,23 @@ Each object must follow:
 }
 
 Rules:
-- Make each question self-contained
+- Make each question self-contained and relevant to placements
 - Vary phrasing, avoid duplicates
-- Use small code snippets for "code" type
+- Use small, realistic code snippets for "code" type
 - Randomize wording using seed: ${sessionSeed}
+- ABSOLUTELY DO NOT:
+  * Output markdown formatting
+  * Output comments outside the JSON
+  * Add explanations unless required in the "code" type
+- Ensure JSON is 100% valid, syntactically correct, and parses without errors
+- If unsure, prefer clarity over creativity — accuracy is priority
+- Every string must escape quotes and special characters
 
 IMPORTANT:
-- Do not include Markdown fences
-- Do not include any text before or after the JSON
-- Output ONLY raw JSON`;
+- Output ONLY the raw JSON object (no text before or after)
+- If any formatting rule is violated, treat it as a fatal error and self-correct before output`;
 }
+
 
 function buildEvaluatePrompt(questionText, canonicalAnswer, studentAnswer) {
   return `You are an unbiased grader. Evaluate whether the student's answer is correct for the following question.
@@ -87,22 +94,24 @@ Rules:
 - If partially correct, mark correct: false but provide constructive feedback and a confidence score.
 - Be strict but fair.
 - Provide both a short "feedback" summary and a longer "explanation" paragraph.
-- The explanation should be a detailed, comprehensive paragraph that includes:
-  * Clear reasoning on why the answer is correct or incorrect,
-  * Background information on the main topic or keywords of the question,
-  * Relevant concepts or related topics that help deepen understanding.
-- Make sure all strings in the JSON output properly escape quotes, newlines, and special characters to produce valid JSON.
-- Provide a single "suggestions" text with practical advice for improvement or learning next steps.
+- The explanation should include:
+  * Clear reasoning on correctness,
+  * Background information on the main topic or keywords,
+  * Related concepts to deepen understanding.
+- All strings in the JSON output must escape quotes, newlines, and special characters.
+- Absolutely no extra text, comments, or markdown — only valid JSON.
+- If your draft output is invalid JSON, you must fix it before final output.
 
-Output format: JSON only (no extra text), with these keys:
+Output format (must be valid JSON):
 {
   "correct": true|false,
   "confidence": 0-100,
   "feedback": "short 1-2 sentence summary",
-  "explanation": "a detailed, informative paragraph explaining the correctness, including background on the topic and related concepts",
-  "suggestions": "single paragraph of relevant advice"
+  "explanation": "detailed, informative paragraph explaining correctness and background",
+  "suggestions": "practical advice for improvement"
 }`;
 }
+
 
 
 export default function TechPrepApp() {
@@ -234,16 +243,23 @@ export default function TechPrepApp() {
   //   return res.json();
   // }
 
-  async function callLLM(payload) {
+async function callLLM(payload) {
   if (!geminiApiKey) {
     throw new Error("API Key is not set.");
   }
+
   const ai = new GoogleGenAI({
-    apiKey:geminiApiKey ,
+    apiKey: geminiApiKey,
   });
 
   const model = payload.model || "gemini-2.0-flash";
-  const config = payload.config || {};
+  const config = {
+    temperature: 1.0, 
+    topK: 40,         
+    topP: 0.9,        
+    ...(payload.config || {}) 
+  };
+
   const contents = payload.contents;
 
   const response = await ai.models.generateContent({
@@ -254,6 +270,7 @@ export default function TechPrepApp() {
 
   return response;
 }
+
 
   function extractJSONFromResponse(response) {
     let rawText = "";

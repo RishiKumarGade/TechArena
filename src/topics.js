@@ -116,6 +116,83 @@ const techTopics = [
   { id: "adobe-xd", name: "Adobe XD", icon: "✏️", color: "bg-red-600", category: "Design" },
   { id: "sketch", name: "Sketch", icon: "✂️", color: "bg-yellow-500", category: "Design" },
 
+  { id: "quant-number-system", name: "Number System", icon: "🔢", color: "bg-blue-600", category: "Aptitude" },
+  { id: "quant-hcf-lcm", name: "HCF & LCM", icon: "➗", color: "bg-teal-500", category: "Aptitude" },
+  { id: "quant-percentages", name: "Percentages", icon: "📊", color: "bg-orange-500", category: "Aptitude" },
+  { id: "quant-ratios-proportions", name: "Ratios & Proportions", icon: "⚖️", color: "bg-purple-500", category: "Aptitude" },
+  { id: "quant-average", name: "Averages", icon: "📏", color: "bg-pink-500", category: "Aptitude" },
+  { id: "quant-mixtures", name: "Mixtures & Alligation", icon: "🥤", color: "bg-green-500", category: "Aptitude" },
+  { id: "quant-simple-interest", name: "Simple Interest", icon: "💰", color: "bg-yellow-600", category: "Aptitude" },
+  { id: "quant-compound-interest", name: "Compound Interest", icon: "🏦", color: "bg-green-700", category: "Aptitude" },
+  { id: "quant-time-work", name: "Time & Work", icon: "⏳", color: "bg-cyan-600", category: "Aptitude" },
+  { id: "quant-time-distance", name: "Time, Speed & Distance", icon: "🚗", color: "bg-blue-500", category: "Aptitude" },
+  { id: "quant-pipes-cisterns", name: "Pipes & Cisterns", icon: "🚰", color: "bg-indigo-500", category: "Aptitude" },
+  { id: "quant-profit-loss", name: "Profit & Loss", icon: "📈", color: "bg-red-500", category: "Aptitude" },
+  { id: "quant-partnership", name: "Partnerships", icon: "🤝", color: "bg-gray-500", category: "Aptitude" },
+  { id: "quant-ages", name: "Problems on Ages", icon: "🎂", color: "bg-purple-600", category: "Aptitude" },
+  { id: "quant-trains", name: "Problems on Trains", icon: "🚆", color: "bg-orange-600", category: "Aptitude" },
+  { id: "quant-boats-streams", name: "Boats & Streams", icon: "🚤", color: "bg-blue-700", category: "Aptitude" },
+  { id: "quant-permutation-combination", name: "Permutations & Combinations", icon: "🎲", color: "bg-teal-700", category: "Aptitude" },
+  { id: "quant-probability", name: "Probability", icon: "🎯", color: "bg-purple-500", category: "Aptitude" },
+  { id: "quant-algebra", name: "Algebra", icon: "➕", color: "bg-green-600", category: "Aptitude" },
+  { id: "quant-geometry", name: "Geometry", icon: "📐", color: "bg-indigo-600", category: "Aptitude" },
+  { id: "quant-mensuration", name: "Mensuration", icon: "📏", color: "bg-yellow-500", category: "Aptitude" },
+  { id: "quant-trigonometry", name: "Trigonometry", icon: "📐", color: "bg-blue-500", category: "Aptitude" },
+  { id: "quant-logarithms", name: "Logarithms", icon: "📈", color: "bg-red-600", category: "Aptitude" },
+  { id: "quant-progressions", name: "AP & GP", icon: "🔄", color: "bg-green-700", category: "Aptitude" },
+  
+  // -------------------
+  // Logical Reasoning
+  // -------------------
+  { id: "reasoning-puzzles", name: "Puzzles", icon: "🧩", color: "bg-yellow-500", category: "Reasoning" },
+  { id: "reasoning-seating-arrangement", name: "Seating Arrangement", icon: "🪑", color: "bg-purple-500", category: "Reasoning" },
+  { id: "reasoning-blood-relations", name: "Blood Relations", icon: "🧬", color: "bg-red-500", category: "Reasoning" },
+  { id: "reasoning-syllogisms", name: "Syllogisms", icon: "⚖️", color: "bg-indigo-500", category: "Reasoning" },
+  { id: "reasoning-series", name: "Number & Letter Series", icon: "🔢", color: "bg-blue-500", category: "Reasoning" },
+  { id: "reasoning-analogy", name: "Analogy", icon: "🔄", color: "bg-green-500", category: "Reasoning" },
+  { id: "reasoning-coding-decoding", name: "Coding & Decoding", icon: "📝", color: "bg-cyan-500", category: "Reasoning" },
+  { id: "reasoning-data-sufficiency", name: "Data Sufficiency", icon: "📊", color: "bg-orange-500", category: "Reasoning" },
+  { id: "reasoning-clocks-calendars", name: "Clocks & Calendars", icon: "⏰", color: "bg-gray-600", category: "Reasoning" },
+  { id: "reasoning-direction-sense", name: "Direction Sense", icon: "🧭", color: "bg-blue-700", category: "Reasoning" },
+  { id: "reasoning-logical-deductions", name: "Logical Deductions", icon: "🧠", color: "bg-purple-700", category: "Reasoning" },
+
+  // -------------------
+  // Verbal Ability
+  // -------------------
+  { id: "verbal-reading-comprehension", name: "Reading Comprehension", icon: "📖", color: "bg-green-600", category: "Verbal" },
+  { id: "verbal-synonyms", name: "Synonyms", icon: "🔄", color: "bg-blue-500", category: "Verbal" },
+  { id: "verbal-antonyms", name: "Antonyms", icon: "🔁", color: "bg-red-500", category: "Verbal" },
+  { id: "verbal-error-detection", name: "Error Detection", icon: "🚨", color: "bg-orange-500", category: "Verbal" },
+  { id: "verbal-sentence-improvement", name: "Sentence Improvement", icon: "✏️", color: "bg-purple-500", category: "Verbal" },
+  { id: "verbal-parajumbles", name: "Para Jumbles", icon: "🪢", color: "bg-indigo-600", category: "Verbal" },
+  { id: "verbal-fill-in-the-blanks", name: "Fill in the Blanks", icon: "📝", color: "bg-yellow-500", category: "Verbal" },
+  { id: "verbal-one-word", name: "One Word Substitution", icon: "🗣️", color: "bg-teal-600", category: "Verbal" },
+  { id: "verbal-idioms", name: "Idioms & Phrases", icon: "💬", color: "bg-pink-500", category: "Verbal" },
+  { id: "verbal-active-passive", name: "Active & Passive Voice", icon: "🔄", color: "bg-blue-700", category: "Verbal" },
+  { id: "verbal-direct-indirect", name: "Direct & Indirect Speech", icon: "🗨️", color: "bg-gray-600", category: "Verbal" },
+
+  // -------------------
+  // Interview & Soft Skills
+  // -------------------
+  { id: "resume-writing", name: "Resume Writing", icon: "📄", color: "bg-gray-600", category: "Interview Prep" },
+  { id: "group-discussion", name: "Group Discussion", icon: "🗣️", color: "bg-yellow-600", category: "Interview Prep" },
+  { id: "hr-interview", name: "HR Interview", icon: "🤝", color: "bg-green-500", category: "Interview Prep" },
+  { id: "technical-interview", name: "Technical Interview", icon: "💻", color: "bg-blue-600", category: "Interview Prep" },
+  { id: "behavioral-interview", name: "Behavioral Interview", icon: "🧠", color: "bg-purple-500", category: "Interview Prep" },
+  { id: "communication-skills", name: "Communication Skills", icon: "🗨️", color: "bg-pink-500", category: "Soft Skills" },
+  { id: "presentation-skills", name: "Presentation Skills", icon: "🎤", color: "bg-red-600", category: "Soft Skills" },
+  { id: "confidence-building", name: "Confidence Building", icon: "💪", color: "bg-indigo-500", category: "Soft Skills" },
+  { id: "time-management", name: "Time Management", icon: "⏱️", color: "bg-green-600", category: "Soft Skills" },
+
+  // -------------------
+  // General Knowledge
+  // -------------------
+  { id: "gk-current-affairs", name: "Current Affairs", icon: "📰", color: "bg-red-500", category: "GK" },
+  { id: "gk-static", name: "Static GK", icon: "📚", color: "bg-blue-600", category: "GK" },
+  { id: "gk-business", name: "Business & Economy", icon: "💹", color: "bg-green-500", category: "GK" },
+  { id: "gk-science-tech", name: "Science & Technology", icon: "🔬", color: "bg-purple-500", category: "GK" },
 ];
+
+
 
 export default techTopics;
