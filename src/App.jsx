@@ -1597,7 +1597,7 @@ function renderQuestionContent(text) {
                                   Your answer:
                                 </span>
                                 <span className="ml-2 px-2 py-1 bg-gray-100 rounded">
-                                  {userAnswer || "No answer provided"}
+                                  {renderQuestionContent(userAnswer) || "No answer provided"}
                                 </span>
                               </div>
                               <div className="flex">
