@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Clock,
   Trophy,
@@ -77,8 +77,8 @@ IMPORTANT:
 }
 
 
-function buildEvaluatePrompt(questionText, canonicalAnswer, studentAnswer) {
-  return `You are an unbiased grader. Evaluate whether the student's answer is correct for the following question.
+  function buildEvaluatePrompt(questionText, canonicalAnswer, studentAnswer) {
+    return `You are an unbiased grader. Evaluate whether the student's answer is correct for the following question.
 
 Question:
 ${questionText}
@@ -110,7 +110,41 @@ Output format (must be valid JSON):
   "explanation": "detailed, informative paragraph explaining correctness and background",
   "suggestions": "practical advice for improvement"
 }`;
-}
+  }
+
+  function buildBatchEvaluatePrompt(questionsData) {
+    const questionsJson = JSON.stringify(questionsData, null, 2);
+    
+    return `You are an unbiased grader. Evaluate all student answers at once for the following questions.
+
+Questions and Answers:
+${questionsJson}
+
+Rules:
+- Compare meaning (not exact characters). If the student's answer matches the canonical meaning, mark correct: true.
+- If partially correct, mark correct: false but provide constructive feedback and a confidence score.
+- Be strict but fair.
+- Provide both a short "feedback" summary and a longer "explanation" paragraph for each question.
+- The explanation should include:
+  * Clear reasoning on correctness,
+  * Background information on the main topic or keywords,
+  * Related concepts to deepen understanding.
+- All strings in the JSON output must escape quotes, newlines, and special characters.
+- Absolutely no extra text, comments, or markdown — only valid JSON.
+- If your draft output is invalid JSON, you must fix it before final output.
+
+Output format (must be valid JSON array):
+[
+  {
+    "correct": true|false,
+    "confidence": 0-100,
+    "feedback": "short 1-2 sentence summary",
+    "explanation": "detailed, informative paragraph explaining correctness and background",
+    "suggestions": "practical advice for improvement"
+  },
+  ...
+]`;
+  }
 
 
 
@@ -136,6 +170,7 @@ export default function TechPrepApp() {
   const [geminiApiKey, setGeminiApiKey] = useState(
     () => localStorage.getItem("geminiApiKey") || ""
   );
+  const [forceFull, setForceFull] = useState(false);
   const [validatingKey, setValidatingKey] = useState(false);
   const [tempKey, setTempKey] = useState(geminiApiKey || "");
   const [settingsMessage, setSettingsMessage] = useState("");
@@ -446,6 +481,33 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     }
   }
 
+  async function evaluateAnswersBatchWithLLM(questionsData) {
+    const prompt = buildBatchEvaluatePrompt(questionsData);
+    const payload = {
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.0,
+        maxOutputTokens: 8192,
+      },
+    };
+
+    try {
+      const resp = await callLLM(payload);
+      const parsed = extractJSONFromResponse(resp);
+      
+      // Ensure we get an array of evaluations
+      if (!Array.isArray(parsed)) {
+        console.warn("Batch evaluation didn't return an array, falling back to individual evaluations");
+        return null;
+      }
+      
+      return parsed;
+    } catch (err) {
+      console.warn("Batch evaluation failed:", err);
+      return null; // Signal to fall back to individual evaluations
+    }
+  }
+
   const generateQuestions = async () => {
     if (!selectedTech) {
       alert("Pick a topic first");
@@ -505,6 +567,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
   };
 
   const handleAnswerSelect = (answer) => {
+    if (evaluating) return
     setSelectedAnswer(answer);
     const newAnswers = [...userAnswers];
     newAnswers[currentQuestionIndex] = answer;
@@ -535,11 +598,15 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
       setCurrentQuestionIndex(nextIndex);
       setSelectedAnswer(userAnswers[nextIndex]);
     } else {
+      setForceFull(true);
       finishQuiz();
+
     }
   };
 
   const handlePrevQuestion = () => {
+    if (evaluating) return
+
     if (currentQuestionIndex > 0) {
       const prevIndex = currentQuestionIndex - 1;
       setCurrentQuestionIndex(prevIndex);
@@ -552,45 +619,102 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     setEvaluating(true);
 
     try {
-      let correctCount = 0;
-      const evaluatedQuestions = [...questions];
-
-      for (let i = 0; i < questions.length; i++) {
-        const question = questions[i];
-        const userAnswer = userAnswers[i];
-
+      // Prepare questions data for batch evaluation
+      const questionsData = questions.map((question, index) => {
+        const userAnswer = userAnswers[index];
         let studentAnswerText = "";
+        
         if (question.type === "fill") {
-          studentAnswerText =
-            typeof userAnswer === "string" ? userAnswer.trim() : "";
+          studentAnswerText = typeof userAnswer === "string" ? userAnswer.trim() : "";
         } else {
-          studentAnswerText =
-            typeof userAnswer === "number" && question.options
-              ? question.options[userAnswer] || ""
-              : "";
+          studentAnswerText = typeof userAnswer === "number" && question.options
+            ? question.options[userAnswer] || ""
+            : "";
         }
 
-        if (studentAnswerText !== "") {
+        const canonicalAnswer = question.answerText || 
+          (question.options?.[question.answerIndex] ?? "");
+
+        return {
+          question: question.q,
+          canonicalAnswer,
+          studentAnswer: studentAnswerText || "No answer provided"
+        };
+      });
+
+      let evaluations = [];
+      
+      // Try batch evaluation first
+      const batchEvaluations = await evaluateAnswersBatchWithLLM(questionsData);
+      
+      if (batchEvaluations && batchEvaluations.length === questions.length) {
+        // Successfully got batch evaluations
+        evaluations = batchEvaluations;
+      } else {
+        // Fall back to individual evaluations if batch fails
+        console.log("Falling back to individual evaluations...");
+        const individualEvaluations = [];
+        
+        for (let i = 0; i < questionsData.length; i++) {
+          const data = questionsData[i];
           const evaluation = await evaluateAnswerWithLLM(
-            question.q,
-            question.answerText ||
-              (question.options?.[question.answerIndex] ?? ""),
-            studentAnswerText
+            data.question,
+            data.canonicalAnswer,
+            data.studentAnswer
           );
-          console.log(evaluation);
-          evaluatedQuestions[i].evaluation = evaluation;
-          if (evaluation.correct) correctCount++;
+          individualEvaluations.push(evaluation);
+        }
+        
+        evaluations = individualEvaluations;
+      }
+
+      // Map evaluations to questions
+      const evaluatedQuestions = questions.map((question, index) => {
+        const userAnswer = userAnswers[index];
+        let studentAnswerText = "";
+        
+        if (question.type === "fill") {
+          studentAnswerText = typeof userAnswer === "string" ? userAnswer.trim() : "";
         } else {
-          evaluatedQuestions[i].evaluation = {
+          studentAnswerText = typeof userAnswer === "number" && question.options
+            ? question.options[userAnswer] || ""
+            : "";
+        }
+
+        let evaluation = evaluations[index];
+        
+        // Handle missing or invalid evaluations
+        if (!evaluation || typeof evaluation.correct === 'undefined') {
+          evaluation = {
+            correct: false,
+            confidence: 0,
+            feedback: "Evaluation failed - marking as incorrect",
+            explanation: "There was an issue evaluating this answer.",
+            suggestions: "Please review the question and try again."
+          };
+        }
+
+        // Handle empty answers
+        if (studentAnswerText === "") {
+          evaluation = {
             correct: false,
             confidence: 100,
             feedback: "No answer provided",
             explanation: "You did not provide any answer to evaluate.",
-            suggestions:
-              "Review the question carefully and attempt to provide an answer next time.",
+            suggestions: "Review the question carefully and attempt to provide an answer next time.",
+            ...evaluation // Preserve any other fields
           };
         }
-      }
+        
+        return {
+          ...question,
+          evaluation
+        };
+      });
+
+      const correctCount = evaluatedQuestions.filter(
+        q => q.evaluation?.correct
+      ).length;
 
       setQuestions(evaluatedQuestions);
       setScore(correctCount);
@@ -636,12 +760,13 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
 
       saveProgress(selectedTech, updated);
     } catch (error) {
-  setErrorMessage("⚠ There was an error evaluating your answers. Please try again later.");
-  setCurrentScreen("error");
-  return;
+      setErrorMessage("⚠ There was an error evaluating your answers. Please try again later.");
+      setCurrentScreen("error");
+      return;
     } finally {
       setEvaluating(false);
       setQuizCompleted(true);
+      setForceFull(false)
     }
   };
 
@@ -711,13 +836,14 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     d <= 3 ? "text-green-600" : d <= 6 ? "text-yellow-600" : "text-red-600";
   const difficultyLabel = (d) => (d <= 3 ? "Easy" : d <= 6 ? "Medium" : "Hard");
 
-  const groupedTopics = techTopics.reduce((acc, topic) => {
-    if (!acc[topic.category]) {
-      acc[topic.category] = [];
-    }
-    acc[topic.category].push(topic);
-    return acc;
-  }, {});
+  const groupedTopics = useMemo(() => 
+    techTopics.reduce((acc, topic) => {
+      if (!acc[topic.category]) {
+        acc[topic.category] = [];
+      }
+      acc[topic.category].push(topic);
+      return acc;
+    }, []), []);
 
   if (currentScreen === "error") {
     return (
@@ -819,7 +945,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                   {validatingKey && (
                     <div className="animate-spin mr-2 h-4 w-4 border-b-2 border-white rounded-full"></div>
                   )}
-                  {validatingKey ? "Validating..." : "Save API Key"}
+                  {validatingKey ? "Validating..." : tempKey ? "Validate API Key" :"Save API Key"}
                 </button>
                 {settingsMessage && (
                   <p
@@ -1565,7 +1691,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 </div>
               </div>
               <button
-                onClick={() => setCurrentScreen("home")}
+                onClick={() => {if (evaluating) return;setCurrentScreen("home")}}
                 className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded transition-colors"
               >
                 Exit Quiz
@@ -1577,18 +1703,25 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span>Progress</span>
                 <span>
+                  {forceFull ?
+                  "100%"
+                  : <>
                   {Math.round(
-                    ((currentQuestionIndex + 1) / questions.length) * 100
+                    ((currentQuestionIndex) / questions.length) * 100
                   )}
                   %
+                   </> }
+                  
                 </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div
                   className="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500 ease-out"
                   style={{
-                    width: `${
-                      ((currentQuestionIndex + 1) / questions.length) * 100
+                    width:
+                    forceFull ? "100%" :
+                    `${
+                      ((currentQuestionIndex ) / questions.length) * 100
                     }%`,
                   }}
                 ></div>
@@ -1689,6 +1822,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => {
+                    if (evaluating) return;
                     if (
                       confirm(
                         "Are you sure you want to reset the quiz? All progress will be lost."
@@ -1733,6 +1867,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                   <button
                     key={idx}
                     onClick={() => {
+                      if (evaluating) return;
                       setCurrentQuestionIndex(idx);
                       setSelectedAnswer(userAnswers[idx]);
                     }}
