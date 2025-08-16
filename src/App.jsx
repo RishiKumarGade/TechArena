@@ -495,7 +495,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
       const resp = await callLLM(payload);
       const parsed = extractJSONFromResponse(resp);
       
-      // Ensure we get an array of evaluations
       if (!Array.isArray(parsed)) {
         console.warn("Batch evaluation didn't return an array, falling back to individual evaluations");
         return null;
@@ -504,7 +503,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
       return parsed;
     } catch (err) {
       console.warn("Batch evaluation failed:", err);
-      return null; // Signal to fall back to individual evaluations
+      return null;
     }
   }
 
@@ -619,7 +618,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     setEvaluating(true);
 
     try {
-      // Prepare questions data for batch evaluation
       const questionsData = questions.map((question, index) => {
         const userAnswer = userAnswers[index];
         let studentAnswerText = "";
@@ -644,14 +642,11 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
 
       let evaluations = [];
       
-      // Try batch evaluation first
       const batchEvaluations = await evaluateAnswersBatchWithLLM(questionsData);
       
       if (batchEvaluations && batchEvaluations.length === questions.length) {
-        // Successfully got batch evaluations
         evaluations = batchEvaluations;
       } else {
-        // Fall back to individual evaluations if batch fails
         console.log("Falling back to individual evaluations...");
         const individualEvaluations = [];
         
@@ -668,7 +663,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
         evaluations = individualEvaluations;
       }
 
-      // Map evaluations to questions
       const evaluatedQuestions = questions.map((question, index) => {
         const userAnswer = userAnswers[index];
         let studentAnswerText = "";
@@ -683,7 +677,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
 
         let evaluation = evaluations[index];
         
-        // Handle missing or invalid evaluations
         if (!evaluation || typeof evaluation.correct === 'undefined') {
           evaluation = {
             correct: false,
@@ -694,7 +687,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
           };
         }
 
-        // Handle empty answers
         if (studentAnswerText === "") {
           evaluation = {
             correct: false,
@@ -702,7 +694,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
             feedback: "No answer provided",
             explanation: "You did not provide any answer to evaluate.",
             suggestions: "Review the question carefully and attempt to provide an answer next time.",
-            ...evaluation // Preserve any other fields
+            ...evaluation 
           };
         }
         
@@ -967,7 +959,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
             </div>
           )}
 
-          {/* Grouped Topics */}
           {Object.entries(groupedTopics).map(([category, topics]) => (
             <div key={category} className="mb-8">
               <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
@@ -1074,7 +1065,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
             </div>
           ))}
 
-          {/* Recent Sessions */}
           {sessionHistory.length > 0 && (
             <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 mt-8">
               <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center">
@@ -1159,7 +1149,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
             </div>
 
             <div className="space-y-8">
-              {/* Difficulty Level */}
               <div>
                 <label className="block text-lg font-semibold mb-4">
                   Difficulty Level: {difficulty}/10{" "}
@@ -1193,7 +1182,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 </div>
               </div>
 
-              {/* Question Count */}
               <div>
                 <label className="block text-lg font-semibold mb-4">
                   Number of Questions: {questionCount}
@@ -1215,7 +1203,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 </div>
               </div>
 
-              {/* Question Types */}
               <div>
                 <label className="block text-lg font-semibold mb-4">
                   Question Types Available:
@@ -1267,7 +1254,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 </div>
               </div>
 
-              {/* Progress Preview */}
               {progress[selectedTech] && (
                 <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-4">
                   <h4 className="font-semibold text-gray-800 mb-3">
@@ -1306,7 +1292,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 </div>
               )}
 
-              {/* Start Button */}
               <div className="text-center pt-6">
                 <button
                   onClick={generateQuestions}
@@ -1389,7 +1374,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 )}
               </div>
 
-              {/* Score Summary */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
                 <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 text-center">
                   <Target className="w-8 h-8 text-blue-600 mx-auto mb-2" />
@@ -1421,7 +1405,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 </div>
               </div>
 
-              {/* Performance Message */}
               <div className="text-center mb-8">
                 {percentage >= 90 && (
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4">
@@ -1465,7 +1448,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 )}
               </div>
 
-              {/* Detailed Results */}
               <div className="mb-8">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
                   <AlertCircle className="w-6 h-6 mr-2 text-gray-600" />
@@ -1486,7 +1468,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                             : "border-red-300 bg-red-50"
                         }`}
                       >
-                        {/* Header: Question number, type, difficulty */}
                         <div className="flex flex-wrap items-center justify-between mb-4">
                           <div className="flex items-center space-x-2">
                             <span className="bg-gray-800 text-white text-xs px-2 py-1 rounded-lg font-semibold">
@@ -1514,7 +1495,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                             </span>
                           </div>
 
-                          {/* Correct / Incorrect Icon */}
                           <div>
                             {isCorrect ? (
                               <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
@@ -1528,12 +1508,10 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                           </div>
                         </div>
 
-                        {/* Question text */}
                         <p className="font-semibold text-gray-900 mb-4 leading-relaxed">
                           {renderQuestionContent(q.q)}
                         </p>
 
-                        {/* Answer details */}
                         <div className="text-sm space-y-2">
                           {q.type === "fill" ? (
                             <>
@@ -1620,7 +1598,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={resetQuiz}
@@ -1698,7 +1675,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
               </button>
             </div>
 
-            {/* Progress Bar */}
             <div className="mt-4">
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span>Progress</span>
@@ -1729,7 +1705,6 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
             </div>
           </div>
 
-          {/* Question Content */}
           <div className="bg-white rounded-b-xl shadow-lg p-4 md:p-8">
             <div className="mb-8">
               <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-6 leading-relaxed">
