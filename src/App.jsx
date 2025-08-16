@@ -762,49 +762,126 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     }
   };
 
-  function renderQuestionContent(text) {
-    const codeRegex = /```(\w+)?\n([\s\S]*?)```/;
-    const match = text.match(codeRegex);
+function renderQuestionContent(text) {
+  // Helper function to render inline code
+  const renderInlineCode = (textSegment) => {
+    const inlineCodeRegex = /`([^`]+)`/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
 
-    if (!match) {
-      return (
-        <p className="text-lg md:text-xl font-semibold text-gray-800 mb-6 leading-relaxed">
-          {text}
+    while ((match = inlineCodeRegex.exec(textSegment)) !== null) {
+      // Add text before the inline code
+      if (match.index > lastIndex) {
+        parts.push(textSegment.slice(lastIndex, match.index));
+      }
+      // Add the inline code with styling
+      parts.push(
+        <code 
+          key={`inline-${match.index}`}
+          className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono font-normal"
+        >
+          {match[1]}
+        </code>
+      );
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add remaining text
+    if (lastIndex < textSegment.length) {
+      parts.push(textSegment.slice(lastIndex));
+    }
+
+    return parts.length > 1 ? parts : textSegment;
+  };
+
+  // Check for code blocks
+  const codeBlockRegex = /```(\w+)?\n?([\s\S]*?)```/g;
+  const codeBlocks = [];
+  let match;
+  let lastIndex = 0;
+
+  // Find all code blocks
+  while ((match = codeBlockRegex.exec(text)) !== null) {
+    codeBlocks.push({
+      index: match.index,
+      length: match[0].length,
+      language: match[1] || "code",
+      code: match[2].trim(),
+      fullMatch: match[0]
+    });
+  }
+
+  // If no code blocks found, just handle inline code and return paragraph
+  if (codeBlocks.length === 0) {
+    const contentWithInlineCode = renderInlineCode(text);
+    return (
+      <p className="text-lg md:text-xl font-medium text-gray-700 mb-6 leading-relaxed font-serif tracking-normal">
+        {contentWithInlineCode}
+      </p>
+    );
+  }
+
+  // Process text with code blocks
+  const elements = [];
+  lastIndex = 0;
+
+  codeBlocks.forEach((block, index) => {
+    // Add text before this code block
+    const beforeText = text.slice(lastIndex, block.index).trim();
+    if (beforeText) {
+      const contentWithInlineCode = renderInlineCode(beforeText);
+      elements.push(
+        <p 
+          key={`text-${index}`}
+          className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed font-serif tracking-normal"
+        >
+          {contentWithInlineCode}
         </p>
       );
     }
 
-    const language = match[1] || "";
-    const code = match[2];
-    const before = text.slice(0, match.index).trim();
-    const after = text.slice(match.index + match[0].length).trim();
-
-    return (
-      <div className="space-y-4 mb-6">
-        {before && (
-          <p className="text-lg md:text-xl font-semibold text-gray-800 leading-relaxed">
-            {before}
-          </p>
-        )}
-        <div className="relative rounded-lg overflow-hidden shadow-lg border border-gray-700 bg-[#1e1e1e]">
-          <div className="flex items-center justify-between px-4 py-2 bg-[#2d2d2d] border-b border-gray-700">
-            <span className="text-xs font-medium text-gray-300">
-              {language || "code"}
-            </span>
-            <span className="text-gray-500 text-xs">Snippet</span>
-          </div>
-          <pre className="p-4 text-sm md:text-base text-gray-200 overflow-x-auto leading-relaxed font-mono">
-            <code>{code}</code>
-          </pre>
+    // Add the code block
+    elements.push(
+      <div 
+        key={`code-${index}`}
+        className="relative rounded-lg overflow-hidden shadow-lg border border-gray-700 bg-[#1e1e1e]"
+      >
+        <div className="flex items-center justify-between px-4 py-2 bg-[#2d2d2d] border-b border-gray-700">
+          <span className="text-xs font-medium text-gray-300">
+            {block.language}
+          </span>
+          <span className="text-gray-500 text-xs">Snippet</span>
         </div>
-        {after && (
-          <p className="text-lg md:text-xl font-semibold text-gray-800 leading-relaxed">
-            {after}
-          </p>
-        )}
+        <pre className="p-4 text-sm md:text-base text-gray-200 overflow-x-auto leading-relaxed font-mono font-normal">
+          <code className="font-mono">{block.code}</code>
+        </pre>
       </div>
     );
+
+    lastIndex = block.index + block.length;
+  });
+
+  // Add text after the last code block
+  const afterText = text.slice(lastIndex).trim();
+  if (afterText) {
+    const contentWithInlineCode = renderInlineCode(afterText);
+    elements.push(
+      <p 
+        key="text-after"
+        className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed font-serif tracking-normal"
+      >
+        {contentWithInlineCode}
+      </p>
+    );
   }
+
+  return (
+    <div className="space-y-4 mb-6">
+      {elements}
+    </div>
+  );
+}
 
   const resetQuiz = () => {
     setQuestions([]);
@@ -1528,7 +1605,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                                   Expected:
                                 </span>
                                 <span className="ml-2 px-2 py-1 bg-blue-100 rounded">
-                                  {q.answerText}
+                                  {renderQuestionContent(q.answerText)}
                                 </span>
                               </div>
                             </>
@@ -1567,7 +1644,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                                 💬 Feedback
                               </p>
                               <p className="text-gray-700 mt-1">
-                                {evaluation.feedback}
+                                {renderQuestionContent(evaluation.feedback)}
                               </p>
                             </div>
                           )}
@@ -1577,7 +1654,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                                 📖 Explanation
                               </p>
                               <p className="text-gray-700 mt-1">
-                                {evaluation.explanation}
+                                {renderQuestionContent(evaluation.explanation)}
                               </p>
                             </div>
                           )}
@@ -1587,7 +1664,7 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
                                 💡 Suggestions
                               </p>
                               <p className="text-gray-700 mt-1">
-                                {evaluation.suggestions}
+                                {renderQuestionContent(evaluation.suggestions)}
                               </p>
                             </div>
                           )}
