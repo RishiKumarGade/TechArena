@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Clock,
@@ -28,13 +29,24 @@ import techTopics from "./topics";
 import { GoogleGenAI } from "@google/genai";
 
 const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
+  "[https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent](https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent)";
 
-function buildGenerationPrompt(topicName, difficulty, count, sessionSeed) {
-  return `Generate exactly ${count} exam questions for topic "${topicName}" (difficulty ${difficulty} on a scale of 1–10).
+function buildGenerationPrompt(
+  topicName,
+  subTopicNames,
+  difficulty,
+  count,
+  sessionSeed
+) {
+  const subTopicList =
+    subTopicNames.length > 0
+      ? ` from the following sub-topics: ${subTopicNames.join(", ")}`
+      : "";
+  return `Generate exactly ${count} exam questions for topic "${topicName}"${subTopicList} (difficulty ${difficulty} on a scale of 1–10).
 Types allowed: "mcq", "truefalse", "fill", "code".
 
 Return a single valid JSON object with a top-level key "questions" that is an array of objects.
+For each question, add a "tag" field with a value from the list of selected sub-topics or "general" for general questions.
 
 Each object must follow exactly this format:
 {
@@ -42,6 +54,7 @@ Each object must follow exactly this format:
   "type": "mcq" | "truefalse" | "fill" | "code",
   "q": "string",
   "difficulty": number,
+  "tag": "string",
   // For mcq:
   "options": ["string", "string", ...],
   "answerIndex": integer,
@@ -63,6 +76,7 @@ Rules:
 - Vary phrasing, avoid duplicates
 - Use small, realistic code snippets for "code" type
 - Randomize wording using seed: ${sessionSeed}
+- The "tag" field MUST be one of the provided sub-topics or "general".
 - ABSOLUTELY DO NOT:
   * Output markdown formatting
   * Output comments outside the JSON
@@ -73,12 +87,11 @@ Rules:
 
 IMPORTANT:
 - Output ONLY the raw JSON object (no text before or after)
-- If any formatting rule is violated, treat it as a fatal error and self-correct before output`;
+- If any formatting rule is violated, treat it as a fatal error and self-correct before final output`;
 }
 
-
-  function buildEvaluatePrompt(questionText, canonicalAnswer, studentAnswer) {
-    return `You are an unbiased grader. Evaluate whether the student's answer is correct for the following question.
+function buildEvaluatePrompt(questionText, canonicalAnswer, studentAnswer) {
+  return `You are an unbiased grader. Evaluate whether the student's answer is correct for the following question.
 
 Question:
 ${questionText}
@@ -110,12 +123,12 @@ Output format (must be valid JSON):
   "explanation": "detailed, informative paragraph explaining correctness and background",
   "suggestions": "practical advice for improvement"
 }`;
-  }
+}
 
-  function buildBatchEvaluatePrompt(questionsData) {
-    const questionsJson = JSON.stringify(questionsData, null, 2);
-    
-    return `You are an unbiased grader. Evaluate all student answers at once for the following questions.
+function buildBatchEvaluatePrompt(questionsData) {
+  const questionsJson = JSON.stringify(questionsData, null, 2);
+
+  return `You are an unbiased grader. Evaluate all student answers at once for the following questions.
 
 Questions and Answers:
 ${questionsJson}
@@ -144,9 +157,7 @@ Output format (must be valid JSON array):
   },
   ...
 ]`;
-  }
-
-
+}
 
 export default function TechPrepApp() {
   const [currentScreen, setCurrentScreen] = useState("home");
@@ -166,6 +177,7 @@ export default function TechPrepApp() {
   const [showSettings, setShowSettings] = useState(false);
   const [sessionHistory, setSessionHistory] = useState([]);
   const [progress, setProgress] = useState({});
+  const [subTopicProgress, setSubTopicProgress] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [geminiApiKey, setGeminiApiKey] = useState(
     () => localStorage.getItem("geminiApiKey") || ""
@@ -175,8 +187,8 @@ export default function TechPrepApp() {
   const [tempKey, setTempKey] = useState(geminiApiKey || "");
   const [settingsMessage, setSettingsMessage] = useState("");
   const [settingsMessageType, setSettingsMessageType] = useState("info");
+  const [selectedTopics, setSelectedTopics] = useState([]);
 
-  
   async function validateAndSaveKey(tempKey) {
     if (!tempKey.trim()) {
       setSettingsMessageType("error");
@@ -206,7 +218,7 @@ export default function TechPrepApp() {
         setSettingsMessage("✅ API key saved successfully!");
         setTimeout(() => setShowSettings(false), 1000);
       } else {
-        setGeminiApiKey("")
+        setGeminiApiKey("");
         setSettingsMessageType("error");
         setSettingsMessage("❌ Invalid API key. Please check and try again.");
       }
@@ -229,10 +241,16 @@ export default function TechPrepApp() {
       );
       setProgress(storedProgress);
       setSessionHistory(storedHistory);
+
+      const storedSubTopicProgress = JSON.parse(
+        localStorage.getItem("techPrepSubTopicProgress") || "{}"
+      );
+      setSubTopicProgress(storedSubTopicProgress);
     } catch (error) {
       console.warn("Failed to load stored data:", error);
       setProgress({});
       setSessionHistory([]);
+      setSubTopicProgress({});
     }
   }, []);
 
@@ -260,52 +278,57 @@ export default function TechPrepApp() {
     [progress]
   );
 
-  // async function callLLM(payload) {
-  //   if (!geminiApiKey) {
-  //     throw new Error("API Key is not set.");
-  //   }
-  //   const urlWithKey = `${GEMINI_API_URL}?key=${geminiApiKey}`;
-  //   const res = await fetch(urlWithKey, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(payload),
-  //   });
+const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
+  setSubTopicProgress((prev) => {
+    const next = { ...prev };
+    if (!next[techId]) {
+      next[techId] = {};
+    }
+    if (!next[techId][subTopicId]) {
+      next[techId][subTopicId] = { correct: 0, total: 0 };
+    }
+    const current = next[techId][subTopicId];
+    next[techId][subTopicId] = {
+      correct: current.correct + (isCorrect ? 1 : 0),
+      total: current.total + 1,
+    };
+    try {
+      localStorage.setItem("techPrepSubTopicProgress", JSON.stringify(next));
+    } catch (error) {
+      console.warn("Failed to save sub-topic progress:", error);
+    }
+    return next;
+  });
+}, []);
 
-  //   if (!res.ok) {
-  //     const txt = await res.text().catch(() => "");
-  //     throw new Error(`LLM error ${res.status}: ${txt}`);
-  //   }
-  //   return res.json();
-  // }
 
-async function callLLM(payload) {
-  if (!geminiApiKey) {
-    throw new Error("API Key is not set.");
+  async function callLLM(payload) {
+    if (!geminiApiKey) {
+      throw new Error("API Key is not set.");
+    }
+
+    const ai = new GoogleGenAI({
+      apiKey: geminiApiKey,
+    });
+
+    const model = payload.model || "gemini-2.0-flash";
+    const config = {
+      temperature: 1.0,
+      topK: 40,
+      topP: 0.9,
+      ...(payload.config || {}),
+    };
+
+    const contents = payload.contents;
+
+    const response = await ai.models.generateContent({
+      model,
+      config,
+      contents,
+    });
+
+    return response;
   }
-
-  const ai = new GoogleGenAI({
-    apiKey: geminiApiKey,
-  });
-
-  const model = payload.model || "gemini-2.0-flash";
-  const config = {
-    temperature: 1.0, 
-    topK: 40,         
-    topP: 0.9,        
-    ...(payload.config || {}) 
-  };
-
-  const contents = payload.contents;
-
-  const response = await ai.models.generateContent({
-    model,
-    config,
-    contents,
-  });
-
-  return response;
-}
-
 
   function extractJSONFromResponse(response) {
     let rawText = "";
@@ -358,96 +381,74 @@ async function callLLM(payload) {
   }
 
   // A helper function to generate the schema dynamically
-function buildQuestionSchema(count) {
-  return {
-    type: "object",
-    properties: {
-      questions: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            id: { type: "string" },
-            type: {
-              type: "string",
-              enum: ["mcq", "truefalse", "fill", "code"]
+  function buildQuestionSchema(count) {
+    return {
+      type: "object",
+      properties: {
+        questions: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              id: { type: "string" },
+              type: {
+                type: "string",
+                enum: ["mcq", "truefalse", "fill", "code"],
+              },
+              q: { type: "string" },
+              difficulty: { type: "integer" },
+              tag: { type: "string" },
+              options: {
+                type: "array",
+                items: { type: "string" },
+              },
+              answerIndex: { type: "integer" },
+              answerText: { type: "string" },
+              explanation: { type: "string" },
+              instructions: { type: "string" },
             },
-            q: { type: "string" },
-            difficulty: { type: "integer" },
-            options: {
-              type: "array",
-              items: { type: "string" }
-            },
-            answerIndex: { type: "integer" },
-            answerText: { type: "string" },
-            explanation: { type: "string" },
-            instructions: { type: "string" }
+            required: ["id", "type", "q", "difficulty", "tag"],
           },
-          required: ["id", "type", "q", "difficulty"]
+          minItems: count,
+          maxItems: count,
         },
-        minItems: count,
-        maxItems: count
-      }
-    }
-  };
-}
-
-async function generateQuestionsViaLLM(topicName, difficulty, count) {
-  const seed = Date.now();
-  const prompt = buildGenerationPrompt(topicName, difficulty, count, seed);
-
-  const payload = {
-    contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: {
-      temperature: Math.min(0.95, 0.2 + (difficulty / 10) * 0.6),
-      maxOutputTokens: 8192,
-      responseMimeType: "application/json",
-      responseSchema: buildQuestionSchema(count),
-    },
-  };
-
-  const resp = await callLLM(payload);
-  const parsed = extractJSONFromResponse(resp);
-
-  if (!Array.isArray(parsed.questions)) {
-    throw new Error("No questions array found in response");
+      },
+    };
   }
 
-  return parsed.questions;
-}
-//   async function generateQuestionsViaLLM(topicName, difficulty, count) {
-//     const seed = Date.now();
-//     const prompt = buildGenerationPrompt(topicName, difficulty, count, seed);
+  async function generateQuestionsViaLLM(
+    topicName,
+    subTopicNames,
+    difficulty,
+    count
+  ) {
+    const seed = Date.now();
+    const prompt = buildGenerationPrompt(
+      topicName,
+      subTopicNames,
+      difficulty,
+      count,
+      seed
+    );
 
-//     const payload = {
-//   contents: [{ parts: [{ text: prompt }] }],
-//   generationConfig: {
-//     temperature: Math.min(0.95, 0.2 + (difficulty / 10) * 0.6),
-//     maxOutputTokens: 8192,
+    const payload = {
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: Math.min(0.95, 0.2 + (difficulty / 10) * 0.6),
+        maxOutputTokens: 8192,
+        responseMimeType: "application/json",
+        responseSchema: buildQuestionSchema(count),
+      },
+    };
 
-//     responseMimeType: "application/json",
-//     responseSchema: {
-//       "type": "object",
-//       "properties": {
-//         "example_key": { "type": "string" },
-//         "example_array": {
-//           "type": "array",
-//           "items": { "type": "string" }
-//         }
-//       }
-//     }
-//   },
-// };
+    const resp = await callLLM(payload);
+    const parsed = extractJSONFromResponse(resp);
 
-//     const resp = await callLLM(payload);
-//     const parsed = extractJSONFromResponse(resp);
-
-//     if (!Array.isArray(parsed.questions)) {
-//       throw new Error("No questions array found in response");
-//     }
-
-//     return parsed.questions;
-//   }
+    if (!Array.isArray(parsed.questions)) {
+      throw new Error("No questions array found in response");
+    }
+    return parsed.questions;
+  }
 
   async function evaluateAnswerWithLLM(
     questionText,
@@ -494,12 +495,14 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     try {
       const resp = await callLLM(payload);
       const parsed = extractJSONFromResponse(resp);
-      
+
       if (!Array.isArray(parsed)) {
-        console.warn("Batch evaluation didn't return an array, falling back to individual evaluations");
+        console.warn(
+          "Batch evaluation didn't return an array, falling back to individual evaluations"
+        );
         return null;
       }
-      
+
       return parsed;
     } catch (err) {
       console.warn("Batch evaluation failed:", err);
@@ -529,27 +532,49 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     setQuizCompleted(false);
     setIsTimerRunning(false);
 
-    const topicName =
-      techTopics.find((t) => t.id === selectedTech)?.name || selectedTech;
+    const tech = techTopics.find((t) => t.id === selectedTech);
+    const topicName = tech?.name || selectedTech;
+    const subTopicNames = selectedTopics.map((id) => {
+      const subTopic = tech.topics.find((t) => t.id === id);
+      return subTopic ? subTopic.name : id;
+    });
 
     try {
       const produced = await generateQuestionsViaLLM(
         topicName,
+        subTopicNames,
         difficulty,
         questionCount
       );
-      const normalized = produced.map((q, i) => ({
-        id: q.id || `${selectedTech}-${Date.now()}-${i}`,
-        type: q.type || "mcq",
-        q: q.q || q.prompt || "Untitled question",
-        difficulty: q.difficulty || difficulty,
-        options:
-          q.options ||
-          (q.type === "truefalse" ? ["True", "False"] : ["A", "B", "C", "D"]),
-        answerIndex: typeof q.answerIndex === "number" ? q.answerIndex : 0,
-        answerText: q.answerText || null,
-        explanation: q.explanation || "",
-      }));
+      const normalized = produced.map((q, i) => {
+        const tech = techTopics.find((t) => t.id === selectedTech);
+        if (!tech) return q; // safety check
+        // Try to map Gemini's tag (name) to one of your IDs
+        let tag = q.tag?.toLowerCase();
+        // Find if tag matches a subtopic name or id case-insensitively
+        const match = tech.topics.find(
+          (st) => st.name.toLowerCase() === tag || st.id.toLowerCase() === tag
+        );
+        if (match) {
+          tag = match.id; // force into correct ID
+        } else if (tag !== "general") {
+          tag = "general"; // fallback
+        }
+
+        return {
+          id: q.id || `${selectedTech}-${Date.now()}-${i}`,
+          type: q.type || "mcq",
+          q: q.q || q.prompt || "Untitled question",
+          difficulty: q.difficulty || difficulty,
+          tag,
+          options:
+            q.options ||
+            (q.type === "truefalse" ? ["True", "False"] : ["A", "B", "C", "D"]),
+          answerIndex: typeof q.answerIndex === "number" ? q.answerIndex : 0,
+          answerText: q.answerText || null,
+          explanation: q.explanation || "",
+        };
+      });
 
       setQuestions(normalized);
       setUserAnswers(new Array(normalized.length).fill(null));
@@ -557,16 +582,18 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
       setCurrentScreen("quiz");
       setIsTimerRunning(true);
     } catch (err) {
-      console.log(err)
-  setErrorMessage("❌ Failed to generate questions. Please check your API key or try again later.");
-  setCurrentScreen("error");
+      console.log(err);
+      setErrorMessage(
+        "❌ Failed to generate questions. Please check your API key or try again later."
+      );
+      setCurrentScreen("error");
     } finally {
       setLoading(false);
     }
   };
 
   const handleAnswerSelect = (answer) => {
-    if (evaluating) return
+    if (evaluating) return;
     setSelectedAnswer(answer);
     const newAnswers = [...userAnswers];
     newAnswers[currentQuestionIndex] = answer;
@@ -599,12 +626,11 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
     } else {
       setForceFull(true);
       finishQuiz();
-
     }
   };
 
   const handlePrevQuestion = () => {
-    if (evaluating) return
+    if (evaluating) return;
 
     if (currentQuestionIndex > 0) {
       const prevIndex = currentQuestionIndex - 1;
@@ -621,35 +647,38 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
       const questionsData = questions.map((question, index) => {
         const userAnswer = userAnswers[index];
         let studentAnswerText = "";
-        
+
         if (question.type === "fill") {
-          studentAnswerText = typeof userAnswer === "string" ? userAnswer.trim() : "";
+          studentAnswerText =
+            typeof userAnswer === "string" ? userAnswer.trim() : "";
         } else {
-          studentAnswerText = typeof userAnswer === "number" && question.options
-            ? question.options[userAnswer] || ""
-            : "";
+          studentAnswerText =
+            typeof userAnswer === "number" && question.options
+              ? question.options[userAnswer] || ""
+              : "";
         }
 
-        const canonicalAnswer = question.answerText || 
-          (question.options?.[question.answerIndex] ?? "");
+        const canonicalAnswer =
+          (question.answerText || question.options?.[question.answerIndex]) ??
+          "";
 
         return {
           question: question.q,
           canonicalAnswer,
-          studentAnswer: studentAnswerText || "No answer provided"
+          studentAnswer: studentAnswerText || "No answer provided",
         };
       });
 
       let evaluations = [];
-      
+
       const batchEvaluations = await evaluateAnswersBatchWithLLM(questionsData);
-      
+
       if (batchEvaluations && batchEvaluations.length === questions.length) {
         evaluations = batchEvaluations;
       } else {
         console.log("Falling back to individual evaluations...");
         const individualEvaluations = [];
-        
+
         for (let i = 0; i < questionsData.length; i++) {
           const data = questionsData[i];
           const evaluation = await evaluateAnswerWithLLM(
@@ -659,31 +688,33 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
           );
           individualEvaluations.push(evaluation);
         }
-        
+
         evaluations = individualEvaluations;
       }
 
       const evaluatedQuestions = questions.map((question, index) => {
         const userAnswer = userAnswers[index];
         let studentAnswerText = "";
-        
+
         if (question.type === "fill") {
-          studentAnswerText = typeof userAnswer === "string" ? userAnswer.trim() : "";
+          studentAnswerText =
+            typeof userAnswer === "string" ? userAnswer.trim() : "";
         } else {
-          studentAnswerText = typeof userAnswer === "number" && question.options
-            ? question.options[userAnswer] || ""
-            : "";
+          studentAnswerText =
+            typeof userAnswer === "number" && question.options
+              ? question.options[userAnswer] || ""
+              : "";
         }
 
         let evaluation = evaluations[index];
-        
-        if (!evaluation || typeof evaluation.correct === 'undefined') {
+
+        if (!evaluation || typeof evaluation.correct === "undefined") {
           evaluation = {
             correct: false,
             confidence: 0,
             feedback: "Evaluation failed - marking as incorrect",
             explanation: "There was an issue evaluating this answer.",
-            suggestions: "Please review the question and try again."
+            suggestions: "Please review the question and try again.",
           };
         }
 
@@ -693,19 +724,20 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
             confidence: 100,
             feedback: "No answer provided",
             explanation: "You did not provide any answer to evaluate.",
-            suggestions: "Review the question carefully and attempt to provide an answer next time.",
-            ...evaluation 
+            suggestions:
+              "Review the question carefully and attempt to provide an answer next time.",
+            ...evaluation,
           };
         }
-        
+
         return {
           ...question,
-          evaluation
+          evaluation,
         };
       });
 
       const correctCount = evaluatedQuestions.filter(
-        q => q.evaluation?.correct
+        (q) => q.evaluation?.correct
       ).length;
 
       setQuestions(evaluatedQuestions);
@@ -751,137 +783,143 @@ async function generateQuestionsViaLLM(topicName, difficulty, count) {
       };
 
       saveProgress(selectedTech, updated);
+      console.log(evaluatedQuestions);
+      evaluatedQuestions.forEach((q) => {
+  const tech = techTopics.find((t) => t.id === selectedTech);
+  const isValidTag = tech?.topics.some((st) => st.id === q.tag) || q.tag === "general";
+  const safeTag = isValidTag ? q.tag : "general";
+  saveSubTopicProgress(selectedTech, safeTag, q.evaluation.correct);
+});
+
     } catch (error) {
-      setErrorMessage("⚠ There was an error evaluating your answers. Please try again later.");
+      setErrorMessage(
+        "⚠ There was an error evaluating your answers. Please try again later."
+      );
       setCurrentScreen("error");
       return;
     } finally {
       setEvaluating(false);
       setQuizCompleted(true);
-      setForceFull(false)
+      setForceFull(false);
     }
   };
 
-function renderQuestionContent(text) {
-  // Helper function to render inline code
-  const renderInlineCode = (textSegment) => {
-    const inlineCodeRegex = /`([^`]+)`/g;
-    const parts = [];
-    let lastIndex = 0;
-    let match;
+  function renderQuestionContent(text) {
+    // Helper function to render inline code
+    const renderInlineCode = (textSegment) => {
+      const inlineCodeRegex = /`([^`]+)`/g;
+      const parts = [];
+      let lastIndex = 0;
+      let match;
 
-    while ((match = inlineCodeRegex.exec(textSegment)) !== null) {
-      // Add text before the inline code
-      if (match.index > lastIndex) {
-        parts.push(textSegment.slice(lastIndex, match.index));
+      while ((match = inlineCodeRegex.exec(textSegment)) !== null) {
+        // Add text before the inline code
+        if (match.index > lastIndex) {
+          parts.push(textSegment.slice(lastIndex, match.index));
+        }
+        // Add the inline code with styling
+        parts.push(
+          <code
+            key={`inline-${match.index}`}
+            className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono font-normal"
+          >
+            {match[1]}
+          </code>
+        );
+        lastIndex = match.index + match[0].length;
       }
-      // Add the inline code with styling
-      parts.push(
-        <code 
-          key={`inline-${match.index}`}
-          className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm font-mono font-normal"
-        >
-          {match[1]}
-        </code>
+
+      // Add remaining text
+      if (lastIndex < textSegment.length) {
+        parts.push(textSegment.slice(lastIndex));
+      }
+
+      return parts.length > 1 ? parts : textSegment;
+    };
+
+    // Check for code blocks
+    const codeBlockRegex = /```(\w+)?\n?([\s\S]*?)```/g;
+    const codeBlocks = [];
+    let match;
+    let lastIndex = 0;
+
+    // Find all code blocks
+    while ((match = codeBlockRegex.exec(text)) !== null) {
+      codeBlocks.push({
+        index: match.index,
+        length: match[0].length,
+        language: match[1] || "code",
+        code: match[2].trim(),
+        fullMatch: match[0],
+      });
+    }
+
+    // If no code blocks found, just handle inline code and return paragraph
+    if (codeBlocks.length === 0) {
+      const contentWithInlineCode = renderInlineCode(text);
+      return (
+        <div className="text-lg md:text-xl font-medium text-gray-700 mb-6 leading-relaxed font-serif tracking-normal">
+          {contentWithInlineCode}
+        </div>
       );
-      lastIndex = match.index + match[0].length;
     }
 
-    // Add remaining text
-    if (lastIndex < textSegment.length) {
-      parts.push(textSegment.slice(lastIndex));
-    }
+    // Process text with code blocks
+    const elements = [];
+    lastIndex = 0;
 
-    return parts.length > 1 ? parts : textSegment;
-  };
+    codeBlocks.forEach((block, index) => {
+      // Add text before this code block
+      const beforeText = text.slice(lastIndex, block.index).trim();
+      if (beforeText) {
+        const contentWithInlineCode = renderInlineCode(beforeText);
+        elements.push(
+          <div
+            key={`text-${index}`}
+            className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed font-serif tracking-normal"
+          >
+            {contentWithInlineCode}
+          </div>
+        );
+      }
 
-  // Check for code blocks
-  const codeBlockRegex = /```(\w+)?\n?([\s\S]*?)```/g;
-  const codeBlocks = [];
-  let match;
-  let lastIndex = 0;
-
-  // Find all code blocks
-  while ((match = codeBlockRegex.exec(text)) !== null) {
-    codeBlocks.push({
-      index: match.index,
-      length: match[0].length,
-      language: match[1] || "code",
-      code: match[2].trim(),
-      fullMatch: match[0]
-    });
-  }
-
-  // If no code blocks found, just handle inline code and return paragraph
-  if (codeBlocks.length === 0) {
-    const contentWithInlineCode = renderInlineCode(text);
-    return (
-      <p className="text-lg md:text-xl font-medium text-gray-700 mb-6 leading-relaxed font-serif tracking-normal">
-        {contentWithInlineCode}
-      </p>
-    );
-  }
-
-  // Process text with code blocks
-  const elements = [];
-  lastIndex = 0;
-
-  codeBlocks.forEach((block, index) => {
-    // Add text before this code block
-    const beforeText = text.slice(lastIndex, block.index).trim();
-    if (beforeText) {
-      const contentWithInlineCode = renderInlineCode(beforeText);
+      // Add the code block
       elements.push(
-        <p 
-          key={`text-${index}`}
+        <div
+          key={`code-${index}`}
+          className="relative rounded-lg overflow-hidden shadow-lg border border-gray-700 bg-[#1e1e1e]"
+        >
+          <div className="flex items-center justify-between px-4 py-2 bg-[#2d2d2d] border-b border-gray-700">
+            <span className="text-xs font-medium text-gray-300">
+              {block.language}
+            </span>
+            <span className="text-gray-500 text-xs">Snippet</span>
+          </div>
+          <pre className="p-4 text-sm md:text-base text-gray-200 overflow-x-auto leading-relaxed font-mono font-normal">
+            <code className="font-mono">{block.code}</code>
+          </pre>
+        </div>
+      );
+
+      lastIndex = block.index + block.length;
+    });
+
+    // Add text after the last code block
+    const afterText = text.slice(lastIndex).trim();
+    if (afterText) {
+      const contentWithInlineCode = renderInlineCode(afterText);
+      elements.push(
+        <div
+          key="text-after"
           className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed font-serif tracking-normal"
         >
           {contentWithInlineCode}
-        </p>
+        </div>
       );
     }
 
-    // Add the code block
-    elements.push(
-      <div 
-        key={`code-${index}`}
-        className="relative rounded-lg overflow-hidden shadow-lg border border-gray-700 bg-[#1e1e1e]"
-      >
-        <div className="flex items-center justify-between px-4 py-2 bg-[#2d2d2d] border-b border-gray-700">
-          <span className="text-xs font-medium text-gray-300">
-            {block.language}
-          </span>
-          <span className="text-gray-500 text-xs">Snippet</span>
-        </div>
-        <pre className="p-4 text-sm md:text-base text-gray-200 overflow-x-auto leading-relaxed font-mono font-normal">
-          <code className="font-mono">{block.code}</code>
-        </pre>
-      </div>
-    );
-
-    lastIndex = block.index + block.length;
-  });
-
-  // Add text after the last code block
-  const afterText = text.slice(lastIndex).trim();
-  if (afterText) {
-    const contentWithInlineCode = renderInlineCode(afterText);
-    elements.push(
-      <p 
-        key="text-after"
-        className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed font-serif tracking-normal"
-      >
-        {contentWithInlineCode}
-      </p>
-    );
+    return <div className="space-y-4 mb-6">{elements}</div>;
   }
-
-  return (
-    <div className="space-y-4 mb-6">
-      {elements}
-    </div>
-  );
-}
 
   const resetQuiz = () => {
     setQuestions([]);
@@ -905,14 +943,25 @@ function renderQuestionContent(text) {
     d <= 3 ? "text-green-600" : d <= 6 ? "text-yellow-600" : "text-red-600";
   const difficultyLabel = (d) => (d <= 3 ? "Easy" : d <= 6 ? "Medium" : "Hard");
 
-  const groupedTopics = useMemo(() => 
-    techTopics.reduce((acc, topic) => {
-      if (!acc[topic.category]) {
-        acc[topic.category] = [];
-      }
-      acc[topic.category].push(topic);
-      return acc;
-    }, []), []);
+  const groupedTopics = useMemo(
+    () =>
+      techTopics.reduce((acc, topic) => {
+        if (!acc[topic.category]) {
+          acc[topic.category] = [];
+        }
+        acc[topic.category].push(topic);
+        return acc;
+      }, {}),
+    []
+  );
+
+  const handleSubTopicChange = (topicId) => {
+    setSelectedTopics((prev) =>
+      prev.includes(topicId)
+        ? prev.filter((id) => id !== topicId)
+        : [...prev, topicId]
+    );
+  };
 
   if (currentScreen === "error") {
     return (
@@ -948,10 +997,13 @@ function renderQuestionContent(text) {
               {/* <Brain className="w-12 h-12 text-indigo-600 mr-3" /> */}
               <h1
                 className=" font-bold text-black text-xs sm:text-sm md:text-base overflow-y-auto overflow-x-auto whitespace-pre-wrap max-h-60"
-                style={{ fontFamily: "'Fira Code', monospace", whiteSpace: "pre" }}
+                style={{
+                  fontFamily: "'Fira Code', monospace",
+                  whiteSpace: "pre",
+                }}
               >
                 {`
-████████╗███████╗  ██████╗██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ██╗ █████╗ 
+████████╗███████╗  ██████╗██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ██╗ █████╗
 ╚══██╔══╝██╔════╝██╔════╝██║  ██║██╔══██╗██╔══██╗██╔════╝████╗  ██║██╔══██╗
     ██║   █████╗  ██║     ███████║███████║██████╔╝█████╗  ██╔██╗ ██║███████║
     ██║   ██╔══╝  ██║     ██╔══██║██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║██╔══██║
@@ -1014,7 +1066,11 @@ function renderQuestionContent(text) {
                   {validatingKey && (
                     <div className="animate-spin mr-2 h-4 w-4 border-b-2 border-white rounded-full"></div>
                   )}
-                  {validatingKey ? "Validating..." : tempKey ? "Validate API Key" :"Save API Key"}
+                  {validatingKey
+                    ? "Validating..."
+                    : tempKey
+                    ? "Validate API Key"
+                    : "Save API Key"}
                 </button>
                 {settingsMessage && (
                   <p
@@ -1073,6 +1129,7 @@ function renderQuestionContent(text) {
                       key={tech.id}
                       onClick={() => {
                         setSelectedTech(tech.id);
+                        setSelectedTopics([]);
                         setCurrentScreen("setup");
                       }}
                       className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer p-4 md:p-6 border-l-4 border-transparent hover:border-indigo-500 group"
@@ -1193,6 +1250,7 @@ function renderQuestionContent(text) {
 
   if (currentScreen === "setup") {
     const tech = techTopics.find((t) => t.id === selectedTech);
+    const subTopics = tech?.topics || [];
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         <div className="container mx-auto px-4 py-6 max-w-4xl">
@@ -1280,61 +1338,68 @@ function renderQuestionContent(text) {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-lg font-semibold mb-4">
-                  Question Types Available:
-                </label>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {[
-                    {
-                      name: "Multiple Choice",
-                      icon: "📝",
-                      desc: "4 option questions",
-                    },
-                    {
-                      name: "True/False",
-                      icon: "✅",
-                      desc: "Binary choice questions",
-                    },
-                    {
-                      name: "Fill in the Blanks",
-                      icon: "✏️",
-                      desc: "Short answer questions",
-                    },
-                    {
-                      name: "Code Analysis",
-                      icon: "💻",
-                      desc: "Code output prediction",
-                    },
-                    {
-                      name: "Conceptual",
-                      icon: "🧠",
-                      desc: "Theory and concepts",
-                    },
-                    {
-                      name: "Problem Solving",
-                      icon: "🔧",
-                      desc: "Practical scenarios",
-                    },
-                  ].map((t, i) => (
-                    <div
-                      key={i}
-                      className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-3 text-center border border-gray-200 hover:border-indigo-300 transition-colors"
-                    >
-                      <div className="text-2xl mb-1">{t.icon}</div>
-                      <p className="text-sm font-medium text-gray-700">
-                        {t.name}
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">{t.desc}</p>
-                    </div>
-                  ))}
+              {subTopics.length > 0 && (
+                <div>
+                  <label className="block text-lg font-semibold mb-4">
+                    Select Specific Topics:
+                  </label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {subTopics.map((subTopic) => {
+                      const isSelected = selectedTopics.includes(subTopic.id);
+                      const subProgress =
+                        subTopicProgress[selectedTech]?.[subTopic.id];
+                      const correct = subProgress?.correct || 0;
+                      const total = subProgress?.total || 0;
+                      const percentage =
+                        total > 0 ? (correct / total) * 100 : 0;
+                      return (
+                        <button
+                          key={subTopic.id}
+                          onClick={() => handleSubTopicChange(subTopic.id)}
+                          className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+                            isSelected
+                              ? "bg-indigo-50 border-indigo-500 text-indigo-800 shadow-md"
+                              : "bg-gray-50 border-gray-200 text-gray-700 hover:border-gray-300"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="font-medium text-sm">
+                              {subTopic.name}
+                            </span>
+                            {isSelected ? (
+                              <CheckCircle className="w-5 h-5 text-indigo-500 flex-shrink-0" />
+                            ) : (
+                              <div className="w-5 h-5 border-2 border-gray-300 rounded-full flex-shrink-0"></div>
+                            )}
+                          </div>
+                          <div className="mt-2 text-xs text-gray-500">
+                            {total > 0
+                              ? `Progress: ${correct}/${total} (${percentage.toFixed(
+                                  0
+                                )}%)`
+                              : "No progress yet"}
+                          </div>
+                          {total > 0 && (
+                            <div className="w-full bg-gray-200 rounded-full h-1 mt-1">
+                              <div
+                                className="bg-gradient-to-r from-green-500 to-indigo-500 h-1 rounded-full transition-all duration-300"
+                                style={{
+                                  width: `${Math.min(100, percentage)}%`,
+                                }}
+                              ></div>
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {progress[selectedTech] && (
                 <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-4">
                   <h4 className="font-semibold text-gray-800 mb-3">
-                    Your Progress in {tech?.name}
+                    Your Overall Progress in {tech?.name}
                   </h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="text-center">
@@ -1423,6 +1488,21 @@ function renderQuestionContent(text) {
 
     if (quizCompleted) {
       const percentage = Math.round((score / questions.length) * 100);
+
+      const tech = techTopics.find((t) => t.id === selectedTech);
+      const subTopics = tech?.topics || [];
+      const topicsWithProgress = subTopics
+        .filter((st) => selectedTopics.includes(st.id))
+        .map((st) => {
+          const correct = questions.filter(
+            (q) => q.tag === st.id && q.evaluation?.correct
+          ).length;
+          const total = questions.filter((q) => q.tag === st.id).length;
+          console.log(questions,total,correct)
+          const score = total > 0 ? (correct / total) * 100 : 0;
+
+          return { ...st, score, correct, total };
+        });
 
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -1525,6 +1605,41 @@ function renderQuestionContent(text) {
                 )}
               </div>
 
+              {topicsWithProgress.length > 0 && (
+                <div className="bg-gray-100 p-6 rounded-xl shadow-inner mb-8">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center">
+                    <Layers className="w-6 h-6 mr-2 text-indigo-600" />
+                    Sub-Topic Performance
+                  </h3>
+                  <div className="space-y-4">
+                    {topicsWithProgress.map((st) => (
+                      <div
+                        key={st.id}
+                        className="bg-white rounded-lg p-4 border border-gray-200"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="font-semibold text-gray-800">
+                            {st.name}
+                          </p>
+                          <span className="text-sm font-medium text-gray-600">
+                            {st.correct}/{st.total} Correct
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className="bg-gradient-to-r from-indigo-500 to-green-500 h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${st.score}%` }}
+                          ></div>
+                        </div>
+                        <p className="text-xs text-right mt-1 text-gray-500">
+                          {st.score.toFixed(0)}%
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="mb-8">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
                   <AlertCircle className="w-6 h-6 mr-2 text-gray-600" />
@@ -1571,6 +1686,9 @@ function renderQuestionContent(text) {
                               Level {q.difficulty}
                             </span>
                           </div>
+                          <span className="text-sm font-medium text-gray-500">
+                            Topic: {q.tag}
+                          </span>
 
                           <div>
                             {isCorrect ? (
@@ -1585,9 +1703,9 @@ function renderQuestionContent(text) {
                           </div>
                         </div>
 
-                        <p className="font-semibold text-gray-900 mb-4 leading-relaxed">
+                        <div className="font-semibold text-gray-900 mb-4 leading-relaxed">
                           {renderQuestionContent(q.q)}
-                        </p>
+                        </div>
 
                         <div className="text-sm space-y-2">
                           {q.type === "fill" ? (
@@ -1597,7 +1715,8 @@ function renderQuestionContent(text) {
                                   Your answer:
                                 </span>
                                 <span className="ml-2 px-2 py-1 bg-gray-100 rounded">
-                                  {renderQuestionContent(userAnswer) || "No answer provided"}
+                                  {renderQuestionContent(userAnswer) ||
+                                    "No answer provided"}
                                 </span>
                               </div>
                               <div className="flex">
@@ -1643,9 +1762,9 @@ function renderQuestionContent(text) {
                               <p className="font-medium text-gray-800">
                                 💬 Feedback
                               </p>
-                              <p className="text-gray-700 mt-1">
+                              <div className="text-gray-700 mt-1">
                                 {renderQuestionContent(evaluation.feedback)}
-                              </p>
+                              </div>
                             </div>
                           )}
                           {evaluation?.explanation && (
@@ -1653,9 +1772,9 @@ function renderQuestionContent(text) {
                               <p className="font-medium text-gray-800">
                                 📖 Explanation
                               </p>
-                              <p className="text-gray-700 mt-1">
+                              <div className="text-gray-700 mt-1">
                                 {renderQuestionContent(evaluation.explanation)}
-                              </p>
+                              </div>
                             </div>
                           )}
                           {evaluation?.suggestions && (
@@ -1663,9 +1782,9 @@ function renderQuestionContent(text) {
                               <p className="font-medium text-gray-800">
                                 💡 Suggestions
                               </p>
-                              <p className="text-gray-700 mt-1">
+                              <div className="text-gray-700 mt-1">
                                 {renderQuestionContent(evaluation.suggestions)}
-                              </p>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -1745,7 +1864,10 @@ function renderQuestionContent(text) {
                 </div>
               </div>
               <button
-                onClick={() => {if (evaluating) return;setCurrentScreen("home")}}
+                onClick={() => {
+                  if (evaluating) return;
+                  setCurrentScreen("home");
+                }}
                 className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded transition-colors"
               >
                 Exit Quiz
@@ -1756,26 +1878,25 @@ function renderQuestionContent(text) {
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span>Progress</span>
                 <span>
-                  {forceFull ?
-                  "100%"
-                  : <>
-                  {Math.round(
-                    ((currentQuestionIndex) / questions.length) * 100
+                  {forceFull ? (
+                    "100%"
+                  ) : (
+                    <>
+                      {Math.round(
+                        (currentQuestionIndex / questions.length) * 100
+                      )}
+                      %
+                    </>
                   )}
-                  %
-                   </> }
-                  
                 </span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div
                   className="bg-gradient-to-r from-indigo-500 to-purple-600 h-3 rounded-full transition-all duration-500 ease-out"
                   style={{
-                    width:
-                    forceFull ? "100%" :
-                    `${
-                      ((currentQuestionIndex ) / questions.length) * 100
-                    }%`,
+                    width: forceFull
+                      ? "100%"
+                      : `${(currentQuestionIndex / questions.length) * 100}%`,
                   }}
                 ></div>
               </div>
@@ -1876,7 +1997,7 @@ function renderQuestionContent(text) {
                   onClick={() => {
                     if (evaluating) return;
                     if (
-                      confirm(
+                      window.confirm(
                         "Are you sure you want to reset the quiz? All progress will be lost."
                       )
                     ) {
@@ -1901,7 +2022,9 @@ function renderQuestionContent(text) {
                 >
                   <span className="font-semibold">
                     {currentQuestionIndex === questions.length - 1
-                      ? evaluating ? "Evaluating..." : "Finish Quiz"
+                      ? evaluating
+                        ? "Evaluating..."
+                        : "Finish Quiz"
                       : "Next Question"}
                   </span>
                   {currentQuestionIndex < questions.length - 1 ? (
