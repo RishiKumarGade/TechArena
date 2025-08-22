@@ -1037,7 +1037,7 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
             <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
               <h3 className="text-xl font-semibold mb-4">Settings</h3>
               <div>
-                <label className="block text-sm font-medium mb-2 text-black flex items-center">
+                <label className=" text-sm font-medium mb-2 text-black flex items-center">
                   Gemini API Key
                   {!geminiApiKey && (
                     <span className="ml-2 text-red-500 flex items-center">
@@ -1492,13 +1492,12 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
       const tech = techTopics.find((t) => t.id === selectedTech);
       const subTopics = tech?.topics || [];
       const topicsWithProgress = subTopics
-        .filter((st) => selectedTopics.includes(st.id))
+        // .filter((st) => selectedTopics.includes(st.id))
         .map((st) => {
           const correct = questions.filter(
             (q) => q.tag === st.id && q.evaluation?.correct
           ).length;
           const total = questions.filter((q) => q.tag === st.id).length;
-          console.log(questions,total,correct)
           const score = total > 0 ? (correct / total) * 100 : 0;
 
           return { ...st, score, correct, total };
@@ -1604,41 +1603,6 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
                   </div>
                 )}
               </div>
-
-              {topicsWithProgress.length > 0 && (
-                <div className="bg-gray-100 p-6 rounded-xl shadow-inner mb-8">
-                  <h3 className="text-xl font-semibold mb-4 flex items-center">
-                    <Layers className="w-6 h-6 mr-2 text-indigo-600" />
-                    Sub-Topic Performance
-                  </h3>
-                  <div className="space-y-4">
-                    {topicsWithProgress.map((st) => (
-                      <div
-                        key={st.id}
-                        className="bg-white rounded-lg p-4 border border-gray-200"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <p className="font-semibold text-gray-800">
-                            {st.name}
-                          </p>
-                          <span className="text-sm font-medium text-gray-600">
-                            {st.correct}/{st.total} Correct
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-gradient-to-r from-indigo-500 to-green-500 h-2 rounded-full transition-all duration-300"
-                            style={{ width: `${st.score}%` }}
-                          ></div>
-                        </div>
-                        <p className="text-xs text-right mt-1 text-gray-500">
-                          {st.score.toFixed(0)}%
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               <div className="mb-8">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
@@ -1793,7 +1757,42 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
                   })}
                 </div>
               </div>
-
+                {topicsWithProgress.length > 0 && (
+                <div className="bg-gray-100 p-6 rounded-xl shadow-inner mb-8">
+                  <h3 className="text-xl font-semibold mb-4 flex items-center">
+                    <Layers className="w-6 h-6 mr-2 text-indigo-600" />
+                    Sub-Topic Performance
+                  </h3>
+                  <div className="space-y-4">
+                    {topicsWithProgress.map((st) => (
+                      st.total > 0 ?
+                      <div
+                        key={st.id}
+                        className="bg-white rounded-lg p-4 border border-gray-200"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="font-semibold text-gray-800">
+                            {st.name}
+                          </p>
+                          <span className="text-sm font-medium text-gray-600">
+                            {st.correct}/{st.total} Correct
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div
+                            className="bg-gradient-to-r from-indigo-500 to-green-500 h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${st.score}%` }}
+                          ></div>
+                        </div>
+                        <p className="text-xs text-right mt-1 text-gray-500">
+                          {st.score.toFixed(0)}%
+                        </p>
+                      </div>
+                      : null
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   onClick={resetQuiz}
