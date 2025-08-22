@@ -278,29 +278,28 @@ export default function TechPrepApp() {
     [progress]
   );
 
-const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
-  setSubTopicProgress((prev) => {
-    const next = { ...prev };
-    if (!next[techId]) {
-      next[techId] = {};
-    }
-    if (!next[techId][subTopicId]) {
-      next[techId][subTopicId] = { correct: 0, total: 0 };
-    }
-    const current = next[techId][subTopicId];
-    next[techId][subTopicId] = {
-      correct: current.correct + (isCorrect ? 1 : 0),
-      total: current.total + 1,
-    };
-    try {
-      localStorage.setItem("techPrepSubTopicProgress", JSON.stringify(next));
-    } catch (error) {
-      console.warn("Failed to save sub-topic progress:", error);
-    }
-    return next;
-  });
-}, []);
-
+  const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
+    setSubTopicProgress((prev) => {
+      const next = { ...prev };
+      if (!next[techId]) {
+        next[techId] = {};
+      }
+      if (!next[techId][subTopicId]) {
+        next[techId][subTopicId] = { correct: 0, total: 0 };
+      }
+      const current = next[techId][subTopicId];
+      next[techId][subTopicId] = {
+        correct: current.correct + (isCorrect ? 1 : 0),
+        total: current.total + 1,
+      };
+      try {
+        localStorage.setItem("techPrepSubTopicProgress", JSON.stringify(next));
+      } catch (error) {
+        console.warn("Failed to save sub-topic progress:", error);
+      }
+      return next;
+    });
+  }, []);
 
   async function callLLM(payload) {
     if (!geminiApiKey) {
@@ -785,12 +784,12 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
       saveProgress(selectedTech, updated);
       console.log(evaluatedQuestions);
       evaluatedQuestions.forEach((q) => {
-  const tech = techTopics.find((t) => t.id === selectedTech);
-  const isValidTag = tech?.topics.some((st) => st.id === q.tag) || q.tag === "general";
-  const safeTag = isValidTag ? q.tag : "general";
-  saveSubTopicProgress(selectedTech, safeTag, q.evaluation.correct);
-});
-
+        const tech = techTopics.find((t) => t.id === selectedTech);
+        const isValidTag =
+          tech?.topics.some((st) => st.id === q.tag) || q.tag === "general";
+        const safeTag = isValidTag ? q.tag : "general";
+        saveSubTopicProgress(selectedTech, safeTag, q.evaluation.correct);
+      });
     } catch (error) {
       setErrorMessage(
         "⚠ There was an error evaluating your answers. Please try again later."
@@ -895,8 +894,8 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
             </span>
             <span className="text-gray-500 text-xs">Snippet</span>
           </div>
-          <pre className="p-4 text-sm md:text-base text-gray-200 overflow-x-auto leading-relaxed font-mono font-normal">
-            <code className="font-mono">{block.code}</code>
+          <pre className="p-4 text-xs sm:text-sm md:text-base text-gray-200 leading-relaxed font-mono font-normal whitespace-pre-wrap break-words overflow-x-hidden">
+            <code className="font-mono break-words">{block.code}</code>
           </pre>
         </div>
       );
@@ -989,35 +988,35 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
   }
 
   if (currentScreen === "home") {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        <div className="container mx-auto px-4 py-6 max-w-7xl">
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-4">
-              {/* <Brain className="w-12 h-12 text-indigo-600 mr-3" /> */}
-              <h1
-                className=" font-bold text-black text-xs sm:text-sm md:text-base overflow-y-auto overflow-x-auto whitespace-pre-wrap max-h-60"
-                style={{
-                  fontFamily: "'Fira Code', monospace",
-                  whiteSpace: "pre",
-                }}
-              >
-                {`
-████████╗███████╗  ██████╗██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ██╗ █████╗
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <div className="container mx-auto px-2 sm:px-4 py-6 max-w-full sm:max-w-7xl space-y-8">
+
+<div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8 text-center">
+  <pre
+    className="font-mono text-black text-[0.30rem] sm:text-[0.50rem] md:text-[0.50rem] overflow-x-auto"
+    style={{ fontFamily: "'Fira Code', monospace" }}
+  >
+{`
+███████╗███████╗  ██████╗██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ██╗ █████╗
 ╚══██╔══╝██╔════╝██╔════╝██║  ██║██╔══██╗██╔══██╗██╔════╝████╗  ██║██╔══██╗
     ██║   █████╗  ██║     ███████║███████║██████╔╝█████╗  ██╔██╗ ██║███████║
     ██║   ██╔══╝  ██║     ██╔══██║██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║██╔══██║
     ██║   ███████╗╚██████╗██║  ██║██║  ██║██║  ██║███████╗██║ ╚████║██║  ██║
     ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝
-      `}
-              </h1>
-            </div>
-            <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
-              Master technical concepts with AI-powered practice sessions across
-              multiple technologies
-            </p>
-          </div>
+`}
+  </pre>
 
+  <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto mt-4">
+    Master technical concepts with AI-powered practice sessions across
+    multiple technologies
+  </p>
+</div>
+
+
+
+        {/* Heading + settings */}
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
               Choose Your Technology
@@ -1034,219 +1033,425 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
           </div>
 
           {showSettings && (
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-              <h3 className="text-xl font-semibold mb-4">Settings</h3>
-              <div>
-                <label className=" text-sm font-medium mb-2 text-black flex items-center">
-                  Gemini API Key
-                  {!geminiApiKey && (
-                    <span className="ml-2 text-red-500 flex items-center">
-                      <AlertCircle className="w-4 h-4 mr-1" />
-                      Required
-                    </span>
-                  )}
-                </label>
-                <input
-                  type="text"
-                  value={tempKey}
-                  onChange={(e) => setTempKey(e.target.value)}
-                  placeholder="Enter your Gemini API Key here"
-                  className={`w-full text-black px-4 py-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 ${
-                    !geminiApiKey
-                      ? "border-red-500 focus:border-red-500"
-                      : "border-gray-300"
-                  }`}
-                />
-
-                <button
-                  onClick={() => validateAndSaveKey(tempKey)}
-                  disabled={validatingKey}
-                  className="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 flex items-center"
-                >
-                  {validatingKey && (
-                    <div className="animate-spin mr-2 h-4 w-4 border-b-2 border-white rounded-full"></div>
-                  )}
-                  {validatingKey
-                    ? "Validating..."
-                    : tempKey
-                    ? "Validate API Key"
-                    : "Save API Key"}
-                </button>
-                {settingsMessage && (
-                  <p
-                    className={`mt-2 text-sm ${
-                      settingsMessageType === "success"
-                        ? "text-green-600"
-                        : "text-red-600"
-                    }`}
-                  >
-                    {settingsMessage}
-                  </p>
-                )}
-
-                <p className="text-sm text-gray-500 mt-1">
-                  Your key is stored locally in your browser's local storage and
-                  is not sent to any server.
-                </p>
-              </div>
+            <div className="bg-gray-50 rounded-xl shadow-inner p-6 mb-8">
+              {/* your settings form code here */}
             </div>
           )}
 
           {Object.entries(groupedTopics).map(([category, topics]) => (
             <div key={category} className="mb-8">
               <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
-                {category === "Programming" && (
-                  <Code className="w-5 h-5 mr-2" />
-                )}
+                {category === "Programming" && <Code className="w-5 h-5 mr-2" />}
                 {category === "Web" && <Globe className="w-5 h-5 mr-2" />}
                 {category === "Backend" && <Server className="w-5 h-5 mr-2" />}
-                {category === "Database" && (
-                  <Database className="w-5 h-5 mr-2" />
-                )}
-                {category === "Mobile" && (
-                  <Smartphone className="w-5 h-5 mr-2" />
-                )}
+                {category === "Database" && <Database className="w-5 h-5 mr-2" />}
+                {category === "Mobile" && <Smartphone className="w-5 h-5 mr-2" />}
                 {category === "DevOps" && <Monitor className="w-5 h-5 mr-2" />}
                 {category === "Cloud" && <Globe className="w-5 h-5 mr-2" />}
-                {category === "CS Fundamentals" && (
-                  <Brain className="w-5 h-5 mr-2" />
-                )}
+                {category === "CS Fundamentals" && <Brain className="w-5 h-5 mr-2" />}
                 {category === "OOP" && <Layers className="w-5 h-5 mr-2" />}
                 {category === "Tools" && <Settings className="w-5 h-5 mr-2" />}
                 {category}
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {topics.map((tech) => {
-                  const techProgress = progress[tech.id];
-                  const avg = techProgress?.totalQuizzes
-                    ? Math.round(
-                        (techProgress.totalScore || 0) /
-                          Math.max(1, techProgress.totalQuizzes)
-                      )
-                    : 0;
-                  return (
-                    <div
-                      key={tech.id}
-                      onClick={() => {
-                        setSelectedTech(tech.id);
-                        setSelectedTopics([]);
-                        setCurrentScreen("setup");
-                      }}
-                      className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer p-4 md:p-6 border-l-4 border-transparent hover:border-indigo-500 group"
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-3 flex-1 min-w-0">
-                          <div
-                            className={`${tech.color} w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center text-lg md:text-2xl text-white shadow-md`}
-                          >
-                            {tech.icon}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-gray-800 truncate text-sm md:text-base">
-                              {tech.name}
-                            </h3>
-                            <p className="text-xs text-gray-500 uppercase tracking-wide">
-                              {tech.id}
-                            </p>
-                          </div>
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-indigo-500 transition-colors" />
-                      </div>
 
-                      {techProgress && (
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-xs md:text-sm">
-                            <span className="text-gray-600">Quizzes:</span>
-                            <span className="font-semibold">
-                              {techProgress.totalQuizzes}
-                            </span>
-                          </div>
-                          <div className="flex justify-between text-xs md:text-sm">
-                            <span className="text-gray-600">Avg Score:</span>
-                            <span className="font-semibold text-indigo-600">
-                              {avg}%
-                            </span>
-                          </div>
-                          <div className="flex justify-between text-xs md:text-sm">
-                            <span className="text-gray-600">Best:</span>
-                            <span className="font-semibold text-green-600">
-                              {techProgress.bestScore || 0}%
-                            </span>
-                          </div>
-                          <div className="w-full bg-gray-200 rounded-full h-1.5">
+              <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 md:p-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {topics.map((tech) => {
+                    const techProgress = progress[tech.id];
+                    const avg = techProgress?.totalQuizzes
+                      ? Math.round(
+                          (techProgress.totalScore || 0) /
+                            Math.max(1, techProgress.totalQuizzes)
+                        )
+                      : 0;
+                    return (
+                      <div
+                        key={tech.id}
+                        onClick={() => {
+                          setSelectedTech(tech.id);
+                          setSelectedTopics([]);
+                          setCurrentScreen("setup");
+                        }}
+                        className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer p-4 md:p-6 border-l-4 border-transparent hover:border-indigo-500 group"
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center space-x-3 flex-1 min-w-0">
                             <div
-                              className="bg-gradient-to-r from-indigo-500 to-purple-600 h-1.5 rounded-full transition-all duration-300"
-                              style={{ width: `${Math.min(100, avg)}%` }}
-                            ></div>
+                              className={`${tech.color} w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center text-lg md:text-2xl text-white shadow-md`}
+                            >
+                              {tech.icon}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-semibold text-gray-800 truncate text-sm md:text-base">
+                                {tech.name}
+                              </h3>
+                              <p className="text-xs text-gray-500 uppercase tracking-wide">
+                                {tech.id}
+                              </p>
+                            </div>
                           </div>
+                          <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-indigo-500 transition-colors" />
                         </div>
-                      )}
 
-                      {!techProgress && (
-                        <div className="text-center py-2">
-                          <p className="text-sm text-gray-500">
-                            Start practicing!
-                          </p>
-                          <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
-                            <div className="bg-gray-200 h-1.5 rounded-full"></div>
+                        {techProgress ? (
+                          <div className="space-y-2">
+                            <div className="flex justify-between text-xs md:text-sm">
+                              <span className="text-gray-600">Quizzes:</span>
+                              <span className="font-semibold">
+                                {techProgress.totalQuizzes}
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-xs md:text-sm">
+                              <span className="text-gray-600">Avg Score:</span>
+                              <span className="font-semibold text-indigo-600">
+                                {avg}%
+                              </span>
+                            </div>
+                            <div className="flex justify-between text-xs md:text-sm">
+                              <span className="text-gray-600">Best:</span>
+                              <span className="font-semibold text-green-600">
+                                {techProgress.bestScore || 0}%
+                              </span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-1 sm:h-1.5">
+                              <div
+                                className="bg-gradient-to-r from-indigo-500 to-purple-600 h-1.5 rounded-full transition-all duration-300"
+                                style={{ width: `${Math.min(100, avg)}%` }}
+                              ></div>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                        ) : (
+                          <div className="text-center py-2">
+                            <p className="text-sm text-gray-500">
+                              Start practicing!
+                            </p>
+                            <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
+                              <div className="bg-gray-200 h-1.5 rounded-full"></div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           ))}
+        </div>
 
-          {sessionHistory.length > 0 && (
-            <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 mt-8">
-              <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center">
-                <Trophy className="w-6 h-6 mr-2 text-yellow-500" />
-                Recent Sessions
-              </h3>
-              <div className="space-y-3 max-h-80 overflow-y-auto">
-                {sessionHistory.slice(0, 15).map((s) => (
-                  <div
-                    key={s.id}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                  >
-                    <div className="flex items-center space-x-3 flex-1 min-w-0">
-                      <div
-                        className={`${
-                          techTopics.find((t) => t.id === s.tech)?.color ||
-                          "bg-gray-500"
-                        } w-8 h-8 rounded flex items-center justify-center text-sm text-white`}
-                      >
-                        {techTopics.find((t) => t.id === s.tech)?.icon || "?"}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm truncate">
-                          {s.techName}
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {new Date(s.date).toLocaleDateString()} • Level{" "}
-                          {s.difficulty}
-                        </p>
-                      </div>
+        {/* Recent sessions */}
+        {sessionHistory.length > 0 && (
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
+            <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center">
+              <Trophy className="w-6 h-6 mr-2 text-yellow-500" />
+              Recent Sessions
+            </h3>
+            <div className="space-y-3 max-h-80 overflow-y-auto">
+              {sessionHistory.slice(0, 15).map((s) => (
+                <div
+                  key={s.id}
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex items-center space-x-3 flex-1 min-w-0">
+                    <div
+                      className={`${
+                        techTopics.find((t) => t.id === s.tech)?.color ||
+                        "bg-gray-500"
+                      } w-8 h-8 rounded flex items-center justify-center text-sm text-white`}
+                    >
+                      {techTopics.find((t) => t.id === s.tech)?.icon || "?"}
                     </div>
-                    <div className="text-right flex-shrink-0">
-                      <p className="font-semibold text-sm">
-                        {s.score}/{s.total}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm truncate">
+                        {s.techName}
                       </p>
                       <p className="text-xs text-gray-500">
-                        {formatTime(s.timeSpent)}
+                        {new Date(s.date).toLocaleDateString()} • Level{" "}
+                        {s.difficulty}
                       </p>
                     </div>
                   </div>
-                ))}
-              </div>
+                  <div className="text-right flex-shrink-0">
+                    <p className="font-semibold text-sm">
+                      {s.score}/{s.total}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {formatTime(s.timeSpent)}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
+}
+
+//   if (currentScreen === "home") {
+//     return (
+//       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+//         <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 max-w-full sm:max-w-7xl">
+//           <div className="text-center mb-8">
+//             <div className="flex items-center justify-center mb-4">
+//               {/* <Brain className="w-12 h-12 text-indigo-600 mr-3" /> */}
+//               <h1
+//                 className="font-bold text-black text-[0.55rem] xs:text-[0.65rem] sm:text-xs md:text-sm lg:text-base leading-tight break-words whitespace-pre-wrap max-h-48"
+//                 style={{
+//                   fontFamily: "'Fira Code', monospace",
+//                   whiteSpace: "pre",
+//                 }}
+//               >
+//                 {`
+// ████████╗███████╗  ██████╗██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ██╗ █████╗
+// ╚══██╔══╝██╔════╝██╔════╝██║  ██║██╔══██╗██╔══██╗██╔════╝████╗  ██║██╔══██╗
+//     ██║   █████╗  ██║     ███████║███████║██████╔╝█████╗  ██╔██╗ ██║███████║
+//     ██║   ██╔══╝  ██║     ██╔══██║██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║██╔══██║
+//     ██║   ███████╗╚██████╗██║  ██║██║  ██║██║  ██║███████╗██║ ╚████║██║  ██║
+//     ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝
+//       `}
+//               </h1>
+//             </div>
+//             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
+//               Master technical concepts with AI-powered practice sessions across
+//               multiple technologies
+//             </p>
+//           </div>
+
+//           <div className="flex justify-between items-center mb-6">
+//             <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
+//               Choose Your Technology
+//             </h2>
+//             <button
+//               onClick={() => setShowSettings(!showSettings)}
+//               className="px-4 py-2 text-indigo-600 bg-indigo-100 rounded-full flex items-center space-x-2 hover:bg-indigo-200 transition-colors"
+//             >
+//               <Settings className="w-5 h-5" />
+//               <span className="font-medium">
+//                 {showSettings ? "Hide" : "Show"} Settings
+//               </span>
+//             </button>
+//           </div>
+
+//           {showSettings && (
+//             <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+//               <h3 className="text-xl font-semibold mb-4">Settings</h3>
+//               <div>
+//                 <label className=" text-sm font-medium mb-2 text-black flex items-center">
+//                   Gemini API Key
+//                   {!geminiApiKey && (
+//                     <span className="ml-2 text-red-500 flex items-center">
+//                       <AlertCircle className="w-4 h-4 mr-1" />
+//                       Required
+//                     </span>
+//                   )}
+//                 </label>
+//                 <input
+//                   type="text"
+//                   value={tempKey}
+//                   onChange={(e) => setTempKey(e.target.value)}
+//                   placeholder="Enter your Gemini API Key here"
+//                   className={`w-full text-black px-4 py-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 ${
+//                     !geminiApiKey
+//                       ? "border-red-500 focus:border-red-500"
+//                       : "border-gray-300"
+//                   }`}
+//                 />
+
+//                 <button
+//                   onClick={() => validateAndSaveKey(tempKey)}
+//                   disabled={validatingKey}
+//                   className="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 flex items-center"
+//                 >
+//                   {validatingKey && (
+//                     <div className="animate-spin mr-2 h-4 w-4 border-b-2 border-white rounded-full"></div>
+//                   )}
+//                   {validatingKey
+//                     ? "Validating..."
+//                     : tempKey
+//                     ? "Validate API Key"
+//                     : "Save API Key"}
+//                 </button>
+//                 {settingsMessage && (
+//                   <p
+//                     className={`mt-2 text-sm ${
+//                       settingsMessageType === "success"
+//                         ? "text-green-600"
+//                         : "text-red-600"
+//                     }`}
+//                   >
+//                     {settingsMessage}
+//                   </p>
+//                 )}
+
+//                 <p className="text-sm text-gray-500 mt-1">
+//                   Your key is stored locally in your browser's local storage and
+//                   is not sent to any server.
+//                 </p>
+//               </div>
+//             </div>
+//           )}
+
+//           {Object.entries(groupedTopics).map(([category, topics]) => (
+//             <div key={category} className="mb-8">
+//               <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+//                 {category === "Programming" && (
+//                   <Code className="w-5 h-5 mr-2" />
+//                 )}
+//                 {category === "Web" && <Globe className="w-5 h-5 mr-2" />}
+//                 {category === "Backend" && <Server className="w-5 h-5 mr-2" />}
+//                 {category === "Database" && (
+//                   <Database className="w-5 h-5 mr-2" />
+//                 )}
+//                 {category === "Mobile" && (
+//                   <Smartphone className="w-5 h-5 mr-2" />
+//                 )}
+//                 {category === "DevOps" && <Monitor className="w-5 h-5 mr-2" />}
+//                 {category === "Cloud" && <Globe className="w-5 h-5 mr-2" />}
+//                 {category === "CS Fundamentals" && (
+//                   <Brain className="w-5 h-5 mr-2" />
+//                 )}
+//                 {category === "OOP" && <Layers className="w-5 h-5 mr-2" />}
+//                 {category === "Tools" && <Settings className="w-5 h-5 mr-2" />}
+//                 {category}
+//               </h3>
+
+//               <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8"> 
+//   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+//                 {topics.map((tech) => {
+//                   const techProgress = progress[tech.id];
+//                   const avg = techProgress?.totalQuizzes
+//                     ? Math.round(
+//                         (techProgress.totalScore || 0) /
+//                           Math.max(1, techProgress.totalQuizzes)
+//                       )
+//                     : 0;
+//                   return (
+//                     <div
+//                       key={tech.id}
+//                       onClick={() => {
+//                         setSelectedTech(tech.id);
+//                         setSelectedTopics([]);
+//                         setCurrentScreen("setup");
+//                       }}
+//                       className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer p-4 md:p-6 border-l-4 border-transparent hover:border-indigo-500 group"
+//                     >
+//                       <div className="flex items-center justify-between mb-3">
+//                         <div className="flex items-center space-x-3 flex-1 min-w-0">
+//                           <div
+//                             className={`${tech.color} w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center text-lg md:text-2xl text-white shadow-md`}
+//                           >
+//                             {tech.icon}
+//                           </div>
+//                           <div className="flex-1 min-w-0">
+//                             <h3 className="font-semibold text-gray-800 truncate text-sm md:text-base">
+//                               {tech.name}
+//                             </h3>
+//                             <p className="text-xs text-gray-500 uppercase tracking-wide">
+//                               {tech.id}
+//                             </p>
+//                           </div>
+//                         </div>
+//                         <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-indigo-500 transition-colors" />
+//                       </div>
+
+//                       {techProgress && (
+//                         <div className="space-y-2">
+//                           <div className="flex justify-between text-xs md:text-sm">
+//                             <span className="text-gray-600">Quizzes:</span>
+//                             <span className="font-semibold">
+//                               {techProgress.totalQuizzes}
+//                             </span>
+//                           </div>
+//                           <div className="flex justify-between text-xs md:text-sm">
+//                             <span className="text-gray-600">Avg Score:</span>
+//                             <span className="font-semibold text-indigo-600">
+//                               {avg}%
+//                             </span>
+//                           </div>
+//                           <div className="flex justify-between text-xs md:text-sm">
+//                             <span className="text-gray-600">Best:</span>
+//                             <span className="font-semibold text-green-600">
+//                               {techProgress.bestScore || 0}%
+//                             </span>
+//                           </div>
+//                           <div className="w-full bg-gray-200 rounded-full h-1 sm:h-1.5">
+//                             <div
+//                               className="bg-gradient-to-r from-indigo-500 to-purple-600 h-1.5 rounded-full transition-all duration-300"
+//                               style={{ width: `${Math.min(100, avg)}%` }}
+//                             ></div>
+//                           </div>
+//                         </div>
+//                       )}
+
+//                       {!techProgress && (
+//                         <div className="text-center py-2">
+//                           <p className="text-sm text-gray-500">
+//                             Start practicing!
+//                           </p>
+//                           <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
+//                             <div className="bg-gray-200 h-1.5 rounded-full"></div>
+//                           </div>
+//                         </div>
+//                       )}
+//                     </div>
+//                   );
+//                 })}
+//               </div>
+//               </div>
+            
+//             </div>
+//           ))}
+
+//           {sessionHistory.length > 0 && (
+//             <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 mt-8">
+//               <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center">
+//                 <Trophy className="w-6 h-6 mr-2 text-yellow-500" />
+//                 Recent Sessions
+//               </h3>
+//               <div className="space-y-3 max-h-80 overflow-y-auto">
+//                 {sessionHistory.slice(0, 15).map((s) => (
+//                   <div
+//                     key={s.id}
+//                     className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+//                   >
+//                     <div className="flex items-center space-x-3 flex-1 min-w-0">
+//                       <div
+//                         className={`${
+//                           techTopics.find((t) => t.id === s.tech)?.color ||
+//                           "bg-gray-500"
+//                         } w-8 h-8 rounded flex items-center justify-center text-sm text-white`}
+//                       >
+//                         {techTopics.find((t) => t.id === s.tech)?.icon || "?"}
+//                       </div>
+//                       <div className="flex-1 min-w-0">
+//                         <p className="font-medium text-sm truncate">
+//                           {s.techName}
+//                         </p>
+//                         <p className="text-xs text-gray-500">
+//                           {new Date(s.date).toLocaleDateString()} • Level{" "}
+//                           {s.difficulty}
+//                         </p>
+//                       </div>
+//                     </div>
+//                     <div className="text-right flex-shrink-0">
+//                       <p className="font-semibold text-sm">
+//                         {s.score}/{s.total}
+//                       </p>
+//                       <p className="text-xs text-gray-500">
+//                         {formatTime(s.timeSpent)}
+//                       </p>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     );
+//   }
 
   if (currentScreen === "setup") {
     const tech = techTopics.find((t) => t.id === selectedTech);
@@ -1321,7 +1526,7 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
                 <label className="block text-lg font-semibold mb-4">
                   Number of Questions: {questionCount}
                 </label>
-                <div className="grid grid-cols-5 gap-2 md:gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 md:gap-4">
                   {[5, 10, 15, 20, 25].map((c) => (
                     <button
                       key={c}
@@ -1757,39 +1962,39 @@ const saveSubTopicProgress = useCallback((techId, subTopicId, isCorrect) => {
                   })}
                 </div>
               </div>
-                {topicsWithProgress.length > 0 && (
+              {topicsWithProgress.length > 0 && (
                 <div className="bg-gray-100 p-6 rounded-xl shadow-inner mb-8">
                   <h3 className="text-xl font-semibold mb-4 flex items-center">
                     <Layers className="w-6 h-6 mr-2 text-indigo-600" />
                     Sub-Topic Performance
                   </h3>
                   <div className="space-y-4">
-                    {topicsWithProgress.map((st) => (
-                      st.total > 0 ?
-                      <div
-                        key={st.id}
-                        className="bg-white rounded-lg p-4 border border-gray-200"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <p className="font-semibold text-gray-800">
-                            {st.name}
+                    {topicsWithProgress.map((st) =>
+                      st.total > 0 ? (
+                        <div
+                          key={st.id}
+                          className="bg-white rounded-lg p-4 border border-gray-200"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <p className="font-semibold text-gray-800">
+                              {st.name}
+                            </p>
+                            <span className="text-sm font-medium text-gray-600">
+                              {st.correct}/{st.total} Correct
+                            </span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-gradient-to-r from-indigo-500 to-green-500 h-2 rounded-full transition-all duration-300"
+                              style={{ width: `${st.score}%` }}
+                            ></div>
+                          </div>
+                          <p className="text-xs text-right mt-1 text-gray-500">
+                            {st.score.toFixed(0)}%
                           </p>
-                          <span className="text-sm font-medium text-gray-600">
-                            {st.correct}/{st.total} Correct
-                          </span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-gradient-to-r from-indigo-500 to-green-500 h-2 rounded-full transition-all duration-300"
-                            style={{ width: `${st.score}%` }}
-                          ></div>
-                        </div>
-                        <p className="text-xs text-right mt-1 text-gray-500">
-                          {st.score.toFixed(0)}%
-                        </p>
-                      </div>
-                      : null
-                    ))}
+                      ) : null
+                    )}
                   </div>
                 </div>
               )}
