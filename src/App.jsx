@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Clock,
@@ -28,8 +27,7 @@ import {
 import techTopics from "./topics";
 import { GoogleGenAI } from "@google/genai";
 
-const GEMINI_API_URL =
-  "[https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent](https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent)";
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 function buildGenerationPrompt(
   topicName,
@@ -55,16 +53,16 @@ Each object must follow exactly this format:
   "q": "string",
   "difficulty": number,
   "tag": "string",
-  // For mcq:
+  
   "options": ["string", "string", ...],
   "answerIndex": integer,
-  // For truefalse:
+  
   "options": ["True","False"],
   "answerIndex": 0 or 1,
-  // For fill:
+  
   "answerText": "string",
   "instructions": "string",
-  // For code:
+  
   "q": "code snippet in fenced block",
   "options": ["string", "string", ...],
   "answerIndex": integer,
@@ -200,9 +198,10 @@ export default function TechPrepApp() {
     setSettingsMessage("");
 
     try {
+      
       const testPayload = {
-        contents: [{ parts: [{ text: "ping" }] }],
-        generationConfig: { maxOutputTokens: 1 },
+        contents: [{ parts: [{ text: "Hello" }] }],
+        generationConfig: { maxOutputTokens: 5 },
       };
 
       const resp = await fetch(`${GEMINI_API_URL}?key=${tempKey}`, {
@@ -211,7 +210,9 @@ export default function TechPrepApp() {
         body: JSON.stringify(testPayload),
       });
 
-      if (resp.ok) {
+      const data = await resp.json();
+
+      if (resp.ok && data.candidates && data.candidates[0]) {
         setGeminiApiKey(tempKey);
         localStorage.setItem("geminiApiKey", tempKey);
         setSettingsMessageType("success");
@@ -220,12 +221,17 @@ export default function TechPrepApp() {
       } else {
         setGeminiApiKey("");
         setSettingsMessageType("error");
-        setSettingsMessage("❌ Invalid API key. Please check and try again.");
+        if (data.error && data.error.message) {
+          setSettingsMessage(`❌ ${data.error.message}`);
+        } else {
+          setSettingsMessage("❌ Invalid API key. Please check and try again.");
+        }
       }
     } catch (err) {
       console.error("Error validating API key:", err);
+      setGeminiApiKey("");
       setSettingsMessageType("error");
-      setSettingsMessage("⚠ Error connecting to Gemini API.");
+      setSettingsMessage("⚠ Error connecting to Gemini API. Check your network connection.");
     } finally {
       setValidatingKey(false);
     }
@@ -379,7 +385,7 @@ export default function TechPrepApp() {
     }
   }
 
-  // A helper function to generate the schema dynamically
+  
   function buildQuestionSchema(count) {
     return {
       type: "object",
@@ -547,17 +553,16 @@ export default function TechPrepApp() {
       );
       const normalized = produced.map((q, i) => {
         const tech = techTopics.find((t) => t.id === selectedTech);
-        if (!tech) return q; // safety check
-        // Try to map Gemini's tag (name) to one of your IDs
+        if (!tech) return q; 
         let tag = q.tag?.toLowerCase();
-        // Find if tag matches a subtopic name or id case-insensitively
+        
         const match = tech.topics.find(
           (st) => st.name.toLowerCase() === tag || st.id.toLowerCase() === tag
         );
         if (match) {
-          tag = match.id; // force into correct ID
+          tag = match.id; 
         } else if (tag !== "general") {
-          tag = "general"; // fallback
+          tag = "general"; 
         }
 
         return {
@@ -804,7 +809,7 @@ export default function TechPrepApp() {
   };
 
   function renderQuestionContent(text) {
-    // Helper function to render inline code
+    
     const renderInlineCode = (textSegment) => {
       const inlineCodeRegex = /`([^`]+)`/g;
       const parts = [];
@@ -812,11 +817,11 @@ export default function TechPrepApp() {
       let match;
 
       while ((match = inlineCodeRegex.exec(textSegment)) !== null) {
-        // Add text before the inline code
+        
         if (match.index > lastIndex) {
           parts.push(textSegment.slice(lastIndex, match.index));
         }
-        // Add the inline code with styling
+        
         parts.push(
           <code
             key={`inline-${match.index}`}
@@ -828,7 +833,7 @@ export default function TechPrepApp() {
         lastIndex = match.index + match[0].length;
       }
 
-      // Add remaining text
+      
       if (lastIndex < textSegment.length) {
         parts.push(textSegment.slice(lastIndex));
       }
@@ -836,13 +841,13 @@ export default function TechPrepApp() {
       return parts.length > 1 ? parts : textSegment;
     };
 
-    // Check for code blocks
+    
     const codeBlockRegex = /```(\w+)?\n?([\s\S]*?)```/g;
     const codeBlocks = [];
     let match;
     let lastIndex = 0;
 
-    // Find all code blocks
+    
     while ((match = codeBlockRegex.exec(text)) !== null) {
       codeBlocks.push({
         index: match.index,
@@ -853,7 +858,7 @@ export default function TechPrepApp() {
       });
     }
 
-    // If no code blocks found, just handle inline code and return paragraph
+    
     if (codeBlocks.length === 0) {
       const contentWithInlineCode = renderInlineCode(text);
       return (
@@ -863,12 +868,12 @@ export default function TechPrepApp() {
       );
     }
 
-    // Process text with code blocks
+    
     const elements = [];
     lastIndex = 0;
 
     codeBlocks.forEach((block, index) => {
-      // Add text before this code block
+      
       const beforeText = text.slice(lastIndex, block.index).trim();
       if (beforeText) {
         const contentWithInlineCode = renderInlineCode(beforeText);
@@ -882,7 +887,7 @@ export default function TechPrepApp() {
         );
       }
 
-      // Add the code block
+      
       elements.push(
         <div
           key={`code-${index}`}
@@ -894,7 +899,7 @@ export default function TechPrepApp() {
             </span>
             <span className="text-gray-500 text-xs">Snippet</span>
           </div>
-          <pre className="p-4 text-xs sm:text-sm md:text-base text-gray-200 leading-relaxed font-mono font-normal whitespace-pre-wrap break-words overflow-x-hidden">
+          <pre className="p-4 sm:p-6 text-xs sm:text-sm md:text-base text-gray-200 leading-relaxed font-mono font-normal whitespace-pre-wrap break-words overflow-x-hidden">
             <code className="font-mono break-words">{block.code}</code>
           </pre>
         </div>
@@ -903,7 +908,7 @@ export default function TechPrepApp() {
       lastIndex = block.index + block.length;
     });
 
-    // Add text after the last code block
+    
     const afterText = text.slice(lastIndex).trim();
     if (afterText) {
       const contentWithInlineCode = renderInlineCode(afterText);
@@ -964,8 +969,8 @@ export default function TechPrepApp() {
 
   if (currentScreen === "error") {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-red-50 to-red-100 p-6">
-        <div className="bg-white shadow-lg rounded-xl p-8 max-w-lg text-center border border-red-300">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-red-50 to-red-100 p-4 sm:p-6">
+        <div className="bg-white shadow-lg rounded-xl p-4 sm:p-6 md:p-8 max-w-lg text-center border border-red-300">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-red-700 mb-4">
             Something Went Wrong
@@ -1033,8 +1038,57 @@ export default function TechPrepApp() {
           </div>
 
           {showSettings && (
-            <div className="bg-gray-50 rounded-xl shadow-inner p-6 mb-8">
-              {/* your settings form code here */}
+            <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+              <h3 className="text-xl font-semibold mb-4">Settings</h3>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-black flex items-center">
+                  Gemini API Key
+                  {!geminiApiKey && (
+                    <span className="ml-2 text-red-500 flex items-center">
+                      <AlertCircle className="w-4 h-4 mr-1" />
+                      Required
+                    </span>
+                  )}
+                </label>
+                <input
+                  type="text"
+                  value={tempKey}
+                  onChange={(e) => setTempKey(e.target.value)}
+                  placeholder="Enter your Gemini API Key here"
+                  className={`w-full text-black px-4 py-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 ${
+                    !geminiApiKey
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-gray-300"
+                  }`}
+                />
+
+                <button
+                  onClick={() => validateAndSaveKey(tempKey)}
+                  disabled={validatingKey}
+                  className="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 flex items-center"
+                >
+                  {validatingKey && (
+                    <div className="animate-spin mr-2 h-4 w-4 border-b-2 border-white rounded-full"></div>
+                  )}
+                  {validatingKey ? "Validating..." : "Validate & Save API Key"}
+                </button>
+                {settingsMessage && (
+                  <p
+                    className={`mt-2 text-sm ${
+                      settingsMessageType === "success"
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {settingsMessage}
+                  </p>
+                )}
+
+                <p className="text-sm text-gray-500 mt-1">
+                  Your key is stored locally in your browser's local storage and
+                  is not sent to any server.
+                </p>
+              </div>
             </div>
           )}
 
@@ -1189,269 +1243,269 @@ export default function TechPrepApp() {
   );
 }
 
-//   if (currentScreen === "home") {
-//     return (
-//       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-//         <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 max-w-full sm:max-w-7xl">
-//           <div className="text-center mb-8">
-//             <div className="flex items-center justify-center mb-4">
-//               {/* <Brain className="w-12 h-12 text-indigo-600 mr-3" /> */}
-//               <h1
-//                 className="font-bold text-black text-[0.55rem] xs:text-[0.65rem] sm:text-xs md:text-sm lg:text-base leading-tight break-words whitespace-pre-wrap max-h-48"
-//                 style={{
-//                   fontFamily: "'Fira Code', monospace",
-//                   whiteSpace: "pre",
-//                 }}
-//               >
-//                 {`
-// ████████╗███████╗  ██████╗██╗  ██╗ █████╗ ██████╗ ███████╗███╗   ██╗ █████╗
-// ╚══██╔══╝██╔════╝██╔════╝██║  ██║██╔══██╗██╔══██╗██╔════╝████╗  ██║██╔══██╗
-//     ██║   █████╗  ██║     ███████║███████║██████╔╝█████╗  ██╔██╗ ██║███████║
-//     ██║   ██╔══╝  ██║     ██╔══██║██╔══██║██╔══██╗██╔══╝  ██║╚██╗██║██╔══██║
-//     ██║   ███████╗╚██████╗██║  ██║██║  ██║██║  ██║███████╗██║ ╚████║██║  ██║
-//     ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝
-//       `}
-//               </h1>
-//             </div>
-//             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">
-//               Master technical concepts with AI-powered practice sessions across
-//               multiple technologies
-//             </p>
-//           </div>
 
-//           <div className="flex justify-between items-center mb-6">
-//             <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
-//               Choose Your Technology
-//             </h2>
-//             <button
-//               onClick={() => setShowSettings(!showSettings)}
-//               className="px-4 py-2 text-indigo-600 bg-indigo-100 rounded-full flex items-center space-x-2 hover:bg-indigo-200 transition-colors"
-//             >
-//               <Settings className="w-5 h-5" />
-//               <span className="font-medium">
-//                 {showSettings ? "Hide" : "Show"} Settings
-//               </span>
-//             </button>
-//           </div>
 
-//           {showSettings && (
-//             <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-//               <h3 className="text-xl font-semibold mb-4">Settings</h3>
-//               <div>
-//                 <label className=" text-sm font-medium mb-2 text-black flex items-center">
-//                   Gemini API Key
-//                   {!geminiApiKey && (
-//                     <span className="ml-2 text-red-500 flex items-center">
-//                       <AlertCircle className="w-4 h-4 mr-1" />
-//                       Required
-//                     </span>
-//                   )}
-//                 </label>
-//                 <input
-//                   type="text"
-//                   value={tempKey}
-//                   onChange={(e) => setTempKey(e.target.value)}
-//                   placeholder="Enter your Gemini API Key here"
-//                   className={`w-full text-black px-4 py-2 border rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 ${
-//                     !geminiApiKey
-//                       ? "border-red-500 focus:border-red-500"
-//                       : "border-gray-300"
-//                   }`}
-//                 />
 
-//                 <button
-//                   onClick={() => validateAndSaveKey(tempKey)}
-//                   disabled={validatingKey}
-//                   className="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50 flex items-center"
-//                 >
-//                   {validatingKey && (
-//                     <div className="animate-spin mr-2 h-4 w-4 border-b-2 border-white rounded-full"></div>
-//                   )}
-//                   {validatingKey
-//                     ? "Validating..."
-//                     : tempKey
-//                     ? "Validate API Key"
-//                     : "Save API Key"}
-//                 </button>
-//                 {settingsMessage && (
-//                   <p
-//                     className={`mt-2 text-sm ${
-//                       settingsMessageType === "success"
-//                         ? "text-green-600"
-//                         : "text-red-600"
-//                     }`}
-//                   >
-//                     {settingsMessage}
-//                   </p>
-//                 )}
 
-//                 <p className="text-sm text-gray-500 mt-1">
-//                   Your key is stored locally in your browser's local storage and
-//                   is not sent to any server.
-//                 </p>
-//               </div>
-//             </div>
-//           )}
 
-//           {Object.entries(groupedTopics).map(([category, topics]) => (
-//             <div key={category} className="mb-8">
-//               <h3 className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
-//                 {category === "Programming" && (
-//                   <Code className="w-5 h-5 mr-2" />
-//                 )}
-//                 {category === "Web" && <Globe className="w-5 h-5 mr-2" />}
-//                 {category === "Backend" && <Server className="w-5 h-5 mr-2" />}
-//                 {category === "Database" && (
-//                   <Database className="w-5 h-5 mr-2" />
-//                 )}
-//                 {category === "Mobile" && (
-//                   <Smartphone className="w-5 h-5 mr-2" />
-//                 )}
-//                 {category === "DevOps" && <Monitor className="w-5 h-5 mr-2" />}
-//                 {category === "Cloud" && <Globe className="w-5 h-5 mr-2" />}
-//                 {category === "CS Fundamentals" && (
-//                   <Brain className="w-5 h-5 mr-2" />
-//                 )}
-//                 {category === "OOP" && <Layers className="w-5 h-5 mr-2" />}
-//                 {category === "Tools" && <Settings className="w-5 h-5 mr-2" />}
-//                 {category}
-//               </h3>
 
-//               <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8"> 
-//   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-//                 {topics.map((tech) => {
-//                   const techProgress = progress[tech.id];
-//                   const avg = techProgress?.totalQuizzes
-//                     ? Math.round(
-//                         (techProgress.totalScore || 0) /
-//                           Math.max(1, techProgress.totalQuizzes)
-//                       )
-//                     : 0;
-//                   return (
-//                     <div
-//                       key={tech.id}
-//                       onClick={() => {
-//                         setSelectedTech(tech.id);
-//                         setSelectedTopics([]);
-//                         setCurrentScreen("setup");
-//                       }}
-//                       className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all cursor-pointer p-4 md:p-6 border-l-4 border-transparent hover:border-indigo-500 group"
-//                     >
-//                       <div className="flex items-center justify-between mb-3">
-//                         <div className="flex items-center space-x-3 flex-1 min-w-0">
-//                           <div
-//                             className={`${tech.color} w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center text-lg md:text-2xl text-white shadow-md`}
-//                           >
-//                             {tech.icon}
-//                           </div>
-//                           <div className="flex-1 min-w-0">
-//                             <h3 className="font-semibold text-gray-800 truncate text-sm md:text-base">
-//                               {tech.name}
-//                             </h3>
-//                             <p className="text-xs text-gray-500 uppercase tracking-wide">
-//                               {tech.id}
-//                             </p>
-//                           </div>
-//                         </div>
-//                         <ChevronRight className="w-5 h-5 text-gray-400 flex-shrink-0 group-hover:text-indigo-500 transition-colors" />
-//                       </div>
 
-//                       {techProgress && (
-//                         <div className="space-y-2">
-//                           <div className="flex justify-between text-xs md:text-sm">
-//                             <span className="text-gray-600">Quizzes:</span>
-//                             <span className="font-semibold">
-//                               {techProgress.totalQuizzes}
-//                             </span>
-//                           </div>
-//                           <div className="flex justify-between text-xs md:text-sm">
-//                             <span className="text-gray-600">Avg Score:</span>
-//                             <span className="font-semibold text-indigo-600">
-//                               {avg}%
-//                             </span>
-//                           </div>
-//                           <div className="flex justify-between text-xs md:text-sm">
-//                             <span className="text-gray-600">Best:</span>
-//                             <span className="font-semibold text-green-600">
-//                               {techProgress.bestScore || 0}%
-//                             </span>
-//                           </div>
-//                           <div className="w-full bg-gray-200 rounded-full h-1 sm:h-1.5">
-//                             <div
-//                               className="bg-gradient-to-r from-indigo-500 to-purple-600 h-1.5 rounded-full transition-all duration-300"
-//                               style={{ width: `${Math.min(100, avg)}%` }}
-//                             ></div>
-//                           </div>
-//                         </div>
-//                       )}
 
-//                       {!techProgress && (
-//                         <div className="text-center py-2">
-//                           <p className="text-sm text-gray-500">
-//                             Start practicing!
-//                           </p>
-//                           <div className="w-full bg-gray-100 rounded-full h-1.5 mt-2">
-//                             <div className="bg-gray-200 h-1.5 rounded-full"></div>
-//                           </div>
-//                         </div>
-//                       )}
-//                     </div>
-//                   );
-//                 })}
-//               </div>
-//               </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
-//             </div>
-//           ))}
 
-//           {sessionHistory.length > 0 && (
-//             <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 mt-8">
-//               <h3 className="text-lg md:text-xl font-semibold mb-4 flex items-center">
-//                 <Trophy className="w-6 h-6 mr-2 text-yellow-500" />
-//                 Recent Sessions
-//               </h3>
-//               <div className="space-y-3 max-h-80 overflow-y-auto">
-//                 {sessionHistory.slice(0, 15).map((s) => (
-//                   <div
-//                     key={s.id}
-//                     className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-//                   >
-//                     <div className="flex items-center space-x-3 flex-1 min-w-0">
-//                       <div
-//                         className={`${
-//                           techTopics.find((t) => t.id === s.tech)?.color ||
-//                           "bg-gray-500"
-//                         } w-8 h-8 rounded flex items-center justify-center text-sm text-white`}
-//                       >
-//                         {techTopics.find((t) => t.id === s.tech)?.icon || "?"}
-//                       </div>
-//                       <div className="flex-1 min-w-0">
-//                         <p className="font-medium text-sm truncate">
-//                           {s.techName}
-//                         </p>
-//                         <p className="text-xs text-gray-500">
-//                           {new Date(s.date).toLocaleDateString()} • Level{" "}
-//                           {s.difficulty}
-//                         </p>
-//                       </div>
-//                     </div>
-//                     <div className="text-right flex-shrink-0">
-//                       <p className="font-semibold text-sm">
-//                         {s.score}/{s.total}
-//                       </p>
-//                       <p className="text-xs text-gray-500">
-//                         {formatTime(s.timeSpent)}
-//                       </p>
-//                     </div>
-//                   </div>
-//                 ))}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//     );
-//   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   if (currentScreen === "setup") {
     const tech = techTopics.find((t) => t.id === selectedTech);
@@ -1459,7 +1513,7 @@ export default function TechPrepApp() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         <div className="container mx-auto px-4 py-6 max-w-4xl">
-          <div className="bg-white rounded-xl shadow-lg p-4 md:p-8">
+          <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
               <div className="flex items-center space-x-4">
                 <div
@@ -1697,7 +1751,7 @@ export default function TechPrepApp() {
       const tech = techTopics.find((t) => t.id === selectedTech);
       const subTopics = tech?.topics || [];
       const topicsWithProgress = subTopics
-        // .filter((st) => selectedTopics.includes(st.id))
+        
         .map((st) => {
           const correct = questions.filter(
             (q) => q.tag === st.id && q.evaluation?.correct
@@ -1711,7 +1765,7 @@ export default function TechPrepApp() {
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
           <div className="container mx-auto px-4 py-6 max-w-6xl">
-            <div className="bg-white rounded-xl shadow-lg p-4 md:p-8">
+            <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-8">
               <div className="text-center mb-8">
                 <div className="relative inline-block">
                   <Trophy className="w-20 md:w-24 h-20 md:h-24 text-yellow-500 mx-auto mb-4" />
@@ -2022,29 +2076,29 @@ export default function TechPrepApp() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         <div className="container mx-auto px-4 py-4 max-w-4xl">
-          <div className="bg-white rounded-t-xl shadow-lg p-4 md:p-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="flex flex-col md:flex-row items-start md:items-center space-y-3 md:space-y-0 md:space-x-6">
-                <div className="flex items-center space-x-3">
-                  <Clock className="w-5 h-5 text-gray-600" />
-                  <span className="font-mono text-xl font-bold text-gray-800">
+          <div className="bg-white rounded-t-xl shadow-lg p-4 sm:p-6 md:p-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                  <span className="font-mono text-lg sm:text-xl font-bold text-gray-800">
                     {formatTime(timer)}
                   </span>
                   <button
                     onClick={() => setIsTimerRunning((r) => !r)}
-                    className="ml-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    className="p-1 sm:p-2 rounded-full hover:bg-gray-100 transition-colors"
                   >
                     {isTimerRunning ? (
-                      <Pause className="w-4 h-4 text-gray-600" />
+                      <Pause className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" />
                     ) : (
-                      <Play className="w-4 h-4 text-gray-600" />
+                      <Play className="w-3 h-3 sm:w-4 sm:h-4 text-gray-600" />
                     )}
                   </button>
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600">
                   Question {currentQuestionIndex + 1} of {questions.length}
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 sm:space-x-2">
                   <span
                     className={`text-xs px-2 py-1 rounded ${difficultyColor(
                       currentQuestion.difficulty
@@ -2072,7 +2126,7 @@ export default function TechPrepApp() {
                   if (evaluating) return;
                   setCurrentScreen("home");
                 }}
-                className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded transition-colors"
+                className="text-gray-500 hover:text-gray-700 px-2 py-1 text-sm sm:text-base rounded transition-colors"
               >
                 Exit Quiz
               </button>
@@ -2107,7 +2161,7 @@ export default function TechPrepApp() {
             </div>
           </div>
 
-          <div className="bg-white rounded-b-xl shadow-lg p-4 md:p-8">
+          <div className="bg-white rounded-b-xl shadow-lg p-4 sm:p-6 md:p-8">
             <div className="mb-8">
               <h3 className="text-lg md:text-xl font-semibold text-gray-800 mb-6 leading-relaxed">
                 {renderQuestionContent(currentQuestion.q)}
@@ -2123,7 +2177,7 @@ export default function TechPrepApp() {
                           <button
                             key={idx}
                             onClick={() => handleAnswerSelect(idx)}
-                            className={`w-full text-left p-4 md:p-5 rounded-xl border-2 transition-all duration-200 transform hover:scale-[1.02]
+                            className={`w-full text-left p-3 sm:p-4 md:p-5 rounded-xl border-2 transition-all duration-200 transform hover:scale-[1.02]
           border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50 hover:shadow-md
           ${
             isSelected
@@ -2131,9 +2185,9 @@ export default function TechPrepApp() {
               : "border-indigo-200 bg-indigo-50 text-black shadow-lg"
           }`}
                           >
-                            <div className="flex items-center space-x-3">
+                            <div className="flex items-center space-x-2 sm:space-x-3">
                               <div
-                                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center font-semibold text-sm
+                                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center font-semibold text-xs sm:text-sm
               border-gray-300 text-gray-600
               ${
                 isSelected ? "border-indigo-500 bg-indigo-500 text-white" : ""
@@ -2141,11 +2195,11 @@ export default function TechPrepApp() {
                               >
                                 {String.fromCharCode(65 + idx)}
                               </div>
-                              <span className="flex-1 text-sm md:text-base">
+                              <span className="flex-1 text-sm sm:text-base break-words">
                                 {opt}
                               </span>
                               {isSelected && (
-                                <CheckCircle className="w-5 h-5 text-indigo-500" />
+                                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-500 flex-shrink-0" />
                               )}
                             </div>
                           </button>
@@ -2186,17 +2240,17 @@ export default function TechPrepApp() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-gray-100">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 pt-6 border-t border-gray-100">
               <button
                 onClick={handlePrevQuestion}
                 disabled={currentQuestionIndex === 0}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1"
+                className="px-3 py-2 sm:px-4 sm:py-2 text-gray-600 hover:text-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1 text-sm sm:text-base"
               >
-                <ChevronRight className="w-4 h-4 rotate-180" />
+                <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 rotate-180" />
                 <span>Previous</span>
               </button>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={() => {
                     if (evaluating) return;
@@ -2210,7 +2264,7 @@ export default function TechPrepApp() {
                       setCurrentScreen("setup");
                     }
                   }}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors text-sm"
+                  className="px-3 py-2 text-gray-600 hover:text-gray-800 transition-colors text-xs sm:text-sm"
                 >
                   Reset Quiz
                 </button>
@@ -2222,7 +2276,7 @@ export default function TechPrepApp() {
                       ? !selectedAnswer || selectedAnswer.trim() === ""
                       : selectedAnswer === null
                   }
-                  className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
+                  className="px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg sm:rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2 text-sm sm:text-base"
                 >
                   <span className="font-semibold">
                     {currentQuestionIndex === questions.length - 1
@@ -2232,16 +2286,16 @@ export default function TechPrepApp() {
                       : "Next Question"}
                   </span>
                   {currentQuestionIndex < questions.length - 1 ? (
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
                   ) : (
-                    <Trophy className="w-4 h-4" />
+                    <Trophy className="w-3 h-3 sm:w-4 sm:h-4" />
                   )}
                 </button>
               </div>
             </div>
 
             <div className="flex justify-center mt-6 pt-4 border-t border-gray-100">
-              <div className="flex space-x-2 max-w-full overflow-x-auto pb-2">
+              <div className="flex flex-wrap gap-2 justify-center max-w-full">
                 {questions.map((_, idx) => (
                   <button
                     key={idx}
@@ -2250,7 +2304,7 @@ export default function TechPrepApp() {
                       setCurrentQuestionIndex(idx);
                       setSelectedAnswer(userAnswers[idx]);
                     }}
-                    className={`w-8 h-8 rounded-full text-xs font-medium transition-all flex-shrink-0 ${
+                    className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full text-sm sm:text-xs font-medium transition-all flex-shrink-0 ${
                       idx === currentQuestionIndex
                         ? "bg-indigo-600 text-white shadow-lg"
                         : userAnswers[idx] !== null

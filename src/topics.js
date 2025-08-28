@@ -1,6 +1,6 @@
-// topics.js
+
 const techTopics = [
-  // Programming Languages (Expanded)
+  
   {
     id: "javascript",
     name: "JavaScript",
@@ -338,7 +338,7 @@ const techTopics = [
     ] 
   },
 
-  // Web Development (Expanded)
+  
   { 
     id: "html", 
     name: "HTML", 
@@ -550,7 +550,7 @@ const techTopics = [
     ] 
   },
 
-  // Backend & APIs (Expanded)
+  
   { 
     id: "nodejs", 
     name: "Node.js", 
@@ -762,7 +762,7 @@ const techTopics = [
     ] 
   },
 
-  // Databases (Expanded)
+  
   { 
     id: "sql", 
     name: "SQL", 
@@ -932,7 +932,7 @@ const techTopics = [
     ] 
   },
 
-  // Mobile Development (Expanded)
+  
   { 
     id: "react-native", 
     name: "React Native", 
@@ -1060,7 +1060,7 @@ const techTopics = [
     ] 
   },
 
-  // DevOps & Cloud (Expanded)
+  
   { 
     id: "docker", 
     name: "Docker", 
@@ -1272,7 +1272,7 @@ const techTopics = [
     ] 
   },
 
-  // Computer Science Fundamentals (Expanded)
+  
   { 
     id: "dsa", 
     name: "Data Structures & Algorithms", 
@@ -1466,7 +1466,7 @@ const techTopics = [
     ] 
   },
 
-  // OOP Specific (Expanded)
+  
   { 
     id: "oops-python", 
     name: "OOP in Python", 
@@ -1573,7 +1573,7 @@ const techTopics = [
     ] 
   },
 
-  // Tools & Others (Expanded)
+  
   { 
     id: "git", 
     name: "Git & Version Control", 
@@ -1764,7 +1764,7 @@ const techTopics = [
     ] 
   },
 
-  // Big Data & Analytics
+  
   { 
     id: "hadoop", 
     name: "Hadoop", 
@@ -1829,28 +1829,7 @@ const techTopics = [
     ] 
   },
 
-  // Blockchain & Crypto
-  // { 
-  //   id: "blockchain", 
-  //   name: "Blockchain", 
-  //   icon: "⛓️", 
-  //   color: "bg-gray-800", 
-  //   category: "Blockchain", 
-  //   topics: [
-  //     { id: "blockchain-basics", name: "Blockchain Fundamentals" },
-  //     { id: "blockchain-consensus", name: "Consensus Mechanisms" },
-  //     { id: "blockchain-cryptography", name: "Cryptographic Hashing" },
-  //     { id: "blockchain-distributed-ledger", name: "Distributed Ledgers" },
-  //     { id: "blockchain-mining", name: "Mining & Proof of Work" },
-  //     { id: "blockchain-smart-contracts", name: "Smart Contracts" },
-  //     { id: "blockchain-dapps", name: "Decentralized Applications" },
-  //     { id: "blockchain-tokens", name: "Tokens & Tokenization" },
-  //     { id: "blockchain-defi", name: "DeFi (Decentralized Finance)" },
-  //     { id: "blockchain-nfts", name: "NFTs" },
-  //     { id: "blockchain-scaling", name: "Scaling Solutions" },
-  //     { id: "blockchain-security", name: "Security & Auditing" },
-  //   ] 
-  // },
+  
   { 
     id: "solidity", 
     name: "Solidity", 
@@ -1894,7 +1873,7 @@ const techTopics = [
     ] 
   },
 
-  // UI/UX & Design
+  
   { 
     id: "figma", 
     name: "Figma", 
@@ -1962,7 +1941,7 @@ const techTopics = [
 
 
 
-  // Aptitude (already filled - keeping as is)
+  
   { id: "quant-number-system", name: "Number System", icon: "🔢", color: "bg-blue-600", category: "Aptitude", topics: [] },
   { id: "quant-hcf-lcm", name: "HCF & LCM", icon: "➗", color: "bg-teal-500", category: "Aptitude", topics: [] },
   { id: "quant-percentages", name: "Percentages", icon: "📊", color: "bg-orange-500", category: "Aptitude", topics: [] },
@@ -1988,7 +1967,7 @@ const techTopics = [
   { id: "quant-logarithms", name: "Logarithms", icon: "📈", color: "bg-red-600", category: "Aptitude", topics: [] },
   { id: "quant-progressions", name: "AP & GP", icon: "🔄", color: "bg-green-700", category: "Aptitude", topics: [] },
 
-  // Reasoning (already filled - keeping as is)
+  
   { id: "reasoning-puzzles", name: "Puzzles", icon: "🧩", color: "bg-yellow-500", category: "Reasoning", topics: [] },
   { id: "reasoning-seating-arrangement", name: "Seating Arrangement", icon: "🪑", color: "bg-purple-500", category: "Reasoning", topics: [] },
   { id: "reasoning-blood-relations", name: "Blood Relations", icon: "🧬", color: "bg-red-500", category: "Reasoning", topics: [] },
@@ -2001,7 +1980,7 @@ const techTopics = [
   { id: "reasoning-direction-sense", name: "Direction Sense", icon: "🧭", color: "bg-blue-700", category: "Reasoning", topics: [] },
   { id: "reasoning-logical-deductions", name: "Logical Deductions", icon: "🧠", color: "bg-purple-700", category: "Reasoning", topics: [] },
 
-  // Verbal (already filled - keeping as is)
+  
   { id: "verbal-reading-comprehension", name: "Reading Comprehension", icon: "📖", color: "bg-green-600", category: "Verbal", topics: [] },
   { id: "verbal-synonyms", name: "Synonyms", icon: "🔄", color: "bg-blue-500", category: "Verbal", topics: [] },
   { id: "verbal-antonyms", name: "Antonyms", icon: "🔁", color: "bg-red-500", category: "Verbal", topics: [] },
@@ -2014,7 +1993,7 @@ const techTopics = [
   { id: "verbal-active-passive", name: "Active & Passive Voice", icon: "🔄", color: "bg-blue-700", category: "Verbal", topics: [] },
   { id: "verbal-direct-indirect", name: "Direct & Indirect Speech", icon: "🗨️", color: "bg-gray-600", category: "Verbal", topics: [] },
 
-  // Interview & Soft Skills
+  
   { 
     id: "resume-writing", 
     name: "Resume Writing", 
@@ -2141,7 +2120,7 @@ const techTopics = [
       { id: "comm-networking", name: "Networking Skills" },
     ] 
   },
-  // -------------------
+  
  { id: "gk-current-affairs", name: "Current Affairs", icon: "📰", color: "bg-red-500", category: "GK", topics: [] },
  { id: "gk-static", name: "Static GK", icon: "📚", color: "bg-blue-600", category: "GK", topics: [{ id: "gk-history", name: "History" }, { id: "gk-geography", name: "Geography" }, { id: "gk-polity", name: "Polity" }, { id: "gk-art-culture", name: "Art & Culture" }] },
  { id: "gk-business", name: "Business & Economy", icon: "💹", color: "bg-green-500", category: "GK", topics: [{ id: "gk-finance", name: "Finance" }, { id: "gk-banking", name: "Banking" }, { id: "gk-budget", name: "Budget & Policies" }] },
@@ -2151,30 +2130,30 @@ const techTopics = [
  { id: "gk-constitution", name: "Indian Constitution & Polity", icon: "📜", color: "bg-indigo-600", category: "GK", topics: [] },
    { id: "gk-environment", name: "Environment & Ecology", icon: "🌱", color: "bg-green-700", category: "GK", topics: [] },
 
-// ================= Additional Categories =================
 
-// Artificial Intelligence & Machine Learning
-// {
-//   id: "ai-ml",
-//   name: "AI & Machine Learning",
-//   icon: "🤖",
-//   color: "bg-purple-700",
-//   category: "AI/ML",
-//   topics: [
-//     { id: "ml-basics", name: "ML Basics & Algorithms" },
-//     { id: "ml-linear-regression", name: "Linear & Logistic Regression" },
-//     { id: "ml-decision-trees", name: "Decision Trees & Random Forests" },
-//     { id: "ml-svm", name: "Support Vector Machines" },
-//     { id: "ml-clustering", name: "Clustering (K-Means, DBSCAN)" },
-//     { id: "ml-nlp", name: "Natural Language Processing" },
-//     { id: "ml-cv", name: "Computer Vision" },
-//     { id: "ml-deep-learning", name: "Deep Learning (Neural Networks)" },
-//     { id: "ml-tensorflow", name: "TensorFlow" },
-//     { id: "ml-pytorch", name: "PyTorch" },
-//     { id: "ml-reinforcement", name: "Reinforcement Learning" },
-//     { id: "ml-ethics", name: "AI Ethics & Responsible AI" }
-//   ]
-// },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {
   id: "cybersecurity",
