@@ -1,6 +1,4 @@
-
 const techTopics = [
-  
   {
     id: "javascript",
     name: "JavaScript",
@@ -64,12 +62,12 @@ const techTopics = [
       { id: "java-design-patterns", name: "Design Patterns" },
     ],
   },
-  { 
-    id: "cpp", 
-    name: "C++", 
-    icon: "⚡", 
-    color: "bg-blue-600", 
-    category: "Programming", 
+  {
+    id: "cpp",
+    name: "C++",
+    icon: "⚡",
+    color: "bg-blue-600",
+    category: "Programming",
     topics: [
       { id: "cpp-basics", name: "Basics & Syntax" },
       { id: "cpp-oops", name: "Object-Oriented Programming" },
@@ -83,14 +81,14 @@ const techTopics = [
       { id: "cpp-exception-handling", name: "Exception Handling" },
       { id: "cpp-multithreading", name: "Multithreading" },
       { id: "cpp-smart-pointers", name: "Smart Pointers" },
-    ] 
+    ],
   },
-  { 
-    id: "csharp", 
-    name: "C#", 
-    icon: "💜", 
-    color: "bg-purple-600", 
-    category: "Programming", 
+  {
+    id: "csharp",
+    name: "C#",
+    icon: "💜",
+    color: "bg-purple-600",
+    category: "Programming",
     topics: [
       { id: "csharp-basics", name: "Basics & Syntax" },
       { id: "csharp-oops", name: "Object-Oriented Programming" },
@@ -104,14 +102,14 @@ const techTopics = [
       { id: "csharp-file-io", name: "File I/O" },
       { id: "csharp-memory", name: "Memory Management" },
       { id: "csharp-entity-framework", name: "Entity Framework" },
-    ] 
+    ],
   },
-  { 
-    id: "go", 
-    name: "Go", 
-    icon: "🐹", 
-    color: "bg-cyan-600", 
-    category: "Programming", 
+  {
+    id: "go",
+    name: "Go",
+    icon: "🐹",
+    color: "bg-cyan-600",
+    category: "Programming",
     topics: [
       { id: "go-basics", name: "Basics & Syntax" },
       { id: "go-goroutines", name: "Goroutines" },
@@ -125,14 +123,14 @@ const techTopics = [
       { id: "go-http", name: "HTTP & Web Services" },
       { id: "go-concurrency", name: "Concurrency Patterns" },
       { id: "go-performance", name: "Performance & Optimization" },
-    ] 
+    ],
   },
-  { 
-    id: "rust", 
-    name: "Rust", 
-    icon: "🦀", 
-    color: "bg-orange-700", 
-    category: "Programming", 
+  {
+    id: "rust",
+    name: "Rust",
+    icon: "🦀",
+    color: "bg-orange-700",
+    category: "Programming",
     topics: [
       { id: "rust-basics", name: "Basics & Syntax" },
       { id: "rust-ownership", name: "Ownership & Borrowing" },
@@ -146,14 +144,14 @@ const techTopics = [
       { id: "rust-macros", name: "Macros" },
       { id: "rust-cargo", name: "Cargo & Crates" },
       { id: "rust-unsafe", name: "Unsafe Rust" },
-    ] 
+    ],
   },
-  { 
-    id: "typescript", 
-    name: "TypeScript", 
-    icon: "🔷", 
-    color: "bg-blue-500", 
-    category: "Programming", 
+  {
+    id: "typescript",
+    name: "TypeScript",
+    icon: "🔷",
+    color: "bg-blue-500",
+    category: "Programming",
     topics: [
       { id: "ts-basics", name: "Basics & Type System" },
       { id: "ts-interfaces", name: "Interfaces" },
@@ -167,14 +165,14 @@ const techTopics = [
       { id: "ts-conditional-types", name: "Conditional Types" },
       { id: "ts-config", name: "TypeScript Configuration" },
       { id: "ts-migration", name: "JavaScript to TypeScript Migration" },
-    ] 
+    ],
   },
-  { 
-    id: "ruby", 
-    name: "Ruby", 
-    icon: "💎", 
-    color: "bg-red-600", 
-    category: "Programming", 
+  {
+    id: "ruby",
+    name: "Ruby",
+    icon: "💎",
+    color: "bg-red-600",
+    category: "Programming",
     topics: [
       { id: "ruby-basics", name: "Basics & Syntax" },
       { id: "ruby-oops", name: "Object-Oriented Programming" },
@@ -188,14 +186,14 @@ const techTopics = [
       { id: "ruby-threading", name: "Threading & Concurrency" },
       { id: "ruby-dsl", name: "Domain Specific Languages" },
       { id: "ruby-performance", name: "Performance Optimization" },
-    ] 
+    ],
   },
-  { 
-    id: "php", 
-    name: "PHP", 
-    icon: "🐘", 
-    color: "bg-purple-700", 
-    category: "Programming", 
+  {
+    id: "php",
+    name: "PHP",
+    icon: "🐘",
+    color: "bg-purple-700",
+    category: "Programming",
     topics: [
       { id: "php-basics", name: "Basics & Syntax" },
       { id: "php-oops", name: "Object-Oriented Programming" },
@@ -209,14 +207,14 @@ const techTopics = [
       { id: "php-namespaces", name: "Namespaces" },
       { id: "php-traits", name: "Traits" },
       { id: "php-security", name: "Security Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "scala", 
-    name: "Scala", 
-    icon: "⚙️", 
-    color: "bg-indigo-600", 
-    category: "Programming", 
+  {
+    id: "scala",
+    name: "Scala",
+    icon: "⚙️",
+    color: "bg-indigo-600",
+    category: "Programming",
     topics: [
       { id: "scala-basics", name: "Basics & Syntax" },
       { id: "scala-functional", name: "Functional Programming" },
@@ -230,14 +228,14 @@ const techTopics = [
       { id: "scala-akka", name: "Akka Framework" },
       { id: "scala-spark", name: "Apache Spark" },
       { id: "scala-sbt", name: "SBT Build Tool" },
-    ] 
+    ],
   },
-  { 
-    id: "dart", 
-    name: "Dart", 
-    icon: "🎯", 
-    color: "bg-blue-400", 
-    category: "Programming", 
+  {
+    id: "dart",
+    name: "Dart",
+    icon: "🎯",
+    color: "bg-blue-400",
+    category: "Programming",
     topics: [
       { id: "dart-basics", name: "Basics & Syntax" },
       { id: "dart-oops", name: "Object-Oriented Programming" },
@@ -251,14 +249,14 @@ const techTopics = [
       { id: "dart-mixins", name: "Mixins" },
       { id: "dart-null-safety", name: "Null Safety" },
       { id: "dart-testing", name: "Testing" },
-    ] 
+    ],
   },
-  { 
-    id: "perl", 
-    name: "Perl", 
-    icon: "🦪", 
-    color: "bg-pink-600", 
-    category: "Programming", 
+  {
+    id: "perl",
+    name: "Perl",
+    icon: "🦪",
+    color: "bg-pink-600",
+    category: "Programming",
     topics: [
       { id: "perl-basics", name: "Basics & Syntax" },
       { id: "perl-regex", name: "Regular Expressions" },
@@ -272,14 +270,14 @@ const techTopics = [
       { id: "perl-testing", name: "Testing" },
       { id: "perl-system", name: "System Administration" },
       { id: "perl-bioinformatics", name: "Bioinformatics" },
-    ] 
+    ],
   },
-  { 
-    id: "haskell", 
-    name: "Haskell", 
-    icon: "📐", 
-    color: "bg-green-700", 
-    category: "Programming", 
+  {
+    id: "haskell",
+    name: "Haskell",
+    icon: "📐",
+    color: "bg-green-700",
+    category: "Programming",
     topics: [
       { id: "haskell-basics", name: "Basics & Syntax" },
       { id: "haskell-functions", name: "Functions & Recursion" },
@@ -293,14 +291,14 @@ const techTopics = [
       { id: "haskell-laziness", name: "Lazy Evaluation" },
       { id: "haskell-cabal", name: "Cabal & Stack" },
       { id: "haskell-testing", name: "Testing (QuickCheck)" },
-    ] 
+    ],
   },
-  { 
-    id: "elixir", 
-    name: "Elixir", 
-    icon: "🔮", 
-    color: "bg-purple-500", 
-    category: "Programming", 
+  {
+    id: "elixir",
+    name: "Elixir",
+    icon: "🔮",
+    color: "bg-purple-500",
+    category: "Programming",
     topics: [
       { id: "elixir-basics", name: "Basics & Syntax" },
       { id: "elixir-pattern-matching", name: "Pattern Matching" },
@@ -314,14 +312,14 @@ const techTopics = [
       { id: "elixir-mix", name: "Mix Build Tool" },
       { id: "elixir-testing", name: "Testing (ExUnit)" },
       { id: "elixir-fault-tolerance", name: "Fault Tolerance" },
-    ] 
+    ],
   },
-  { 
-    id: "clojure", 
-    name: "Clojure", 
-    icon: "🔗", 
-    color: "bg-green-600", 
-    category: "Programming", 
+  {
+    id: "clojure",
+    name: "Clojure",
+    icon: "🔗",
+    color: "bg-green-600",
+    category: "Programming",
     topics: [
       { id: "clojure-basics", name: "Basics & Syntax" },
       { id: "clojure-data-structures", name: "Data Structures" },
@@ -335,16 +333,15 @@ const techTopics = [
       { id: "clojure-lein", name: "Leiningen" },
       { id: "clojure-testing", name: "Testing" },
       { id: "clojure-web", name: "Web Development (Ring/Compojure)" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "html", 
-    name: "HTML", 
-    icon: "🌐", 
-    color: "bg-red-500", 
-    category: "Web", 
+  {
+    id: "html",
+    name: "HTML",
+    icon: "🌐",
+    color: "bg-red-500",
+    category: "Web",
     topics: [
       { id: "html-basics", name: "Basics & Structure" },
       { id: "html-forms", name: "Forms & Input Elements" },
@@ -358,14 +355,14 @@ const techTopics = [
       { id: "html-web-storage", name: "Web Storage" },
       { id: "html-geolocation", name: "Geolocation API" },
       { id: "html-drag-drop", name: "Drag & Drop API" },
-    ] 
+    ],
   },
-  { 
-    id: "css", 
-    name: "CSS", 
-    icon: "🎨", 
-    color: "bg-blue-400", 
-    category: "Web", 
+  {
+    id: "css",
+    name: "CSS",
+    icon: "🎨",
+    color: "bg-blue-400",
+    category: "Web",
     topics: [
       { id: "css-basics", name: "Basics & Selectors" },
       { id: "css-box-model", name: "Box Model" },
@@ -379,14 +376,14 @@ const techTopics = [
       { id: "css-modules", name: "CSS Modules" },
       { id: "css-variables", name: "Custom Properties" },
       { id: "css-architecture", name: "CSS Architecture (BEM, OOCSS)" },
-    ] 
+    ],
   },
-  { 
-    id: "react", 
-    name: "React.js", 
-    icon: "⚛️", 
-    color: "bg-cyan-500", 
-    category: "Web", 
+  {
+    id: "react",
+    name: "React.js",
+    icon: "⚛️",
+    color: "bg-cyan-500",
+    category: "Web",
     topics: [
       { id: "react-basics", name: "Components & JSX" },
       { id: "react-hooks", name: "Hooks" },
@@ -400,14 +397,14 @@ const techTopics = [
       { id: "react-testing", name: "Testing (Jest, React Testing Library)" },
       { id: "react-performance", name: "Performance Optimization" },
       { id: "react-patterns", name: "Design Patterns" },
-    ] 
+    ],
   },
-  { 
-    id: "nextjs", 
-    name: "Next.js", 
-    icon: "⚫", 
-    color: "bg-gray-800", 
-    category: "Web", 
+  {
+    id: "nextjs",
+    name: "Next.js",
+    icon: "⚫",
+    color: "bg-gray-800",
+    category: "Web",
     topics: [
       { id: "nextjs-basics", name: "Pages & Routing" },
       { id: "nextjs-ssr", name: "Server-Side Rendering" },
@@ -421,14 +418,14 @@ const techTopics = [
       { id: "nextjs-performance", name: "Performance" },
       { id: "nextjs-data-fetching", name: "Data Fetching" },
       { id: "nextjs-internationalization", name: "Internationalization" },
-    ] 
+    ],
   },
-  { 
-    id: "vue", 
-    name: "Vue.js", 
-    icon: "💚", 
-    color: "bg-green-500", 
-    category: "Web", 
+  {
+    id: "vue",
+    name: "Vue.js",
+    icon: "💚",
+    color: "bg-green-500",
+    category: "Web",
     topics: [
       { id: "vue-basics", name: "Basics & Templates" },
       { id: "vue-components", name: "Components" },
@@ -442,14 +439,14 @@ const techTopics = [
       { id: "vue-forms", name: "Forms & Validation" },
       { id: "vue-testing", name: "Testing" },
       { id: "vue-nuxt", name: "Nuxt.js Framework" },
-    ] 
+    ],
   },
-  { 
-    id: "angular", 
-    name: "Angular", 
-    icon: "🅰️", 
-    color: "bg-red-600", 
-    category: "Web", 
+  {
+    id: "angular",
+    name: "Angular",
+    icon: "🅰️",
+    color: "bg-red-600",
+    category: "Web",
     topics: [
       { id: "angular-basics", name: "Components & Templates" },
       { id: "angular-typescript", name: "TypeScript Integration" },
@@ -463,14 +460,14 @@ const techTopics = [
       { id: "angular-testing", name: "Testing (Jasmine, Karma)" },
       { id: "angular-animations", name: "Animations" },
       { id: "angular-cli", name: "Angular CLI" },
-    ] 
+    ],
   },
-  { 
-    id: "svelte", 
-    name: "Svelte", 
-    icon: "🔥", 
-    color: "bg-orange-500", 
-    category: "Web", 
+  {
+    id: "svelte",
+    name: "Svelte",
+    icon: "🔥",
+    color: "bg-orange-500",
+    category: "Web",
     topics: [
       { id: "svelte-basics", name: "Basics & Components" },
       { id: "svelte-reactivity", name: "Reactivity" },
@@ -484,14 +481,14 @@ const techTopics = [
       { id: "svelte-sveltekit", name: "SvelteKit" },
       { id: "svelte-testing", name: "Testing" },
       { id: "svelte-deployment", name: "Deployment" },
-    ] 
+    ],
   },
-  { 
-    id: "gatsby", 
-    name: "Gatsby", 
-    icon: "🌿", 
-    color: "bg-purple-400", 
-    category: "Web", 
+  {
+    id: "gatsby",
+    name: "Gatsby",
+    icon: "🌿",
+    color: "bg-purple-400",
+    category: "Web",
     topics: [
       { id: "gatsby-basics", name: "Static Site Generation" },
       { id: "gatsby-graphql", name: "GraphQL Data Layer" },
@@ -505,14 +502,14 @@ const techTopics = [
       { id: "gatsby-themes", name: "Themes" },
       { id: "gatsby-styling", name: "Styling Solutions" },
       { id: "gatsby-e-commerce", name: "E-commerce Integration" },
-    ] 
+    ],
   },
-  { 
-    id: "ember", 
-    name: "Ember.js", 
-    icon: "🐹", 
-    color: "bg-red-400", 
-    category: "Web", 
+  {
+    id: "ember",
+    name: "Ember.js",
+    icon: "🐹",
+    color: "bg-red-400",
+    category: "Web",
     topics: [
       { id: "ember-basics", name: "Components & Templates" },
       { id: "ember-routing", name: "Routing" },
@@ -526,14 +523,14 @@ const techTopics = [
       { id: "ember-cli", name: "Ember CLI" },
       { id: "ember-fastboot", name: "FastBoot (SSR)" },
       { id: "ember-deployment", name: "Deployment" },
-    ] 
+    ],
   },
-  { 
-    id: "jquery", 
-    name: "jQuery", 
-    icon: "💙", 
-    color: "bg-blue-600", 
-    category: "Web", 
+  {
+    id: "jquery",
+    name: "jQuery",
+    icon: "💙",
+    color: "bg-blue-600",
+    category: "Web",
     topics: [
       { id: "jquery-basics", name: "Basics & Selectors" },
       { id: "jquery-dom", name: "DOM Manipulation" },
@@ -547,16 +544,15 @@ const techTopics = [
       { id: "jquery-performance", name: "Performance Best Practices" },
       { id: "jquery-migration", name: "Migration to Modern JS" },
       { id: "jquery-deferred", name: "Deferred Objects" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "nodejs", 
-    name: "Node.js", 
-    icon: "🟢", 
-    color: "bg-green-600", 
-    category: "Backend", 
+  {
+    id: "nodejs",
+    name: "Node.js",
+    icon: "🟢",
+    color: "bg-green-600",
+    category: "Backend",
     topics: [
       { id: "nodejs-basics", name: "Basics & Event Loop" },
       { id: "nodejs-modules", name: "Modules & NPM" },
@@ -570,14 +566,14 @@ const techTopics = [
       { id: "nodejs-debugging", name: "Debugging" },
       { id: "nodejs-testing", name: "Testing (Mocha, Jest)" },
       { id: "nodejs-security", name: "Security Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "express", 
-    name: "Express.js", 
-    icon: "🚂", 
-    color: "bg-gray-700", 
-    category: "Backend", 
+  {
+    id: "express",
+    name: "Express.js",
+    icon: "🚂",
+    color: "bg-gray-700",
+    category: "Backend",
     topics: [
       { id: "express-basics", name: "Basics & Routing" },
       { id: "express-middleware", name: "Middleware" },
@@ -591,14 +587,14 @@ const techTopics = [
       { id: "express-database", name: "Database Integration" },
       { id: "express-security", name: "Security (Helmet, CORS)" },
       { id: "express-testing", name: "Testing" },
-    ] 
+    ],
   },
-  { 
-    id: "django", 
-    name: "Django", 
-    icon: "🎸", 
-    color: "bg-green-700", 
-    category: "Backend", 
+  {
+    id: "django",
+    name: "Django",
+    icon: "🎸",
+    color: "bg-green-700",
+    category: "Backend",
     topics: [
       { id: "django-basics", name: "Models, Views, Templates" },
       { id: "django-orm", name: "ORM & Database" },
@@ -612,14 +608,14 @@ const techTopics = [
       { id: "django-security", name: "Security" },
       { id: "django-signals", name: "Signals" },
       { id: "django-caching", name: "Caching" },
-    ] 
+    ],
   },
-  { 
-    id: "flask", 
-    name: "Flask", 
-    icon: "🌶️", 
-    color: "bg-red-400", 
-    category: "Backend", 
+  {
+    id: "flask",
+    name: "Flask",
+    icon: "🌶️",
+    color: "bg-red-400",
+    category: "Backend",
     topics: [
       { id: "flask-basics", name: "Basics & Routing" },
       { id: "flask-templates", name: "Templates (Jinja2)" },
@@ -633,14 +629,14 @@ const techTopics = [
       { id: "flask-extensions", name: "Extensions" },
       { id: "flask-sessions", name: "Sessions & Cookies" },
       { id: "flask-error-handling", name: "Error Handling" },
-    ] 
+    ],
   },
-  { 
-    id: "fastapi", 
-    name: "FastAPI", 
-    icon: "⚡", 
-    color: "bg-teal-600", 
-    category: "Backend", 
+  {
+    id: "fastapi",
+    name: "FastAPI",
+    icon: "⚡",
+    color: "bg-teal-600",
+    category: "Backend",
     topics: [
       { id: "fastapi-basics", name: "Basics & Path Operations" },
       { id: "fastapi-pydantic", name: "Pydantic Models" },
@@ -654,14 +650,14 @@ const techTopics = [
       { id: "fastapi-websockets", name: "WebSockets" },
       { id: "fastapi-deployment", name: "Deployment" },
       { id: "fastapi-documentation", name: "Automatic Documentation" },
-    ] 
+    ],
   },
-  { 
-    id: "spring", 
-    name: "Spring Boot", 
-    icon: "🍃", 
-    color: "bg-green-600", 
-    category: "Backend", 
+  {
+    id: "spring",
+    name: "Spring Boot",
+    icon: "🍃",
+    color: "bg-green-600",
+    category: "Backend",
     topics: [
       { id: "spring-basics", name: "Basics & Auto-configuration" },
       { id: "spring-mvc", name: "Spring MVC" },
@@ -675,14 +671,14 @@ const techTopics = [
       { id: "spring-cloud", name: "Spring Cloud" },
       { id: "spring-batch", name: "Spring Batch" },
       { id: "spring-deployment", name: "Deployment" },
-    ] 
+    ],
   },
-  { 
-    id: "laravel", 
-    name: "Laravel", 
-    icon: "🎯", 
-    color: "bg-red-600", 
-    category: "Backend", 
+  {
+    id: "laravel",
+    name: "Laravel",
+    icon: "🎯",
+    color: "bg-red-600",
+    category: "Backend",
     topics: [
       { id: "laravel-basics", name: "MVC & Routing" },
       { id: "laravel-eloquent", name: "Eloquent ORM" },
@@ -696,14 +692,14 @@ const techTopics = [
       { id: "laravel-testing", name: "Testing (PHPUnit)" },
       { id: "laravel-api", name: "API Development" },
       { id: "laravel-deployment", name: "Deployment" },
-    ] 
+    ],
   },
-  { 
-    id: "ruby-on-rails", 
-    name: "Ruby on Rails", 
-    icon: "💎", 
-    color: "bg-red-500", 
-    category: "Backend", 
+  {
+    id: "ruby-on-rails",
+    name: "Ruby on Rails",
+    icon: "💎",
+    color: "bg-red-500",
+    category: "Backend",
     topics: [
       { id: "rails-mvc", name: "MVC Architecture" },
       { id: "rails-routing", name: "Routing" },
@@ -717,14 +713,14 @@ const techTopics = [
       { id: "rails-api", name: "API Development" },
       { id: "rails-deployment", name: "Deployment" },
       { id: "rails-security", name: "Security Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "aspnet", 
-    name: "ASP.NET", 
-    icon: "🅰️", 
-    color: "bg-purple-700", 
-    category: "Backend", 
+  {
+    id: "aspnet",
+    name: "ASP.NET",
+    icon: "🅰️",
+    color: "bg-purple-700",
+    category: "Backend",
     topics: [
       { id: "aspnet-mvc", name: "MVC Pattern" },
       { id: "aspnet-web-api", name: "Web API" },
@@ -738,14 +734,14 @@ const techTopics = [
       { id: "aspnet-testing", name: "Testing" },
       { id: "aspnet-deployment", name: "Deployment" },
       { id: "aspnet-security", name: "Security" },
-    ] 
+    ],
   },
-  { 
-    id: "graphql", 
-    name: "GraphQL", 
-    icon: "🔺", 
-    color: "bg-pink-600", 
-    category: "Backend", 
+  {
+    id: "graphql",
+    name: "GraphQL",
+    icon: "🔺",
+    color: "bg-pink-600",
+    category: "Backend",
     topics: [
       { id: "graphql-basics", name: "Schema & Types" },
       { id: "graphql-queries", name: "Queries" },
@@ -759,18 +755,20 @@ const techTopics = [
       { id: "graphql-testing", name: "Testing" },
       { id: "graphql-federation", name: "Federation" },
       { id: "graphql-performance", name: "Performance Optimization" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "sql", 
-    name: "SQL", 
-    icon: "🗄️", 
-    color: "bg-blue-700", 
-    category: "Database", 
+  {
+    id: "sql",
+    name: "SQL",
+    icon: "🗄️",
+    color: "bg-blue-700",
+    category: "Database",
     topics: [
-      { id: "sql-basics", name: "Basic Queries (SELECT, INSERT, UPDATE, DELETE)" },
+      {
+        id: "sql-basics",
+        name: "Basic Queries (SELECT, INSERT, UPDATE, DELETE)",
+      },
       { id: "sql-joins", name: "Joins" },
       { id: "sql-functions", name: "Aggregate Functions" },
       { id: "sql-subqueries", name: "Subqueries" },
@@ -782,14 +780,14 @@ const techTopics = [
       { id: "sql-normalization", name: "Database Normalization" },
       { id: "sql-performance", name: "Query Optimization" },
       { id: "sql-window-functions", name: "Window Functions" },
-    ] 
+    ],
   },
-  { 
-    id: "mysql", 
-    name: "MySQL", 
-    icon: "🐬", 
-    color: "bg-orange-600", 
-    category: "Database", 
+  {
+    id: "mysql",
+    name: "MySQL",
+    icon: "🐬",
+    color: "bg-orange-600",
+    category: "Database",
     topics: [
       { id: "mysql-installation", name: "Installation & Setup" },
       { id: "mysql-data-types", name: "Data Types" },
@@ -803,14 +801,14 @@ const techTopics = [
       { id: "mysql-json", name: "JSON Data Type" },
       { id: "mysql-full-text", name: "Full-Text Search" },
       { id: "mysql-administration", name: "Database Administration" },
-    ] 
+    ],
   },
-  { 
-    id: "postgresql", 
-    name: "PostgreSQL", 
-    icon: "🐘", 
-    color: "bg-blue-800", 
-    category: "Database", 
+  {
+    id: "postgresql",
+    name: "PostgreSQL",
+    icon: "🐘",
+    color: "bg-blue-800",
+    category: "Database",
     topics: [
       { id: "postgresql-advanced-types", name: "Advanced Data Types" },
       { id: "postgresql-jsonb", name: "JSONB" },
@@ -824,14 +822,14 @@ const techTopics = [
       { id: "postgresql-performance", name: "Performance Tuning" },
       { id: "postgresql-administration", name: "Administration" },
       { id: "postgresql-gis", name: "PostGIS (Spatial Data)" },
-    ] 
+    ],
   },
-  { 
-    id: "mongodb", 
-    name: "MongoDB", 
-    icon: "🍃", 
-    color: "bg-green-700", 
-    category: "Database", 
+  {
+    id: "mongodb",
+    name: "MongoDB",
+    icon: "🍃",
+    color: "bg-green-700",
+    category: "Database",
     topics: [
       { id: "mongodb-documents", name: "Documents & Collections" },
       { id: "mongodb-queries", name: "Queries & Filters" },
@@ -845,14 +843,14 @@ const techTopics = [
       { id: "mongodb-atlas", name: "MongoDB Atlas" },
       { id: "mongodb-security", name: "Security" },
       { id: "mongodb-performance", name: "Performance Optimization" },
-    ] 
+    ],
   },
-  { 
-    id: "redis", 
-    name: "Redis", 
-    icon: "🔴", 
-    color: "bg-red-600", 
-    category: "Database", 
+  {
+    id: "redis",
+    name: "Redis",
+    icon: "🔴",
+    color: "bg-red-600",
+    category: "Database",
     topics: [
       { id: "redis-data-structures", name: "Data Structures" },
       { id: "redis-caching", name: "Caching Strategies" },
@@ -866,14 +864,14 @@ const techTopics = [
       { id: "redis-modules", name: "Redis Modules" },
       { id: "redis-security", name: "Security" },
       { id: "redis-monitoring", name: "Monitoring & Debugging" },
-    ] 
+    ],
   },
-  { 
-    id: "sqlite", 
-    name: "SQLite", 
-    icon: "📦", 
-    color: "bg-gray-500", 
-    category: "Database", 
+  {
+    id: "sqlite",
+    name: "SQLite",
+    icon: "📦",
+    color: "bg-gray-500",
+    category: "Database",
     topics: [
       { id: "sqlite-basics", name: "Basics & Setup" },
       { id: "sqlite-data-types", name: "Data Types" },
@@ -887,14 +885,14 @@ const techTopics = [
       { id: "sqlite-performance", name: "Performance Optimization" },
       { id: "sqlite-backup", name: "Backup & Recovery" },
       { id: "sqlite-extensions", name: "Extensions" },
-    ] 
+    ],
   },
-  { 
-    id: "cassandra", 
-    name: "Cassandra", 
-    icon: "🎰", 
-    color: "bg-purple-600", 
-    category: "Database", 
+  {
+    id: "cassandra",
+    name: "Cassandra",
+    icon: "🎰",
+    color: "bg-purple-600",
+    category: "Database",
     topics: [
       { id: "cassandra-architecture", name: "Architecture" },
       { id: "cassandra-data-modeling", name: "Data Modeling" },
@@ -908,14 +906,14 @@ const techTopics = [
       { id: "cassandra-security", name: "Security" },
       { id: "cassandra-backup", name: "Backup & Recovery" },
       { id: "cassandra-migration", name: "Data Migration" },
-    ] 
+    ],
   },
-  { 
-    id: "firebase", 
-    name: "Firebase", 
-    icon: "🔥", 
-    color: "bg-orange-400", 
-    category: "Database", 
+  {
+    id: "firebase",
+    name: "Firebase",
+    icon: "🔥",
+    color: "bg-orange-400",
+    category: "Database",
     topics: [
       { id: "firebase-realtime-db", name: "Realtime Database" },
       { id: "firebase-firestore", name: "Cloud Firestore" },
@@ -929,16 +927,15 @@ const techTopics = [
       { id: "firebase-performance", name: "Performance Monitoring" },
       { id: "firebase-remote-config", name: "Remote Config" },
       { id: "firebase-crashlytics", name: "Crashlytics" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "react-native", 
-    name: "React Native", 
-    icon: "📱", 
-    color: "bg-blue-500", 
-    category: "Mobile", 
+  {
+    id: "react-native",
+    name: "React Native",
+    icon: "📱",
+    color: "bg-blue-500",
+    category: "Mobile",
     topics: [
       { id: "rn-basics", name: "Components & Navigation" },
       { id: "rn-styling", name: "Styling & Flexbox" },
@@ -952,14 +949,14 @@ const techTopics = [
       { id: "rn-deployment", name: "Deployment" },
       { id: "rn-performance", name: "Performance Optimization" },
       { id: "rn-expo", name: "Expo Framework" },
-    ] 
+    ],
   },
-  { 
-    id: "flutter", 
-    name: "Flutter", 
-    icon: "🦋", 
-    color: "bg-blue-400", 
-    category: "Mobile", 
+  {
+    id: "flutter",
+    name: "Flutter",
+    icon: "🦋",
+    color: "bg-blue-400",
+    category: "Mobile",
     topics: [
       { id: "flutter-widgets", name: "Widgets" },
       { id: "flutter-layouts", name: "Layouts" },
@@ -973,14 +970,14 @@ const techTopics = [
       { id: "flutter-deployment", name: "Deployment" },
       { id: "flutter-performance", name: "Performance" },
       { id: "flutter-platform-channels", name: "Platform Channels" },
-    ] 
+    ],
   },
-  { 
-    id: "kotlin", 
-    name: "Kotlin", 
-    icon: "🟣", 
-    color: "bg-purple-500", 
-    category: "Mobile", 
+  {
+    id: "kotlin",
+    name: "Kotlin",
+    icon: "🟣",
+    color: "bg-purple-500",
+    category: "Mobile",
     topics: [
       { id: "kotlin-basics", name: "Syntax & Basics" },
       { id: "kotlin-android-basics", name: "Android Development Basics" },
@@ -994,14 +991,14 @@ const techTopics = [
       { id: "kotlin-coroutines", name: "Coroutines" },
       { id: "kotlin-multiplatform", name: "Kotlin Multiplatform" },
       { id: "kotlin-deployment", name: "App Deployment" },
-    ] 
+    ],
   },
-  { 
-    id: "swift", 
-    name: "Swift", 
-    icon: "🍎", 
-    color: "bg-orange-500", 
-    category: "Mobile", 
+  {
+    id: "swift",
+    name: "Swift",
+    icon: "🍎",
+    color: "bg-orange-500",
+    category: "Mobile",
     topics: [
       { id: "swift-basics", name: "Syntax & Basics" },
       { id: "swift-ios-basics", name: "iOS Development Basics" },
@@ -1015,14 +1012,14 @@ const techTopics = [
       { id: "swift-memory", name: "Memory Management" },
       { id: "swift-app-store", name: "App Store Deployment" },
       { id: "swift-combine", name: "Combine Framework" },
-    ] 
+    ],
   },
-  { 
-    id: "java-android", 
-    name: "Java (Android)", 
-    icon: "🤖", 
-    color: "bg-green-600", 
-    category: "Mobile", 
+  {
+    id: "java-android",
+    name: "Java (Android)",
+    icon: "🤖",
+    color: "bg-green-600",
+    category: "Mobile",
     topics: [
       { id: "java-android-basics", name: "Android Development Basics" },
       { id: "java-android-activities", name: "Activities & Intents" },
@@ -1036,14 +1033,14 @@ const techTopics = [
       { id: "java-android-testing", name: "Testing" },
       { id: "java-android-deployment", name: "App Deployment" },
       { id: "java-android-material", name: "Material Design" },
-    ] 
+    ],
   },
-  { 
-    id: "objective-c", 
-    name: "Objective-C", 
-    icon: "🍏", 
-    color: "bg-green-700", 
-    category: "Mobile", 
+  {
+    id: "objective-c",
+    name: "Objective-C",
+    icon: "🍏",
+    color: "bg-green-700",
+    category: "Mobile",
     topics: [
       { id: "objc-basics", name: "Syntax & Basics" },
       { id: "objc-memory", name: "Memory Management" },
@@ -1057,16 +1054,15 @@ const techTopics = [
       { id: "objc-networking", name: "Networking" },
       { id: "objc-blocks", name: "Blocks" },
       { id: "objc-legacy", name: "Legacy Code Maintenance" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "docker", 
-    name: "Docker", 
-    icon: "🐳", 
-    color: "bg-blue-600", 
-    category: "DevOps", 
+  {
+    id: "docker",
+    name: "Docker",
+    icon: "🐳",
+    color: "bg-blue-600",
+    category: "DevOps",
     topics: [
       { id: "docker-basics", name: "Containers & Images" },
       { id: "docker-dockerfile", name: "Dockerfile" },
@@ -1080,14 +1076,14 @@ const techTopics = [
       { id: "docker-monitoring", name: "Monitoring & Logging" },
       { id: "docker-optimization", name: "Optimization" },
       { id: "docker-troubleshooting", name: "Troubleshooting" },
-    ] 
+    ],
   },
-  { 
-    id: "kubernetes", 
-    name: "Kubernetes", 
-    icon: "☸️", 
-    color: "bg-blue-700", 
-    category: "DevOps", 
+  {
+    id: "kubernetes",
+    name: "Kubernetes",
+    icon: "☸️",
+    color: "bg-blue-700",
+    category: "DevOps",
     topics: [
       { id: "k8s-architecture", name: "Architecture" },
       { id: "k8s-pods", name: "Pods" },
@@ -1101,14 +1097,14 @@ const techTopics = [
       { id: "k8s-monitoring", name: "Monitoring" },
       { id: "k8s-security", name: "Security" },
       { id: "k8s-troubleshooting", name: "Troubleshooting" },
-    ] 
+    ],
   },
-  { 
-    id: "terraform", 
-    name: "Terraform", 
-    icon: "🌍", 
-    color: "bg-green-600", 
-    category: "DevOps", 
+  {
+    id: "terraform",
+    name: "Terraform",
+    icon: "🌍",
+    color: "bg-green-600",
+    category: "DevOps",
     topics: [
       { id: "terraform-basics", name: "Basics & HCL" },
       { id: "terraform-providers", name: "Providers" },
@@ -1122,14 +1118,14 @@ const techTopics = [
       { id: "terraform-import", name: "Import & Migration" },
       { id: "terraform-best-practices", name: "Best Practices" },
       { id: "terraform-testing", name: "Testing" },
-    ] 
+    ],
   },
-  { 
-    id: "ansible", 
-    name: "Ansible", 
-    icon: "🎯", 
-    color: "bg-red-600", 
-    category: "DevOps", 
+  {
+    id: "ansible",
+    name: "Ansible",
+    icon: "🎯",
+    color: "bg-red-600",
+    category: "DevOps",
     topics: [
       { id: "ansible-basics", name: "Basics & Inventory" },
       { id: "ansible-playbooks", name: "Playbooks" },
@@ -1143,14 +1139,14 @@ const techTopics = [
       { id: "ansible-galaxy", name: "Ansible Galaxy" },
       { id: "ansible-testing", name: "Testing" },
       { id: "ansible-best-practices", name: "Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "jenkins", 
-    name: "Jenkins", 
-    icon: "🤖", 
-    color: "bg-red-700", 
-    category: "DevOps", 
+  {
+    id: "jenkins",
+    name: "Jenkins",
+    icon: "🤖",
+    color: "bg-red-700",
+    category: "DevOps",
     topics: [
       { id: "jenkins-basics", name: "Basics & Installation" },
       { id: "jenkins-jobs", name: "Jobs & Builds" },
@@ -1164,14 +1160,14 @@ const techTopics = [
       { id: "jenkins-backup", name: "Backup & Recovery" },
       { id: "jenkins-scripting", name: "Groovy Scripting" },
       { id: "jenkins-integration", name: "Tool Integration" },
-    ] 
+    ],
   },
-  { 
-    id: "aws", 
-    name: "AWS", 
-    icon: "☁️", 
-    color: "bg-yellow-600", 
-    category: "Cloud", 
+  {
+    id: "aws",
+    name: "AWS",
+    icon: "☁️",
+    color: "bg-yellow-600",
+    category: "Cloud",
     topics: [
       { id: "aws-ec2", name: "EC2" },
       { id: "aws-s3", name: "S3" },
@@ -1185,14 +1181,14 @@ const techTopics = [
       { id: "aws-eks", name: "EKS" },
       { id: "aws-route53", name: "Route 53" },
       { id: "aws-security", name: "Security Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "azure", 
-    name: "Azure", 
-    icon: "🌐", 
-    color: "bg-blue-600", 
-    category: "Cloud", 
+  {
+    id: "azure",
+    name: "Azure",
+    icon: "🌐",
+    color: "bg-blue-600",
+    category: "Cloud",
     topics: [
       { id: "azure-vm", name: "Virtual Machines" },
       { id: "azure-storage", name: "Storage Solutions" },
@@ -1206,14 +1202,14 @@ const techTopics = [
       { id: "azure-monitor", name: "Azure Monitor" },
       { id: "azure-networking", name: "Networking" },
       { id: "azure-security", name: "Security" },
-    ] 
+    ],
   },
-  { 
-    id: "gcp", 
-    name: "Google Cloud", 
-    icon: "🌈", 
-    color: "bg-red-500", 
-    category: "Cloud", 
+  {
+    id: "gcp",
+    name: "Google Cloud",
+    icon: "🌈",
+    color: "bg-red-500",
+    category: "Cloud",
     topics: [
       { id: "gcp-compute", name: "Compute Engine" },
       { id: "gcp-storage", name: "Cloud Storage" },
@@ -1227,14 +1223,14 @@ const techTopics = [
       { id: "gcp-deployment", name: "Deployment Manager" },
       { id: "gcp-bigquery", name: "BigQuery" },
       { id: "gcp-security", name: "Security" },
-    ] 
+    ],
   },
-  { 
-    id: "digitalocean", 
-    name: "DigitalOcean", 
-    icon: "🐬", 
-    color: "bg-blue-500", 
-    category: "Cloud", 
+  {
+    id: "digitalocean",
+    name: "DigitalOcean",
+    icon: "🐬",
+    color: "bg-blue-500",
+    category: "Cloud",
     topics: [
       { id: "do-droplets", name: "Droplets" },
       { id: "do-spaces", name: "Spaces" },
@@ -1248,14 +1244,14 @@ const techTopics = [
       { id: "do-firewall", name: "Cloud Firewall" },
       { id: "do-volumes", name: "Block Storage" },
       { id: "do-api", name: "API & CLI" },
-    ] 
+    ],
   },
-  { 
-    id: "openstack", 
-    name: "OpenStack", 
-    icon: "🔧", 
-    color: "bg-gray-700", 
-    category: "Cloud", 
+  {
+    id: "openstack",
+    name: "OpenStack",
+    icon: "🔧",
+    color: "bg-gray-700",
+    category: "Cloud",
     topics: [
       { id: "openstack-architecture", name: "Architecture" },
       { id: "openstack-nova", name: "Nova (Compute)" },
@@ -1269,16 +1265,15 @@ const techTopics = [
       { id: "openstack-deployment", name: "Deployment" },
       { id: "openstack-troubleshooting", name: "Troubleshooting" },
       { id: "openstack-administration", name: "Administration" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "dsa", 
-    name: "Data Structures & Algorithms", 
-    icon: "🌳", 
-    color: "bg-indigo-600", 
-    category: "CS Fundamentals", 
+  {
+    id: "dsa",
+    name: "Data Structures & Algorithms",
+    icon: "🌳",
+    color: "bg-indigo-600",
+    category: "CS Fundamentals",
     topics: [
       { id: "dsa-arrays", name: "Arrays & Strings" },
       { id: "dsa-linked-lists", name: "Linked Lists" },
@@ -1292,14 +1287,14 @@ const techTopics = [
       { id: "dsa-greedy", name: "Greedy Algorithms" },
       { id: "dsa-backtracking", name: "Backtracking" },
       { id: "dsa-complexity", name: "Time & Space Complexity" },
-    ] 
+    ],
   },
-  { 
-    id: "os", 
-    name: "Operating Systems", 
-    icon: "💻", 
-    color: "bg-blue-500", 
-    category: "CS Fundamentals", 
+  {
+    id: "os",
+    name: "Operating Systems",
+    icon: "💻",
+    color: "bg-blue-500",
+    category: "CS Fundamentals",
     topics: [
       { id: "os-processes", name: "Processes & Threads" },
       { id: "os-scheduling", name: "CPU Scheduling" },
@@ -1313,15 +1308,18 @@ const techTopics = [
       { id: "os-distributed", name: "Distributed Systems" },
       { id: "os-virtualization", name: "Virtualization" },
       { id: "os-case-studies", name: "Case Studies (Linux, Windows)" },
-      { id: "os-problems", name: "Problems in Operating Systems ( numericals )" },
-    ] 
+      {
+        id: "os-problems",
+        name: "Problems in Operating Systems ( numericals )",
+      },
+    ],
   },
-  { 
-    id: "dbms", 
-    name: "Database Management Systems", 
-    icon: "🗄️", 
-    color: "bg-green-500", 
-    category: "CS Fundamentals", 
+  {
+    id: "dbms",
+    name: "Database Management Systems",
+    icon: "🗄️",
+    color: "bg-green-500",
+    category: "CS Fundamentals",
     topics: [
       { id: "dbms-er-model", name: "ER Model" },
       { id: "dbms-relational-model", name: "Relational Model" },
@@ -1335,37 +1333,37 @@ const techTopics = [
       { id: "dbms-optimization", name: "Query Optimization" },
       { id: "dbms-distributed", name: "Distributed Databases" },
       { id: "dbms-nosql", name: "NoSQL Databases" },
-    ] 
+    ],
   },
- { 
-  id: "cn", 
-  name: "Computer Networks", 
-  icon: "🌐", 
-  color: "bg-cyan-500", 
-  category: "CS Fundamentals", 
-  topics: [
-    { id: "cn-osi-model", name: "OSI Model" },
-    { id: "cn-tcp-ip", name: "TCP/IP Protocol Suite" },
-    { id: "cn-physical-layer", name: "Physical Layer" },
-    { id: "cn-data-link", name: "Data Link Layer" },
-    { id: "cn-network-layer", name: "Network Layer" },
-    { id: "cn-transport-layer", name: "Transport Layer" },
-    { id: "cn-application-layer", name: "Application Layer" },
-    { id: "cn-routing", name: "Routing Algorithms" },
-    { id: "cn-congestion", name: "Congestion Control" },
-    { id: "cn-security", name: "Network Security" },
-    { id: "cn-wireless", name: "Wireless Networks" },
-    { id: "cn-performance", name: "Network Performance" },
-    { id: "cn-numericals", name: "Numericals" }  
-  ] 
-},
+  {
+    id: "cn",
+    name: "Computer Networks",
+    icon: "🌐",
+    color: "bg-cyan-500",
+    category: "CS Fundamentals",
+    topics: [
+      { id: "cn-osi-model", name: "OSI Model" },
+      { id: "cn-tcp-ip", name: "TCP/IP Protocol Suite" },
+      { id: "cn-physical-layer", name: "Physical Layer" },
+      { id: "cn-data-link", name: "Data Link Layer" },
+      { id: "cn-network-layer", name: "Network Layer" },
+      { id: "cn-transport-layer", name: "Transport Layer" },
+      { id: "cn-application-layer", name: "Application Layer" },
+      { id: "cn-routing", name: "Routing Algorithms" },
+      { id: "cn-congestion", name: "Congestion Control" },
+      { id: "cn-security", name: "Network Security" },
+      { id: "cn-wireless", name: "Wireless Networks" },
+      { id: "cn-performance", name: "Network Performance" },
+      { id: "cn-numericals", name: "Numericals" },
+    ],
+  },
 
-  { 
-    id: "compiler", 
-    name: "Compiler Design", 
-    icon: "🔧", 
-    color: "bg-gray-600", 
-    category: "CS Fundamentals", 
+  {
+    id: "compiler",
+    name: "Compiler Design",
+    icon: "🔧",
+    color: "bg-gray-600",
+    category: "CS Fundamentals",
     topics: [
       { id: "compiler-lexical", name: "Lexical Analysis" },
       { id: "compiler-syntax", name: "Syntax Analysis" },
@@ -1379,14 +1377,14 @@ const techTopics = [
       { id: "compiler-parsing", name: "Parsing Techniques" },
       { id: "compiler-automata", name: "Finite Automata" },
       { id: "compiler-grammars", name: "Context-Free Grammars" },
-    ] 
+    ],
   },
-  { 
-    id: "ai-ml", 
-    name: "AI & Machine Learning", 
-    icon: "🤖", 
-    color: "bg-purple-600", 
-    category: "CS Fundamentals", 
+  {
+    id: "ai-ml",
+    name: "AI & Machine Learning",
+    icon: "🤖",
+    color: "bg-purple-600",
+    category: "CS Fundamentals",
     topics: [
       { id: "ml-supervised", name: "Supervised Learning" },
       { id: "ml-unsupervised", name: "Unsupervised Learning" },
@@ -1400,14 +1398,14 @@ const techTopics = [
       { id: "ml-algorithms", name: "ML Algorithms" },
       { id: "ml-frameworks", name: "ML Frameworks (TensorFlow, PyTorch)" },
       { id: "ml-ethics", name: "AI Ethics" },
-    ] 
+    ],
   },
-  { 
-    id: "theory-computation", 
-    name: "Theory of Computation", 
-    icon: "📚", 
-    color: "bg-indigo-700", 
-    category: "CS Fundamentals", 
+  {
+    id: "theory-computation",
+    name: "Theory of Computation",
+    icon: "📚",
+    color: "bg-indigo-700",
+    category: "CS Fundamentals",
     topics: [
       { id: "toc-automata", name: "Finite Automata" },
       { id: "toc-regular", name: "Regular Languages" },
@@ -1421,14 +1419,14 @@ const techTopics = [
       { id: "toc-space-complexity", name: "Space Complexity" },
       { id: "toc-hierarchy", name: "Chomsky Hierarchy" },
       { id: "toc-pumping-lemma", name: "Pumping Lemma" },
-    ] 
+    ],
   },
-  { 
-    id: "cryptography", 
-    name: "Cryptography", 
-    icon: "🔒", 
-    color: "bg-purple-700", 
-    category: "CS Fundamentals", 
+  {
+    id: "cryptography",
+    name: "Cryptography",
+    icon: "🔒",
+    color: "bg-purple-700",
+    category: "CS Fundamentals",
     topics: [
       { id: "crypto-symmetric", name: "Symmetric Cryptography" },
       { id: "crypto-asymmetric", name: "Asymmetric Cryptography" },
@@ -1442,14 +1440,14 @@ const techTopics = [
       { id: "crypto-blockchain", name: "Blockchain Cryptography" },
       { id: "crypto-quantum", name: "Quantum Cryptography" },
       { id: "crypto-implementations", name: "Implementation Security" },
-    ] 
+    ],
   },
-  { 
-    id: "software-engineering", 
-    name: "Software Engineering", 
-    icon: "🛠️", 
-    color: "bg-blue-700", 
-    category: "CS Fundamentals", 
+  {
+    id: "software-engineering",
+    name: "Software Engineering",
+    icon: "🛠️",
+    color: "bg-blue-700",
+    category: "CS Fundamentals",
     topics: [
       { id: "se-sdlc", name: "Software Development Life Cycle" },
       { id: "se-requirements", name: "Requirements Engineering" },
@@ -1463,16 +1461,15 @@ const techTopics = [
       { id: "se-documentation", name: "Documentation" },
       { id: "se-quality", name: "Software Quality" },
       { id: "se-metrics", name: "Software Metrics" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "oops-python", 
-    name: "OOP in Python", 
-    icon: "🐍", 
-    color: "bg-green-500", 
-    category: "OOP", 
+  {
+    id: "oops-python",
+    name: "OOP in Python",
+    icon: "🐍",
+    color: "bg-green-500",
+    category: "OOP",
     topics: [
       { id: "py-oop-classes", name: "Classes & Objects" },
       { id: "py-oop-inheritance", name: "Inheritance" },
@@ -1486,14 +1483,14 @@ const techTopics = [
       { id: "py-oop-mro", name: "Method Resolution Order" },
       { id: "py-oop-metaclasses", name: "Metaclasses" },
       { id: "py-oop-design-patterns", name: "Design Patterns" },
-    ] 
+    ],
   },
-  { 
-    id: "oops-java", 
-    name: "OOP in Java", 
-    icon: "☕", 
-    color: "bg-orange-500", 
-    category: "OOP", 
+  {
+    id: "oops-java",
+    name: "OOP in Java",
+    icon: "☕",
+    color: "bg-orange-500",
+    category: "OOP",
     topics: [
       { id: "java-oop-classes", name: "Classes & Objects" },
       { id: "java-oop-inheritance", name: "Inheritance" },
@@ -1507,14 +1504,14 @@ const techTopics = [
       { id: "java-oop-overloading", name: "Method Overloading" },
       { id: "java-oop-final", name: "Final Keyword" },
       { id: "java-oop-design-patterns", name: "Design Patterns" },
-    ] 
+    ],
   },
-  { 
-    id: "oops-cpp", 
-    name: "OOP in C++", 
-    icon: "⚡", 
-    color: "bg-blue-500", 
-    category: "OOP", 
+  {
+    id: "oops-cpp",
+    name: "OOP in C++",
+    icon: "⚡",
+    color: "bg-blue-500",
+    category: "OOP",
     topics: [
       { id: "cpp-oop-classes", name: "Classes & Objects" },
       { id: "cpp-oop-constructors", name: "Constructors & Destructors" },
@@ -1528,14 +1525,14 @@ const techTopics = [
       { id: "cpp-oop-multiple-inheritance", name: "Multiple Inheritance" },
       { id: "cpp-oop-templates", name: "Templates" },
       { id: "cpp-oop-stl", name: "STL & OOP" },
-    ] 
+    ],
   },
-  { 
-    id: "oops-csharp", 
-    name: "OOP in C#", 
-    icon: "💜", 
-    color: "bg-purple-500", 
-    category: "OOP", 
+  {
+    id: "oops-csharp",
+    name: "OOP in C#",
+    icon: "💜",
+    color: "bg-purple-500",
+    category: "OOP",
     topics: [
       { id: "cs-oop-classes", name: "Classes & Objects" },
       { id: "cs-oop-inheritance", name: "Inheritance" },
@@ -1549,14 +1546,14 @@ const techTopics = [
       { id: "cs-oop-generics", name: "Generics" },
       { id: "cs-oop-extension-methods", name: "Extension Methods" },
       { id: "cs-oop-design-patterns", name: "Design Patterns" },
-    ] 
+    ],
   },
-  { 
-    id: "oops-ruby", 
-    name: "OOP in Ruby", 
-    icon: "💎", 
-    color: "bg-red-600", 
-    category: "OOP", 
+  {
+    id: "oops-ruby",
+    name: "OOP in Ruby",
+    icon: "💎",
+    color: "bg-red-600",
+    category: "OOP",
     topics: [
       { id: "ruby-oop-classes", name: "Classes & Objects" },
       { id: "ruby-oop-modules", name: "Modules & Mixins" },
@@ -1570,16 +1567,15 @@ const techTopics = [
       { id: "ruby-oop-duck-typing", name: "Duck Typing" },
       { id: "ruby-oop-method-missing", name: "Method Missing" },
       { id: "ruby-oop-design-patterns", name: "Design Patterns" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "git", 
-    name: "Git & Version Control", 
-    icon: "🌿", 
-    color: "bg-orange-600", 
-    category: "Tools", 
+  {
+    id: "git",
+    name: "Git & Version Control",
+    icon: "🌿",
+    color: "bg-orange-600",
+    category: "Tools",
     topics: [
       { id: "git-basics", name: "Basic Commands" },
       { id: "git-branching", name: "Branching & Merging" },
@@ -1593,14 +1589,14 @@ const techTopics = [
       { id: "git-github", name: "GitHub Features" },
       { id: "git-gitlab", name: "GitLab Features" },
       { id: "git-best-practices", name: "Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "linux", 
-    name: "Linux Commands", 
-    icon: "🐧", 
-    color: "bg-gray-800", 
-    category: "Tools", 
+  {
+    id: "linux",
+    name: "Linux Commands",
+    icon: "🐧",
+    color: "bg-gray-800",
+    category: "Tools",
     topics: [
       { id: "linux-basics", name: "Basic Commands" },
       { id: "linux-file-system", name: "File System Navigation" },
@@ -1614,14 +1610,14 @@ const techTopics = [
       { id: "linux-cron", name: "Cron Jobs" },
       { id: "linux-logs", name: "Log Files" },
       { id: "linux-performance", name: "Performance Monitoring" },
-    ] 
+    ],
   },
-  { 
-    id: "testing", 
-    name: "Software Testing", 
-    icon: "🧪", 
-    color: "bg-teal-500", 
-    category: "Tools", 
+  {
+    id: "testing",
+    name: "Software Testing",
+    icon: "🧪",
+    color: "bg-teal-500",
+    category: "Tools",
     topics: [
       { id: "testing-fundamentals", name: "Testing Fundamentals" },
       { id: "testing-unit", name: "Unit Testing" },
@@ -1635,14 +1631,14 @@ const techTopics = [
       { id: "testing-frameworks", name: "Testing Frameworks" },
       { id: "testing-ci-cd", name: "Testing in CI/CD" },
       { id: "testing-strategies", name: "Testing Strategies" },
-    ] 
+    ],
   },
-  { 
-    id: "webpack", 
-    name: "Webpack", 
-    icon: "📦", 
-    color: "bg-purple-600", 
-    category: "Tools", 
+  {
+    id: "webpack",
+    name: "Webpack",
+    icon: "📦",
+    color: "bg-purple-600",
+    category: "Tools",
     topics: [
       { id: "webpack-basics", name: "Basics & Configuration" },
       { id: "webpack-loaders", name: "Loaders" },
@@ -1656,14 +1652,14 @@ const techTopics = [
       { id: "webpack-tree-shaking", name: "Tree Shaking" },
       { id: "webpack-source-maps", name: "Source Maps" },
       { id: "webpack-advanced", name: "Advanced Configuration" },
-    ] 
+    ],
   },
-  { 
-    id: "babel", 
-    name: "Babel", 
-    icon: "📝", 
-    color: "bg-yellow-400", 
-    category: "Tools", 
+  {
+    id: "babel",
+    name: "Babel",
+    icon: "📝",
+    color: "bg-yellow-400",
+    category: "Tools",
     topics: [
       { id: "babel-basics", name: "Basics & Setup" },
       { id: "babel-presets", name: "Presets" },
@@ -1677,14 +1673,14 @@ const techTopics = [
       { id: "babel-typescript", name: "TypeScript Integration" },
       { id: "babel-optimization", name: "Build Optimization" },
       { id: "babel-debugging", name: "Debugging" },
-    ] 
+    ],
   },
-  { 
-    id: "eslint", 
-    name: "ESLint", 
-    icon: "🚨", 
-    color: "bg-red-500", 
-    category: "Tools", 
+  {
+    id: "eslint",
+    name: "ESLint",
+    icon: "🚨",
+    color: "bg-red-500",
+    category: "Tools",
     topics: [
       { id: "eslint-basics", name: "Basics & Setup" },
       { id: "eslint-rules", name: "Rules Configuration" },
@@ -1698,14 +1694,14 @@ const techTopics = [
       { id: "eslint-react", name: "React Support" },
       { id: "eslint-vue", name: "Vue.js Support" },
       { id: "eslint-best-practices", name: "Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "prettier", 
-    name: "Prettier", 
-    icon: "🎨", 
-    color: "bg-pink-400", 
-    category: "Tools", 
+  {
+    id: "prettier",
+    name: "Prettier",
+    icon: "🎨",
+    color: "bg-pink-400",
+    category: "Tools",
     topics: [
       { id: "prettier-basics", name: "Basics & Setup" },
       { id: "prettier-config", name: "Configuration" },
@@ -1719,14 +1715,14 @@ const techTopics = [
       { id: "prettier-api", name: "Prettier API" },
       { id: "prettier-workflow", name: "Workflow Integration" },
       { id: "prettier-best-practices", name: "Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "jira", 
-    name: "Jira", 
-    icon: "📋", 
-    color: "bg-blue-700", 
-    category: "Tools", 
+  {
+    id: "jira",
+    name: "Jira",
+    icon: "📋",
+    color: "bg-blue-700",
+    category: "Tools",
     topics: [
       { id: "jira-basics", name: "Basics & Navigation" },
       { id: "jira-projects", name: "Projects & Issues" },
@@ -1740,14 +1736,14 @@ const techTopics = [
       { id: "jira-administration", name: "Administration" },
       { id: "jira-api", name: "REST API" },
       { id: "jira-best-practices", name: "Best Practices" },
-    ] 
+    ],
   },
-  { 
-    id: "postman", 
-    name: "Postman", 
-    icon: "📬", 
-    color: "bg-orange-400", 
-    category: "Tools", 
+  {
+    id: "postman",
+    name: "Postman",
+    icon: "📬",
+    color: "bg-orange-400",
+    category: "Tools",
     topics: [
       { id: "postman-basics", name: "Basics & Interface" },
       { id: "postman-requests", name: "Creating Requests" },
@@ -1761,16 +1757,15 @@ const techTopics = [
       { id: "postman-collaboration", name: "Team Collaboration" },
       { id: "postman-ci-cd", name: "CI/CD Integration" },
       { id: "postman-advanced", name: "Advanced Features" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "hadoop", 
-    name: "Hadoop", 
-    icon: "🐘", 
-    color: "bg-green-700", 
-    category: "Big Data", 
+  {
+    id: "hadoop",
+    name: "Hadoop",
+    icon: "🐘",
+    color: "bg-green-700",
+    category: "Big Data",
     topics: [
       { id: "hadoop-architecture", name: "Hadoop Architecture" },
       { id: "hadoop-hdfs", name: "HDFS" },
@@ -1784,14 +1779,14 @@ const techTopics = [
       { id: "hadoop-flume", name: "Flume" },
       { id: "hadoop-oozie", name: "Oozie" },
       { id: "hadoop-administration", name: "Cluster Administration" },
-    ] 
+    ],
   },
-  { 
-    id: "spark", 
-    name: "Apache Spark", 
-    icon: "✨", 
-    color: "bg-red-600", 
-    category: "Big Data", 
+  {
+    id: "spark",
+    name: "Apache Spark",
+    icon: "✨",
+    color: "bg-red-600",
+    category: "Big Data",
     topics: [
       { id: "spark-core", name: "Spark Core" },
       { id: "spark-rdd", name: "RDDs" },
@@ -1805,14 +1800,14 @@ const techTopics = [
       { id: "spark-scala", name: "Spark with Scala" },
       { id: "spark-python", name: "PySpark" },
       { id: "spark-java", name: "Spark with Java" },
-    ] 
+    ],
   },
-  { 
-    id: "kafka", 
-    name: "Apache Kafka", 
-    icon: "☕", 
-    color: "bg-red-700", 
-    category: "Big Data", 
+  {
+    id: "kafka",
+    name: "Apache Kafka",
+    icon: "☕",
+    color: "bg-red-700",
+    category: "Big Data",
     topics: [
       { id: "kafka-basics", name: "Kafka Basics" },
       { id: "kafka-architecture", name: "Architecture" },
@@ -1826,16 +1821,15 @@ const techTopics = [
       { id: "kafka-schema-registry", name: "Schema Registry" },
       { id: "kafka-monitoring", name: "Monitoring" },
       { id: "kafka-security", name: "Security" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "solidity", 
-    name: "Solidity", 
-    icon: "🔷", 
-    color: "bg-blue-600", 
-    category: "Blockchain", 
+  {
+    id: "solidity",
+    name: "Solidity",
+    icon: "🔷",
+    color: "bg-blue-600",
+    category: "Blockchain",
     topics: [
       { id: "solidity-basics", name: "Syntax & Basics" },
       { id: "solidity-data-types", name: "Data Types" },
@@ -1849,14 +1843,14 @@ const techTopics = [
       { id: "solidity-patterns", name: "Design Patterns" },
       { id: "solidity-security", name: "Security Best Practices" },
       { id: "solidity-testing", name: "Testing & Debugging" },
-    ] 
+    ],
   },
-  { 
-    id: "ethereum", 
-    name: "Ethereum", 
-    icon: "⧫", 
-    color: "bg-purple-700", 
-    category: "Blockchain", 
+  {
+    id: "ethereum",
+    name: "Ethereum",
+    icon: "⧫",
+    color: "bg-purple-700",
+    category: "Blockchain",
     topics: [
       { id: "ethereum-basics", name: "Ethereum Fundamentals" },
       { id: "ethereum-evm", name: "Ethereum Virtual Machine" },
@@ -1870,16 +1864,15 @@ const techTopics = [
       { id: "ethereum-layer2", name: "Layer 2 Solutions" },
       { id: "ethereum-upgrades", name: "Contract Upgrades" },
       { id: "ethereum-oracles", name: "Oracles" },
-    ] 
+    ],
   },
 
-  
-  { 
-    id: "figma", 
-    name: "Figma", 
-    icon: "🎨", 
-    color: "bg-purple-500", 
-    category: "Design", 
+  {
+    id: "figma",
+    name: "Figma",
+    icon: "🎨",
+    color: "bg-purple-500",
+    category: "Design",
     topics: [
       { id: "figma-basics", name: "Interface & Tools" },
       { id: "figma-design", name: "Design Basics" },
@@ -1893,14 +1886,14 @@ const techTopics = [
       { id: "figma-handoff", name: "Developer Handoff" },
       { id: "figma-responsive", name: "Responsive Design" },
       { id: "figma-advanced", name: "Advanced Features" },
-    ] 
+    ],
   },
-  { 
-    id: "adobe-xd", 
-    name: "Adobe XD", 
-    icon: "✏️", 
-    color: "bg-red-600", 
-    category: "Design", 
+  {
+    id: "adobe-xd",
+    name: "Adobe XD",
+    icon: "✏️",
+    color: "bg-red-600",
+    category: "Design",
     topics: [
       { id: "xd-basics", name: "Interface & Tools" },
       { id: "xd-design", name: "Design & Layout" },
@@ -1914,14 +1907,14 @@ const techTopics = [
       { id: "xd-specs", name: "Design Specs" },
       { id: "xd-assets", name: "Assets & Libraries" },
       { id: "xd-workflow", name: "Design Workflow" },
-    ] 
+    ],
   },
-  { 
-    id: "sketch", 
-    name: "Sketch", 
-    icon: "✂️", 
-    color: "bg-yellow-500", 
-    category: "Design", 
+  {
+    id: "sketch",
+    name: "Sketch",
+    icon: "✂️",
+    color: "bg-yellow-500",
+    category: "Design",
     topics: [
       { id: "sketch-basics", name: "Interface & Tools" },
       { id: "sketch-vectors", name: "Vector Editing" },
@@ -1935,71 +1928,386 @@ const techTopics = [
       { id: "sketch-export", name: "Export & Assets" },
       { id: "sketch-design-systems", name: "Design Systems" },
       { id: "sketch-workflow", name: "Design Workflow" },
-    ] 
+    ],
   },
 
+  {
+    id: "quant-number-system",
+    name: "Number System",
+    icon: "🔢",
+    color: "bg-blue-600",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-hcf-lcm",
+    name: "HCF & LCM",
+    icon: "➗",
+    color: "bg-teal-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-percentages",
+    name: "Percentages",
+    icon: "📊",
+    color: "bg-orange-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-ratios-proportions",
+    name: "Ratios & Proportions",
+    icon: "⚖️",
+    color: "bg-purple-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-average",
+    name: "Averages",
+    icon: "📏",
+    color: "bg-pink-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-mixtures",
+    name: "Mixtures & Alligation",
+    icon: "🥤",
+    color: "bg-green-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-simple-interest",
+    name: "Simple Interest",
+    icon: "💰",
+    color: "bg-yellow-600",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-compound-interest",
+    name: "Compound Interest",
+    icon: "🏦",
+    color: "bg-green-700",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-time-work",
+    name: "Time & Work",
+    icon: "⏳",
+    color: "bg-cyan-600",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-time-distance",
+    name: "Time, Speed & Distance",
+    icon: "🚗",
+    color: "bg-blue-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-pipes-cisterns",
+    name: "Pipes & Cisterns",
+    icon: "🚰",
+    color: "bg-indigo-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-profit-loss",
+    name: "Profit & Loss",
+    icon: "📈",
+    color: "bg-red-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-partnership",
+    name: "Partnerships",
+    icon: "🤝",
+    color: "bg-gray-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-ages",
+    name: "Problems on Ages",
+    icon: "🎂",
+    color: "bg-purple-600",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-trains",
+    name: "Problems on Trains",
+    icon: "🚆",
+    color: "bg-orange-600",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-boats-streams",
+    name: "Boats & Streams",
+    icon: "🚤",
+    color: "bg-blue-700",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-permutation-combination",
+    name: "Permutations & Combinations",
+    icon: "🎲",
+    color: "bg-teal-700",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-probability",
+    name: "Probability",
+    icon: "🎯",
+    color: "bg-purple-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-algebra",
+    name: "Algebra",
+    icon: "➕",
+    color: "bg-green-600",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-geometry",
+    name: "Geometry",
+    icon: "📐",
+    color: "bg-indigo-600",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-mensuration",
+    name: "Mensuration",
+    icon: "📏",
+    color: "bg-yellow-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-trigonometry",
+    name: "Trigonometry",
+    icon: "📐",
+    color: "bg-blue-500",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-logarithms",
+    name: "Logarithms",
+    icon: "📈",
+    color: "bg-red-600",
+    category: "Aptitude",
+    topics: [],
+  },
+  {
+    id: "quant-progressions",
+    name: "AP & GP",
+    icon: "🔄",
+    color: "bg-green-700",
+    category: "Aptitude",
+    topics: [],
+  },
 
+  {
+    id: "reasoning-puzzles",
+    name: "Puzzles",
+    icon: "🧩",
+    color: "bg-yellow-500",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-seating-arrangement",
+    name: "Seating Arrangement",
+    icon: "🪑",
+    color: "bg-purple-500",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-blood-relations",
+    name: "Blood Relations",
+    icon: "🧬",
+    color: "bg-red-500",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-syllogisms",
+    name: "Syllogisms",
+    icon: "⚖️",
+    color: "bg-indigo-500",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-series",
+    name: "Number & Letter Series",
+    icon: "🔢",
+    color: "bg-blue-500",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-analogy",
+    name: "Analogy",
+    icon: "🔄",
+    color: "bg-green-500",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-coding-decoding",
+    name: "Coding & Decoding",
+    icon: "📝",
+    color: "bg-cyan-500",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-data-sufficiency",
+    name: "Data Sufficiency",
+    icon: "📊",
+    color: "bg-orange-500",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-clocks-calendars",
+    name: "Clocks & Calendars",
+    icon: "⏰",
+    color: "bg-gray-600",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-direction-sense",
+    name: "Direction Sense",
+    icon: "🧭",
+    color: "bg-blue-700",
+    category: "Reasoning",
+    topics: [],
+  },
+  {
+    id: "reasoning-logical-deductions",
+    name: "Logical Deductions",
+    icon: "🧠",
+    color: "bg-purple-700",
+    category: "Reasoning",
+    topics: [],
+  },
 
+  {
+    id: "verbal-reading-comprehension",
+    name: "Reading Comprehension",
+    icon: "📖",
+    color: "bg-green-600",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-synonyms",
+    name: "Synonyms",
+    icon: "🔄",
+    color: "bg-blue-500",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-antonyms",
+    name: "Antonyms",
+    icon: "🔁",
+    color: "bg-red-500",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-error-detection",
+    name: "Error Detection",
+    icon: "🚨",
+    color: "bg-orange-500",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-sentence-improvement",
+    name: "Sentence Improvement",
+    icon: "✏️",
+    color: "bg-purple-500",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-parajumbles",
+    name: "Para Jumbles",
+    icon: "🪢",
+    color: "bg-indigo-600",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-fill-in-the-blanks",
+    name: "Fill in the Blanks",
+    icon: "📝",
+    color: "bg-yellow-500",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-one-word",
+    name: "One Word Substitution",
+    icon: "🗣️",
+    color: "bg-teal-600",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-idioms",
+    name: "Idioms & Phrases",
+    icon: "💬",
+    color: "bg-pink-500",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-active-passive",
+    name: "Active & Passive Voice",
+    icon: "🔄",
+    color: "bg-blue-700",
+    category: "Verbal",
+    topics: [],
+  },
+  {
+    id: "verbal-direct-indirect",
+    name: "Direct & Indirect Speech",
+    icon: "🗨️",
+    color: "bg-gray-600",
+    category: "Verbal",
+    topics: [],
+  },
 
-  
-  { id: "quant-number-system", name: "Number System", icon: "🔢", color: "bg-blue-600", category: "Aptitude", topics: [] },
-  { id: "quant-hcf-lcm", name: "HCF & LCM", icon: "➗", color: "bg-teal-500", category: "Aptitude", topics: [] },
-  { id: "quant-percentages", name: "Percentages", icon: "📊", color: "bg-orange-500", category: "Aptitude", topics: [] },
-  { id: "quant-ratios-proportions", name: "Ratios & Proportions", icon: "⚖️", color: "bg-purple-500", category: "Aptitude", topics: [] },
-  { id: "quant-average", name: "Averages", icon: "📏", color: "bg-pink-500", category: "Aptitude", topics: [] },
-  { id: "quant-mixtures", name: "Mixtures & Alligation", icon: "🥤", color: "bg-green-500", category: "Aptitude", topics: [] },
-  { id: "quant-simple-interest", name: "Simple Interest", icon: "💰", color: "bg-yellow-600", category: "Aptitude", topics: [] },
-  { id: "quant-compound-interest", name: "Compound Interest", icon: "🏦", color: "bg-green-700", category: "Aptitude", topics: [] },
-  { id: "quant-time-work", name: "Time & Work", icon: "⏳", color: "bg-cyan-600", category: "Aptitude", topics: [] },
-  { id: "quant-time-distance", name: "Time, Speed & Distance", icon: "🚗", color: "bg-blue-500", category: "Aptitude", topics: [] },
-  { id: "quant-pipes-cisterns", name: "Pipes & Cisterns", icon: "🚰", color: "bg-indigo-500", category: "Aptitude", topics: [] },
-  { id: "quant-profit-loss", name: "Profit & Loss", icon: "📈", color: "bg-red-500", category: "Aptitude", topics: [] },
-  { id: "quant-partnership", name: "Partnerships", icon: "🤝", color: "bg-gray-500", category: "Aptitude", topics: [] },
-  { id: "quant-ages", name: "Problems on Ages", icon: "🎂", color: "bg-purple-600", category: "Aptitude", topics: [] },
-  { id: "quant-trains", name: "Problems on Trains", icon: "🚆", color: "bg-orange-600", category: "Aptitude", topics: [] },
-  { id: "quant-boats-streams", name: "Boats & Streams", icon: "🚤", color: "bg-blue-700", category: "Aptitude", topics: [] },
-  { id: "quant-permutation-combination", name: "Permutations & Combinations", icon: "🎲", color: "bg-teal-700", category: "Aptitude", topics: [] },
-  { id: "quant-probability", name: "Probability", icon: "🎯", color: "bg-purple-500", category: "Aptitude", topics: [] },
-  { id: "quant-algebra", name: "Algebra", icon: "➕", color: "bg-green-600", category: "Aptitude", topics: [] },
-  { id: "quant-geometry", name: "Geometry", icon: "📐", color: "bg-indigo-600", category: "Aptitude", topics: [] },
-  { id: "quant-mensuration", name: "Mensuration", icon: "📏", color: "bg-yellow-500", category: "Aptitude", topics: [] },
-  { id: "quant-trigonometry", name: "Trigonometry", icon: "📐", color: "bg-blue-500", category: "Aptitude", topics: [] },
-  { id: "quant-logarithms", name: "Logarithms", icon: "📈", color: "bg-red-600", category: "Aptitude", topics: [] },
-  { id: "quant-progressions", name: "AP & GP", icon: "🔄", color: "bg-green-700", category: "Aptitude", topics: [] },
-
-  
-  { id: "reasoning-puzzles", name: "Puzzles", icon: "🧩", color: "bg-yellow-500", category: "Reasoning", topics: [] },
-  { id: "reasoning-seating-arrangement", name: "Seating Arrangement", icon: "🪑", color: "bg-purple-500", category: "Reasoning", topics: [] },
-  { id: "reasoning-blood-relations", name: "Blood Relations", icon: "🧬", color: "bg-red-500", category: "Reasoning", topics: [] },
-  { id: "reasoning-syllogisms", name: "Syllogisms", icon: "⚖️", color: "bg-indigo-500", category: "Reasoning", topics: [] },
-  { id: "reasoning-series", name: "Number & Letter Series", icon: "🔢", color: "bg-blue-500", category: "Reasoning", topics: [] },
-  { id: "reasoning-analogy", name: "Analogy", icon: "🔄", color: "bg-green-500", category: "Reasoning", topics: [] },
-  { id: "reasoning-coding-decoding", name: "Coding & Decoding", icon: "📝", color: "bg-cyan-500", category: "Reasoning", topics: [] },
-  { id: "reasoning-data-sufficiency", name: "Data Sufficiency", icon: "📊", color: "bg-orange-500", category: "Reasoning", topics: [] },
-  { id: "reasoning-clocks-calendars", name: "Clocks & Calendars", icon: "⏰", color: "bg-gray-600", category: "Reasoning", topics: [] },
-  { id: "reasoning-direction-sense", name: "Direction Sense", icon: "🧭", color: "bg-blue-700", category: "Reasoning", topics: [] },
-  { id: "reasoning-logical-deductions", name: "Logical Deductions", icon: "🧠", color: "bg-purple-700", category: "Reasoning", topics: [] },
-
-  
-  { id: "verbal-reading-comprehension", name: "Reading Comprehension", icon: "📖", color: "bg-green-600", category: "Verbal", topics: [] },
-  { id: "verbal-synonyms", name: "Synonyms", icon: "🔄", color: "bg-blue-500", category: "Verbal", topics: [] },
-  { id: "verbal-antonyms", name: "Antonyms", icon: "🔁", color: "bg-red-500", category: "Verbal", topics: [] },
-  { id: "verbal-error-detection", name: "Error Detection", icon: "🚨", color: "bg-orange-500", category: "Verbal", topics: [] },
-  { id: "verbal-sentence-improvement", name: "Sentence Improvement", icon: "✏️", color: "bg-purple-500", category: "Verbal", topics: [] },
-  { id: "verbal-parajumbles", name: "Para Jumbles", icon: "🪢", color: "bg-indigo-600", category: "Verbal", topics: [] },
-  { id: "verbal-fill-in-the-blanks", name: "Fill in the Blanks", icon: "📝", color: "bg-yellow-500", category: "Verbal", topics: [] },
-  { id: "verbal-one-word", name: "One Word Substitution", icon: "🗣️", color: "bg-teal-600", category: "Verbal", topics: [] },
-  { id: "verbal-idioms", name: "Idioms & Phrases", icon: "💬", color: "bg-pink-500", category: "Verbal", topics: [] },
-  { id: "verbal-active-passive", name: "Active & Passive Voice", icon: "🔄", color: "bg-blue-700", category: "Verbal", topics: [] },
-  { id: "verbal-direct-indirect", name: "Direct & Indirect Speech", icon: "🗨️", color: "bg-gray-600", category: "Verbal", topics: [] },
-
-  
-  { 
-    id: "resume-writing", 
-    name: "Resume Writing", 
-    icon: "📄", 
-    color: "bg-gray-600", 
-    category: "Interview Prep", 
+  {
+    id: "resume-writing",
+    name: "Resume Writing",
+    icon: "📄",
+    color: "bg-gray-600",
+    category: "Interview Prep",
     topics: [
       { id: "resume-structure", name: "Resume Structure & Format" },
       { id: "resume-content", name: "Content Writing" },
@@ -2013,14 +2321,14 @@ const techTopics = [
       { id: "resume-mistakes", name: "Common Mistakes" },
       { id: "resume-tailoring", name: "Tailoring for Jobs" },
       { id: "resume-portfolio", name: "Portfolio Integration" },
-    ] 
+    ],
   },
-  { 
-    id: "group-discussion", 
-    name: "Group Discussion", 
-    icon: "🗣️", 
-    color: "bg-yellow-600", 
-    category: "Interview Prep", 
+  {
+    id: "group-discussion",
+    name: "Group Discussion",
+    icon: "🗣️",
+    color: "bg-yellow-600",
+    category: "Interview Prep",
     topics: [
       { id: "gd-basics", name: "GD Fundamentals" },
       { id: "gd-types", name: "Types of GD" },
@@ -2034,14 +2342,14 @@ const techTopics = [
       { id: "gd-evaluation", name: "Evaluation Criteria" },
       { id: "gd-dos-donts", name: "Do's and Don'ts" },
       { id: "gd-practice", name: "Practice Strategies" },
-    ] 
+    ],
   },
-  { 
-    id: "hr-interview", 
-    name: "HR Interview", 
-    icon: "🤝", 
-    color: "bg-green-500", 
-    category: "Interview Prep", 
+  {
+    id: "hr-interview",
+    name: "HR Interview",
+    icon: "🤝",
+    color: "bg-green-500",
+    category: "Interview Prep",
     topics: [
       { id: "hr-common-questions", name: "Common HR Questions" },
       { id: "hr-tell-me-about-yourself", name: "Tell Me About Yourself" },
@@ -2055,14 +2363,14 @@ const techTopics = [
       { id: "hr-leadership", name: "Leadership Examples" },
       { id: "hr-questions-to-ask", name: "Questions to Ask HR" },
       { id: "hr-follow-up", name: "Follow-up Process" },
-    ] 
+    ],
   },
-  { 
-    id: "technical-interview", 
-    name: "Technical Interview", 
-    icon: "💻", 
-    color: "bg-blue-600", 
-    category: "Interview Prep", 
+  {
+    id: "technical-interview",
+    name: "Technical Interview",
+    icon: "💻",
+    color: "bg-blue-600",
+    category: "Interview Prep",
     topics: [
       { id: "tech-coding-problems", name: "Coding Problems" },
       { id: "tech-system-design", name: "System Design" },
@@ -2076,14 +2384,14 @@ const techTopics = [
       { id: "tech-testing-debugging", name: "Testing & Debugging" },
       { id: "tech-technology-trends", name: "Technology Trends" },
       { id: "tech-whiteboard-coding", name: "Whiteboard Coding" },
-    ] 
+    ],
   },
-  { 
-    id: "behavioral-interview", 
-    name: "Behavioral Interview", 
-    icon: "🧠", 
-    color: "bg-purple-500", 
-    category: "Interview Prep", 
+  {
+    id: "behavioral-interview",
+    name: "Behavioral Interview",
+    icon: "🧠",
+    color: "bg-purple-500",
+    category: "Interview Prep",
     topics: [
       { id: "behavioral-star-method", name: "STAR Method" },
       { id: "behavioral-teamwork", name: "Teamwork Examples" },
@@ -2097,14 +2405,14 @@ const techTopics = [
       { id: "behavioral-customer-focus", name: "Customer Focus" },
       { id: "behavioral-ethics", name: "Ethical Dilemmas" },
       { id: "behavioral-preparation", name: "Story Preparation" },
-    ] 
+    ],
   },
-  { 
-    id: "communication-skills", 
-    name: "Communication Skills", 
-    icon: "🗨️", 
-    color: "bg-pink-500", 
-    category: "Soft Skills", 
+  {
+    id: "communication-skills",
+    name: "Communication Skills",
+    icon: "🗨️",
+    color: "bg-pink-500",
+    category: "Soft Skills",
     topics: [
       { id: "comm-verbal", name: "Verbal Communication" },
       { id: "comm-non-verbal", name: "Non-Verbal Communication" },
@@ -2118,131 +2426,174 @@ const techTopics = [
       { id: "comm-digital", name: "Digital Communication" },
       { id: "comm-persuasion", name: "Persuasion & Influence" },
       { id: "comm-networking", name: "Networking Skills" },
-    ] 
+    ],
   },
-  
- { id: "gk-current-affairs", name: "Current Affairs", icon: "📰", color: "bg-red-500", category: "GK", topics: [] },
- { id: "gk-static", name: "Static GK", icon: "📚", color: "bg-blue-600", category: "GK", topics: [{ id: "gk-history", name: "History" }, { id: "gk-geography", name: "Geography" }, { id: "gk-polity", name: "Polity" }, { id: "gk-art-culture", name: "Art & Culture" }] },
- { id: "gk-business", name: "Business & Economy", icon: "💹", color: "bg-green-500", category: "GK", topics: [{ id: "gk-finance", name: "Finance" }, { id: "gk-banking", name: "Banking" }, { id: "gk-budget", name: "Budget & Policies" }] },
- { id: "gk-science-tech", name: "Science & Technology", icon: "🔬", color: "bg-purple-500", category: "GK", topics: [{ id: "gk-space", name: "Space Exploration" }, { id: "gk-biotechnology", name: "Biotechnology" }, { id: "gk-it", name: "Information Technology" }] },
- { id: "gk-awards", name: "Awards & Honors", icon: "🏆", color: "bg-yellow-500", category: "GK", topics: [] },
- { id: "gk-sports", name: "Sports", icon: "🏅", color: "bg-blue-400", category: "GK", topics: [] },
- { id: "gk-constitution", name: "Indian Constitution & Polity", icon: "📜", color: "bg-indigo-600", category: "GK", topics: [] },
-   { id: "gk-environment", name: "Environment & Ecology", icon: "🌱", color: "bg-green-700", category: "GK", topics: [] },
 
+  {
+    id: "gk-current-affairs",
+    name: "Current Affairs",
+    icon: "📰",
+    color: "bg-red-500",
+    category: "GK",
+    topics: [],
+  },
+  {
+    id: "gk-static",
+    name: "Static GK",
+    icon: "📚",
+    color: "bg-blue-600",
+    category: "GK",
+    topics: [
+      { id: "gk-history", name: "History" },
+      { id: "gk-geography", name: "Geography" },
+      { id: "gk-polity", name: "Polity" },
+      { id: "gk-art-culture", name: "Art & Culture" },
+    ],
+  },
+  {
+    id: "gk-business",
+    name: "Business & Economy",
+    icon: "💹",
+    color: "bg-green-500",
+    category: "GK",
+    topics: [
+      { id: "gk-finance", name: "Finance" },
+      { id: "gk-banking", name: "Banking" },
+      { id: "gk-budget", name: "Budget & Policies" },
+    ],
+  },
+  {
+    id: "gk-science-tech",
+    name: "Science & Technology",
+    icon: "🔬",
+    color: "bg-purple-500",
+    category: "GK",
+    topics: [
+      { id: "gk-space", name: "Space Exploration" },
+      { id: "gk-biotechnology", name: "Biotechnology" },
+      { id: "gk-it", name: "Information Technology" },
+    ],
+  },
+  {
+    id: "gk-awards",
+    name: "Awards & Honors",
+    icon: "🏆",
+    color: "bg-yellow-500",
+    category: "GK",
+    topics: [],
+  },
+  {
+    id: "gk-sports",
+    name: "Sports",
+    icon: "🏅",
+    color: "bg-blue-400",
+    category: "GK",
+    topics: [],
+  },
+  {
+    id: "gk-constitution",
+    name: "Indian Constitution & Polity",
+    icon: "📜",
+    color: "bg-indigo-600",
+    category: "GK",
+    topics: [],
+  },
+  {
+    id: "gk-environment",
+    name: "Environment & Ecology",
+    icon: "🌱",
+    color: "bg-green-700",
+    category: "GK",
+    topics: [],
+  },
 
+  {
+    id: "cybersecurity",
+    name: "Cybersecurity",
+    icon: "🛡️",
+    color: "bg-red-700",
+    category: "Security",
+    topics: [
+      { id: "cyber-basics", name: "Cybersecurity Basics" },
+      { id: "cyber-cryptography", name: "Cryptography" },
+      { id: "cyber-network-security", name: "Network Security" },
+      { id: "cyber-web-security", name: "Web Security" },
+      { id: "cyber-malware", name: "Malware & Attacks" },
+      { id: "cyber-penetration", name: "Penetration Testing" },
+      { id: "cyber-incident-response", name: "Incident Response" },
+      { id: "cyber-forensics", name: "Digital Forensics" },
+      { id: "cyber-cloud-security", name: "Cloud Security" },
+      { id: "cyber-iot", name: "IoT Security" },
+      { id: "cyber-blockchain-security", name: "Blockchain Security" },
+      { id: "cyber-standards", name: "Security Standards & Compliance" },
+    ],
+  },
 
+  {
+    id: "blockchain",
+    name: "Blockchain & Web3",
+    icon: "⛓️",
+    color: "bg-gray-800",
+    category: "Blockchain",
+    topics: [
+      { id: "blockchain-basics", name: "Blockchain Basics" },
+      { id: "blockchain-ethereum", name: "Ethereum" },
+      { id: "blockchain-solidity", name: "Solidity" },
+      { id: "blockchain-smart-contracts", name: "Smart Contracts" },
+      { id: "blockchain-nfts", name: "NFTs" },
+      { id: "blockchain-defi", name: "DeFi (Decentralized Finance)" },
+      { id: "blockchain-consensus", name: "Consensus Mechanisms" },
+      { id: "blockchain-hyperledger", name: "Hyperledger" },
+      { id: "blockchain-ipfs", name: "IPFS" },
+      { id: "blockchain-dapps", name: "DApps (Decentralized Apps)" },
+      { id: "blockchain-web3", name: "Web3.js & Ethers.js" },
+      { id: "blockchain-security", name: "Blockchain Security" },
+    ],
+  },
 
+  {
+    id: "data-science",
+    name: "Data Science & Big Data",
+    icon: "📊",
+    color: "bg-blue-700",
+    category: "Data",
+    topics: [
+      { id: "ds-data-analysis", name: "Data Analysis" },
+      { id: "ds-visualization", name: "Data Visualization" },
+      { id: "ds-statistics", name: "Statistics for Data Science" },
+      { id: "ds-pandas", name: "Pandas & NumPy" },
+      { id: "ds-sql", name: "SQL for Data Science" },
+      { id: "ds-big-data", name: "Big Data Basics" },
+      { id: "ds-hadoop", name: "Hadoop Ecosystem" },
+      { id: "ds-spark", name: "Apache Spark" },
+      { id: "ds-data-cleaning", name: "Data Cleaning & Preprocessing" },
+      { id: "ds-data-engineering", name: "Data Engineering" },
+      { id: "ds-ml", name: "Machine Learning for Data Science" },
+      { id: "ds-cloud", name: "Cloud Data Platforms (AWS, GCP, Azure)" },
+    ],
+  },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{
-  id: "cybersecurity",
-  name: "Cybersecurity",
-  icon: "🛡️",
-  color: "bg-red-700",
-  category: "Security",
-  topics: [
-    { id: "cyber-basics", name: "Cybersecurity Basics" },
-    { id: "cyber-cryptography", name: "Cryptography" },
-    { id: "cyber-network-security", name: "Network Security" },
-    { id: "cyber-web-security", name: "Web Security" },
-    { id: "cyber-malware", name: "Malware & Attacks" },
-    { id: "cyber-penetration", name: "Penetration Testing" },
-    { id: "cyber-incident-response", name: "Incident Response" },
-    { id: "cyber-forensics", name: "Digital Forensics" },
-    { id: "cyber-cloud-security", name: "Cloud Security" },
-    { id: "cyber-iot", name: "IoT Security" },
-    { id: "cyber-blockchain-security", name: "Blockchain Security" },
-    { id: "cyber-standards", name: "Security Standards & Compliance" }
-  ]
-},
-
-{
-  id: "blockchain",
-  name: "Blockchain & Web3",
-  icon: "⛓️",
-  color: "bg-gray-800",
-  category: "Blockchain",
-  topics: [
-    { id: "blockchain-basics", name: "Blockchain Basics" },
-    { id: "blockchain-ethereum", name: "Ethereum" },
-    { id: "blockchain-solidity", name: "Solidity" },
-    { id: "blockchain-smart-contracts", name: "Smart Contracts" },
-    { id: "blockchain-nfts", name: "NFTs" },
-    { id: "blockchain-defi", name: "DeFi (Decentralized Finance)" },
-    { id: "blockchain-consensus", name: "Consensus Mechanisms" },
-    { id: "blockchain-hyperledger", name: "Hyperledger" },
-    { id: "blockchain-ipfs", name: "IPFS" },
-    { id: "blockchain-dapps", name: "DApps (Decentralized Apps)" },
-    { id: "blockchain-web3", name: "Web3.js & Ethers.js" },
-    { id: "blockchain-security", name: "Blockchain Security" }
-  ]
-},
-
-{
-  id: "data-science",
-  name: "Data Science & Big Data",
-  icon: "📊",
-  color: "bg-blue-700",
-  category: "Data",
-  topics: [
-    { id: "ds-data-analysis", name: "Data Analysis" },
-    { id: "ds-visualization", name: "Data Visualization" },
-    { id: "ds-statistics", name: "Statistics for Data Science" },
-    { id: "ds-pandas", name: "Pandas & NumPy" },
-    { id: "ds-sql", name: "SQL for Data Science" },
-    { id: "ds-big-data", name: "Big Data Basics" },
-    { id: "ds-hadoop", name: "Hadoop Ecosystem" },
-    { id: "ds-spark", name: "Apache Spark" },
-    { id: "ds-data-cleaning", name: "Data Cleaning & Preprocessing" },
-    { id: "ds-data-engineering", name: "Data Engineering" },
-    { id: "ds-ml", name: "Machine Learning for Data Science" },
-    { id: "ds-cloud", name: "Cloud Data Platforms (AWS, GCP, Azure)" }
-  ]
-},
-
-{
-  id: "software-engineering",
-  name: "Software Engineering",
-  icon: "🛠️",
-  color: "bg-green-600",
-  category: "Engineering",
-  topics: [
-    { id: "se-sdlc", name: "Software Development Life Cycle" },
-    { id: "se-agile", name: "Agile & Scrum" },
-    { id: "se-version-control", name: "Version Control (Git)" },
-    { id: "se-ci-cd", name: "CI/CD Pipelines" },
-    { id: "se-design-patterns", name: "Design Patterns" },
-    { id: "se-clean-code", name: "Clean Code Principles" },
-    { id: "se-testing", name: "Unit & Integration Testing" },
-    { id: "se-refactoring", name: "Code Refactoring" },
-    { id: "se-documentation", name: "Documentation Best Practices" },
-    { id: "se-microservices", name: "Microservices Architecture" },
-    { id: "se-scalability", name: "Scalability & Performance" },
-    { id: "se-system-design", name: "System Design" }
-  ]
-}
-]
+  {
+    id: "software-engineering",
+    name: "Software Engineering",
+    icon: "🛠️",
+    color: "bg-green-600",
+    category: "Engineering",
+    topics: [
+      { id: "se-sdlc", name: "Software Development Life Cycle" },
+      { id: "se-agile", name: "Agile & Scrum" },
+      { id: "se-version-control", name: "Version Control (Git)" },
+      { id: "se-ci-cd", name: "CI/CD Pipelines" },
+      { id: "se-design-patterns", name: "Design Patterns" },
+      { id: "se-clean-code", name: "Clean Code Principles" },
+      { id: "se-testing", name: "Unit & Integration Testing" },
+      { id: "se-refactoring", name: "Code Refactoring" },
+      { id: "se-documentation", name: "Documentation Best Practices" },
+      { id: "se-microservices", name: "Microservices Architecture" },
+      { id: "se-scalability", name: "Scalability & Performance" },
+      { id: "se-system-design", name: "System Design" },
+    ],
+  },
+];
 
 export default techTopics;
-

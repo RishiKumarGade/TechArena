@@ -40,8 +40,25 @@ function buildGenerationPrompt(
     subTopicNames.length > 0
       ? ` from the following sub-topics: ${subTopicNames.join(", ")}`
       : "";
+
+  // Define valid question types based on topic categories
+  const topicCategory = techTopics.find(t => t.name === topicName)?.category || "Other";
+  let allowedTypes = ["mcq", "truefalse", "fill"];
+  
+  if (["Programming", "Web", "Backend", "Database", "Mobile","Blockchain", "OOP","CS Fundamentals"].includes(topicCategory)) {
+    allowedTypes.push("code");
+  }
+
+  const allowedTypesString = allowedTypes.map(type => `"${type}"`).join(", ");
+
   return `Generate exactly ${count} exam questions for topic "${topicName}"${subTopicList} (difficulty ${difficulty} on a scale of 1–10).
-Types allowed: "mcq", "truefalse", "fill", "code".
+Allowed types: ${allowedTypesString}. 
+Select only the question types that are naturally suitable for the given topic. 
+Do NOT force all types to appear — for example:
+- Non-coding topics (e.g., reasoning, aptitude, tools) should exclude "code"
+- Conceptual or factual topics may use "mcq", "truefalse", "fill"
+- Programming-related topics may use "mcq", "truefalse", "fill", or "code"
+Choose based on what makes sense for the topic.
 
 Return a single valid JSON object with a top-level key "questions" that is an array of objects.
 For each question, add a "tag" field with a value from the list of selected sub-topics or "general" for general questions.
@@ -49,7 +66,7 @@ For each question, add a "tag" field with a value from the list of selected sub-
 Each object must follow exactly this format:
 {
   "id": "string",
-  "type": "mcq" | "truefalse" | "fill" | "code",
+  "type": ${allowedTypesString},
   "q": "string",
   "difficulty": number,
   "tag": "string",
@@ -87,6 +104,7 @@ IMPORTANT:
 - Output ONLY the raw JSON object (no text before or after)
 - If any formatting rule is violated, treat it as a fatal error and self-correct before final output`;
 }
+
 
 function buildEvaluatePrompt(questionText, canonicalAnswer, studentAnswer) {
   return `You are an unbiased grader. Evaluate whether the student's answer is correct for the following question.
