@@ -780,6 +780,7 @@ const techTopics = [
       { id: "sql-normalization", name: "Database Normalization" },
       { id: "sql-performance", name: "Query Optimization" },
       { id: "sql-window-functions", name: "Window Functions" },
+      { id: "sql-query-writing", name: "SQL query writing" },
     ],
   },
   {
