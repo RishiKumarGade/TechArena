@@ -1,10 +1,17 @@
 const techTopics = [
+  // Programming Languages
   {
     id: "javascript",
     name: "JavaScript",
     icon: "🟨",
     color: "bg-yellow-500",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "js-fundamentals", name: "Fundamentals" },
       { id: "js-dom", name: "DOM Manipulation" },
@@ -26,6 +33,12 @@ const techTopics = [
     icon: "🐍",
     color: "bg-green-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "py-basics", name: "Basics" },
       { id: "py-oops", name: "OOP" },
@@ -47,6 +60,12 @@ const techTopics = [
     icon: "☕",
     color: "bg-orange-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "java-oops", name: "OOP" },
       { id: "java-collections", name: "Collections" },
@@ -68,6 +87,12 @@ const techTopics = [
     icon: "⚡",
     color: "bg-blue-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "cpp-basics", name: "Basics & Syntax" },
       { id: "cpp-oops", name: "Object-Oriented Programming" },
@@ -89,6 +114,12 @@ const techTopics = [
     icon: "💜",
     color: "bg-purple-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "csharp-basics", name: "Basics & Syntax" },
       { id: "csharp-oops", name: "Object-Oriented Programming" },
@@ -110,6 +141,12 @@ const techTopics = [
     icon: "🐹",
     color: "bg-cyan-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "go-basics", name: "Basics & Syntax" },
       { id: "go-goroutines", name: "Goroutines" },
@@ -131,6 +168,12 @@ const techTopics = [
     icon: "🦀",
     color: "bg-orange-700",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "rust-basics", name: "Basics & Syntax" },
       { id: "rust-ownership", name: "Ownership & Borrowing" },
@@ -152,6 +195,12 @@ const techTopics = [
     icon: "🔷",
     color: "bg-blue-500",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "ts-basics", name: "Basics & Type System" },
       { id: "ts-interfaces", name: "Interfaces" },
@@ -173,6 +222,12 @@ const techTopics = [
     icon: "💎",
     color: "bg-red-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "ruby-basics", name: "Basics & Syntax" },
       { id: "ruby-oops", name: "Object-Oriented Programming" },
@@ -194,6 +249,12 @@ const techTopics = [
     icon: "🐘",
     color: "bg-purple-700",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "php-basics", name: "Basics & Syntax" },
       { id: "php-oops", name: "Object-Oriented Programming" },
@@ -215,6 +276,12 @@ const techTopics = [
     icon: "⚙️",
     color: "bg-indigo-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "scala-basics", name: "Basics & Syntax" },
       { id: "scala-functional", name: "Functional Programming" },
@@ -236,6 +303,12 @@ const techTopics = [
     icon: "🎯",
     color: "bg-blue-400",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "dart-basics", name: "Basics & Syntax" },
       { id: "dart-oops", name: "Object-Oriented Programming" },
@@ -257,6 +330,12 @@ const techTopics = [
     icon: "🦪",
     color: "bg-pink-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "perl-basics", name: "Basics & Syntax" },
       { id: "perl-regex", name: "Regular Expressions" },
@@ -278,6 +357,12 @@ const techTopics = [
     icon: "📐",
     color: "bg-green-700",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "haskell-basics", name: "Basics & Syntax" },
       { id: "haskell-functions", name: "Functions & Recursion" },
@@ -299,6 +384,12 @@ const techTopics = [
     icon: "🔮",
     color: "bg-purple-500",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "elixir-basics", name: "Basics & Syntax" },
       { id: "elixir-pattern-matching", name: "Pattern Matching" },
@@ -320,6 +411,12 @@ const techTopics = [
     icon: "🔗",
     color: "bg-green-600",
     category: "Programming",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "clojure-basics", name: "Basics & Syntax" },
       { id: "clojure-data-structures", name: "Data Structures" },
@@ -335,13 +432,18 @@ const techTopics = [
       { id: "clojure-web", name: "Web Development (Ring/Compojure)" },
     ],
   },
-
   {
     id: "html",
     name: "HTML",
     icon: "🌐",
     color: "bg-red-500",
     category: "Web",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.3,
+      code: 0.05,
+      trueorfalse: 0.05,
+    },
     topics: [
       { id: "html-basics", name: "Basics & Structure" },
       { id: "html-forms", name: "Forms & Input Elements" },
@@ -363,6 +465,12 @@ const techTopics = [
     icon: "🎨",
     color: "bg-blue-400",
     category: "Web",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.3,
+      code: 0.15,
+      trueorfalse: 0.05,
+    },
     topics: [
       { id: "css-basics", name: "Basics & Selectors" },
       { id: "css-box-model", name: "Box Model" },
@@ -384,6 +492,12 @@ const techTopics = [
     icon: "⚛️",
     color: "bg-cyan-500",
     category: "Web",
+    questionTypes: {
+      mcq: 0.3,
+      fill: 0.2,
+      code: 0.4,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "react-basics", name: "Components & JSX" },
       { id: "react-hooks", name: "Hooks" },
@@ -405,6 +519,12 @@ const techTopics = [
     icon: "⚫",
     color: "bg-gray-800",
     category: "Web",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "nextjs-basics", name: "Pages & Routing" },
       { id: "nextjs-ssr", name: "Server-Side Rendering" },
@@ -426,6 +546,12 @@ const techTopics = [
     icon: "💚",
     color: "bg-green-500",
     category: "Web",
+    questionTypes: {
+      mcq: 0.3,
+      fill: 0.2,
+      code: 0.4,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "vue-basics", name: "Basics & Templates" },
       { id: "vue-components", name: "Components" },
@@ -447,6 +573,12 @@ const techTopics = [
     icon: "🅰️",
     color: "bg-red-600",
     category: "Web",
+    questionTypes: {
+      mcq: 0.3,
+      fill: 0.2,
+      code: 0.4,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "angular-basics", name: "Components & Templates" },
       { id: "angular-typescript", name: "TypeScript Integration" },
@@ -468,6 +600,12 @@ const techTopics = [
     icon: "🔥",
     color: "bg-orange-500",
     category: "Web",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "svelte-basics", name: "Basics & Components" },
       { id: "svelte-reactivity", name: "Reactivity" },
@@ -489,6 +627,12 @@ const techTopics = [
     icon: "🌿",
     color: "bg-purple-400",
     category: "Web",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.3,
+      code: 0.15,
+      trueorfalse: 0.05,
+    },
     topics: [
       { id: "gatsby-basics", name: "Static Site Generation" },
       { id: "gatsby-graphql", name: "GraphQL Data Layer" },
@@ -510,6 +654,12 @@ const techTopics = [
     icon: "🐹",
     color: "bg-red-400",
     category: "Web",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "ember-basics", name: "Components & Templates" },
       { id: "ember-routing", name: "Routing" },
@@ -531,6 +681,12 @@ const techTopics = [
     icon: "💙",
     color: "bg-blue-600",
     category: "Web",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "jquery-basics", name: "Basics & Selectors" },
       { id: "jquery-dom", name: "DOM Manipulation" },
@@ -546,13 +702,18 @@ const techTopics = [
       { id: "jquery-deferred", name: "Deferred Objects" },
     ],
   },
-
   {
     id: "nodejs",
     name: "Node.js",
     icon: "🟢",
     color: "bg-green-600",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "nodejs-basics", name: "Basics & Event Loop" },
       { id: "nodejs-modules", name: "Modules & NPM" },
@@ -574,6 +735,12 @@ const techTopics = [
     icon: "🚂",
     color: "bg-gray-700",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.2,
+      code: 0.2,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "express-basics", name: "Basics & Routing" },
       { id: "express-middleware", name: "Middleware" },
@@ -595,6 +762,12 @@ const techTopics = [
     icon: "🎸",
     color: "bg-green-700",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "django-basics", name: "Models, Views, Templates" },
       { id: "django-orm", name: "ORM & Database" },
@@ -616,6 +789,12 @@ const techTopics = [
     icon: "🌶️",
     color: "bg-red-400",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "flask-basics", name: "Basics & Routing" },
       { id: "flask-templates", name: "Templates (Jinja2)" },
@@ -637,6 +816,12 @@ const techTopics = [
     icon: "⚡",
     color: "bg-teal-600",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "fastapi-basics", name: "Basics & Path Operations" },
       { id: "fastapi-pydantic", name: "Pydantic Models" },
@@ -658,6 +843,12 @@ const techTopics = [
     icon: "🍃",
     color: "bg-green-600",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "spring-basics", name: "Basics & Auto-configuration" },
       { id: "spring-mvc", name: "Spring MVC" },
@@ -679,6 +870,12 @@ const techTopics = [
     icon: "🎯",
     color: "bg-red-600",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "laravel-basics", name: "MVC & Routing" },
       { id: "laravel-eloquent", name: "Eloquent ORM" },
@@ -700,6 +897,12 @@ const techTopics = [
     icon: "💎",
     color: "bg-red-500",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "rails-mvc", name: "MVC Architecture" },
       { id: "rails-routing", name: "Routing" },
@@ -721,6 +924,12 @@ const techTopics = [
     icon: "🅰️",
     color: "bg-purple-700",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "aspnet-mvc", name: "MVC Pattern" },
       { id: "aspnet-web-api", name: "Web API" },
@@ -742,6 +951,12 @@ const techTopics = [
     icon: "🔺",
     color: "bg-pink-600",
     category: "Backend",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.3,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "graphql-basics", name: "Schema & Types" },
       { id: "graphql-queries", name: "Queries" },
@@ -757,13 +972,18 @@ const techTopics = [
       { id: "graphql-performance", name: "Performance Optimization" },
     ],
   },
-
   {
     id: "sql",
     name: "SQL",
     icon: "🗄️",
     color: "bg-blue-700",
     category: "Database",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.3,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       {
         id: "sql-basics",
@@ -780,7 +1000,22 @@ const techTopics = [
       { id: "sql-normalization", name: "Database Normalization" },
       { id: "sql-performance", name: "Query Optimization" },
       { id: "sql-window-functions", name: "Window Functions" },
-      { id: "sql-query-writing", name: "SQL query writing" },
+    ],
+  },
+  {
+    id: "sql-query-writing",
+    name: "SQL Query Writing",
+    icon: "✍️",
+    color: "bg-blue-800",
+    category: "Database",
+    questionTypes: {
+      mcq: 0.0,
+      fill: 1.0,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
+    topics: [
+      { id: "sql-query-writing", name: "SQL Query Writing" },
     ],
   },
   {
@@ -789,6 +1024,12 @@ const techTopics = [
     icon: "🐬",
     color: "bg-orange-600",
     category: "Database",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "mysql-installation", name: "Installation & Setup" },
       { id: "mysql-data-types", name: "Data Types" },
@@ -810,6 +1051,12 @@ const techTopics = [
     icon: "🐘",
     color: "bg-blue-800",
     category: "Database",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "postgresql-advanced-types", name: "Advanced Data Types" },
       { id: "postgresql-jsonb", name: "JSONB" },
@@ -831,6 +1078,12 @@ const techTopics = [
     icon: "🍃",
     color: "bg-green-700",
     category: "Database",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.4,
+      code: 0.1,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "mongodb-documents", name: "Documents & Collections" },
       { id: "mongodb-queries", name: "Queries & Filters" },
@@ -852,6 +1105,12 @@ const techTopics = [
     icon: "🔴",
     color: "bg-red-600",
     category: "Database",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.3,
+      code: 0.1,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "redis-data-structures", name: "Data Structures" },
       { id: "redis-caching", name: "Caching Strategies" },
@@ -873,6 +1132,12 @@ const techTopics = [
     icon: "📦",
     color: "bg-gray-500",
     category: "Database",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "sqlite-basics", name: "Basics & Setup" },
       { id: "sqlite-data-types", name: "Data Types" },
@@ -894,6 +1159,12 @@ const techTopics = [
     icon: "🎰",
     color: "bg-purple-600",
     category: "Database",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.1,
+      code: 0.1,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "cassandra-architecture", name: "Architecture" },
       { id: "cassandra-data-modeling", name: "Data Modeling" },
@@ -915,6 +1186,12 @@ const techTopics = [
     icon: "🔥",
     color: "bg-orange-400",
     category: "Database",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.4,
+      code: 0.05,
+      trueorfalse: 0.05,
+    },
     topics: [
       { id: "firebase-realtime-db", name: "Realtime Database" },
       { id: "firebase-firestore", name: "Cloud Firestore" },
@@ -930,13 +1207,18 @@ const techTopics = [
       { id: "firebase-crashlytics", name: "Crashlytics" },
     ],
   },
-
   {
     id: "react-native",
     name: "React Native",
     icon: "📱",
     color: "bg-blue-500",
     category: "Mobile",
+    questionTypes: {
+      mcq: 0.3,
+      fill: 0.2,
+      code: 0.4,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "rn-basics", name: "Components & Navigation" },
       { id: "rn-styling", name: "Styling & Flexbox" },
@@ -958,6 +1240,12 @@ const techTopics = [
     icon: "🦋",
     color: "bg-blue-400",
     category: "Mobile",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "flutter-widgets", name: "Widgets" },
       { id: "flutter-layouts", name: "Layouts" },
@@ -979,6 +1267,12 @@ const techTopics = [
     icon: "🟣",
     color: "bg-purple-500",
     category: "Mobile",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "kotlin-basics", name: "Syntax & Basics" },
       { id: "kotlin-android-basics", name: "Android Development Basics" },
@@ -1000,6 +1294,12 @@ const techTopics = [
     icon: "🍎",
     color: "bg-orange-500",
     category: "Mobile",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "swift-basics", name: "Syntax & Basics" },
       { id: "swift-ios-basics", name: "iOS Development Basics" },
@@ -1021,6 +1321,12 @@ const techTopics = [
     icon: "🤖",
     color: "bg-green-600",
     category: "Mobile",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "java-android-basics", name: "Android Development Basics" },
       { id: "java-android-activities", name: "Activities & Intents" },
@@ -1042,6 +1348,12 @@ const techTopics = [
     icon: "🍏",
     color: "bg-green-700",
     category: "Mobile",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "objc-basics", name: "Syntax & Basics" },
       { id: "objc-memory", name: "Memory Management" },
@@ -1057,13 +1369,18 @@ const techTopics = [
       { id: "objc-legacy", name: "Legacy Code Maintenance" },
     ],
   },
-
   {
     id: "docker",
     name: "Docker",
     icon: "🐳",
     color: "bg-blue-600",
     category: "DevOps",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.2,
+      code: 0.2,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "docker-basics", name: "Containers & Images" },
       { id: "docker-dockerfile", name: "Dockerfile" },
@@ -1085,6 +1402,12 @@ const techTopics = [
     icon: "☸️",
     color: "bg-blue-700",
     category: "DevOps",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.2,
+      code: 0.2,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "k8s-architecture", name: "Architecture" },
       { id: "k8s-pods", name: "Pods" },
@@ -1106,6 +1429,12 @@ const techTopics = [
     icon: "🌍",
     color: "bg-green-600",
     category: "DevOps",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.2,
+      code: 0.2,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "terraform-basics", name: "Basics & HCL" },
       { id: "terraform-providers", name: "Providers" },
@@ -1127,6 +1456,12 @@ const techTopics = [
     icon: "🎯",
     color: "bg-red-600",
     category: "DevOps",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.2,
+      code: 0.2,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "ansible-basics", name: "Basics & Inventory" },
       { id: "ansible-playbooks", name: "Playbooks" },
@@ -1148,6 +1483,12 @@ const techTopics = [
     icon: "🤖",
     color: "bg-red-700",
     category: "DevOps",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.2,
+      code: 0.2,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "jenkins-basics", name: "Basics & Installation" },
       { id: "jenkins-jobs", name: "Jobs & Builds" },
@@ -1169,6 +1510,12 @@ const techTopics = [
     icon: "☁️",
     color: "bg-yellow-600",
     category: "Cloud",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "aws-ec2", name: "EC2" },
       { id: "aws-s3", name: "S3" },
@@ -1190,6 +1537,12 @@ const techTopics = [
     icon: "🌐",
     color: "bg-blue-600",
     category: "Cloud",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "azure-vm", name: "Virtual Machines" },
       { id: "azure-storage", name: "Storage Solutions" },
@@ -1211,6 +1564,12 @@ const techTopics = [
     icon: "🌈",
     color: "bg-red-500",
     category: "Cloud",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "gcp-compute", name: "Compute Engine" },
       { id: "gcp-storage", name: "Cloud Storage" },
@@ -1232,6 +1591,12 @@ const techTopics = [
     icon: "🐬",
     color: "bg-blue-500",
     category: "Cloud",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "do-droplets", name: "Droplets" },
       { id: "do-spaces", name: "Spaces" },
@@ -1253,6 +1618,12 @@ const techTopics = [
     icon: "🔧",
     color: "bg-gray-700",
     category: "Cloud",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "openstack-architecture", name: "Architecture" },
       { id: "openstack-nova", name: "Nova (Compute)" },
@@ -1268,13 +1639,18 @@ const techTopics = [
       { id: "openstack-administration", name: "Administration" },
     ],
   },
-
   {
     id: "dsa",
     name: "Data Structures & Algorithms",
     icon: "🌳",
     color: "bg-indigo-600",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.3,
+      fill: 0.1,
+      code: 0.5,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "dsa-arrays", name: "Arrays & Strings" },
       { id: "dsa-linked-lists", name: "Linked Lists" },
@@ -1296,6 +1672,12 @@ const techTopics = [
     icon: "💻",
     color: "bg-blue-500",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.05,
+      trueorfalse: 0.05,
+    },
     topics: [
       { id: "os-processes", name: "Processes & Threads" },
       { id: "os-scheduling", name: "CPU Scheduling" },
@@ -1321,6 +1703,12 @@ const techTopics = [
     icon: "🗄️",
     color: "bg-green-500",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "dbms-er-model", name: "ER Model" },
       { id: "dbms-relational-model", name: "Relational Model" },
@@ -1342,6 +1730,12 @@ const techTopics = [
     icon: "🌐",
     color: "bg-cyan-500",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.05,
+      trueorfalse: 0.05,
+    },
     topics: [
       { id: "cn-osi-model", name: "OSI Model" },
       { id: "cn-tcp-ip", name: "TCP/IP Protocol Suite" },
@@ -1358,13 +1752,18 @@ const techTopics = [
       { id: "cn-numericals", name: "Numericals" },
     ],
   },
-
   {
     id: "compiler",
     name: "Compiler Design",
     icon: "🔧",
     color: "bg-gray-600",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.3,
+      code: 0.05,
+      trueorfalse: 0.05,
+    },
     topics: [
       { id: "compiler-lexical", name: "Lexical Analysis" },
       { id: "compiler-syntax", name: "Syntax Analysis" },
@@ -1386,6 +1785,12 @@ const techTopics = [
     icon: "🤖",
     color: "bg-purple-600",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.2,
+      code: 0.2,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "ml-supervised", name: "Supervised Learning" },
       { id: "ml-unsupervised", name: "Unsupervised Learning" },
@@ -1407,6 +1812,12 @@ const techTopics = [
     icon: "📚",
     color: "bg-indigo-700",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "toc-automata", name: "Finite Automata" },
       { id: "toc-regular", name: "Regular Languages" },
@@ -1428,6 +1839,12 @@ const techTopics = [
     icon: "🔒",
     color: "bg-purple-700",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.3,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "crypto-symmetric", name: "Symmetric Cryptography" },
       { id: "crypto-asymmetric", name: "Asymmetric Cryptography" },
@@ -1449,6 +1866,12 @@ const techTopics = [
     icon: "🛠️",
     color: "bg-blue-700",
     category: "CS Fundamentals",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "se-sdlc", name: "Software Development Life Cycle" },
       { id: "se-requirements", name: "Requirements Engineering" },
@@ -1464,13 +1887,18 @@ const techTopics = [
       { id: "se-metrics", name: "Software Metrics" },
     ],
   },
-
   {
     id: "oops-python",
     name: "OOP in Python",
     icon: "🐍",
     color: "bg-green-500",
     category: "OOP",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "py-oop-classes", name: "Classes & Objects" },
       { id: "py-oop-inheritance", name: "Inheritance" },
@@ -1492,6 +1920,12 @@ const techTopics = [
     icon: "☕",
     color: "bg-orange-500",
     category: "OOP",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "java-oop-classes", name: "Classes & Objects" },
       { id: "java-oop-inheritance", name: "Inheritance" },
@@ -1513,6 +1947,12 @@ const techTopics = [
     icon: "⚡",
     color: "bg-blue-500",
     category: "OOP",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "cpp-oop-classes", name: "Classes & Objects" },
       { id: "cpp-oop-constructors", name: "Constructors & Destructors" },
@@ -1534,6 +1974,12 @@ const techTopics = [
     icon: "💜",
     color: "bg-purple-500",
     category: "OOP",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "cs-oop-classes", name: "Classes & Objects" },
       { id: "cs-oop-inheritance", name: "Inheritance" },
@@ -1555,6 +2001,12 @@ const techTopics = [
     icon: "💎",
     color: "bg-red-600",
     category: "OOP",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "ruby-oop-classes", name: "Classes & Objects" },
       { id: "ruby-oop-modules", name: "Modules & Mixins" },
@@ -1570,13 +2022,18 @@ const techTopics = [
       { id: "ruby-oop-design-patterns", name: "Design Patterns" },
     ],
   },
-
   {
     id: "git",
     name: "Git & Version Control",
     icon: "🌿",
     color: "bg-orange-600",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "git-basics", name: "Basic Commands" },
       { id: "git-branching", name: "Branching & Merging" },
@@ -1598,6 +2055,12 @@ const techTopics = [
     icon: "🐧",
     color: "bg-gray-800",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.3,
+      code: 0.2,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "linux-basics", name: "Basic Commands" },
       { id: "linux-file-system", name: "File System Navigation" },
@@ -1619,6 +2082,12 @@ const techTopics = [
     icon: "🧪",
     color: "bg-teal-500",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "testing-fundamentals", name: "Testing Fundamentals" },
       { id: "testing-unit", name: "Unit Testing" },
@@ -1640,6 +2109,12 @@ const techTopics = [
     icon: "📦",
     color: "bg-purple-600",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.5,
+      fill: 0.3,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "webpack-basics", name: "Basics & Configuration" },
       { id: "webpack-loaders", name: "Loaders" },
@@ -1661,6 +2136,12 @@ const techTopics = [
     icon: "📝",
     color: "bg-yellow-400",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "babel-basics", name: "Basics & Setup" },
       { id: "babel-presets", name: "Presets" },
@@ -1682,6 +2163,12 @@ const techTopics = [
     icon: "🚨",
     color: "bg-red-500",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "eslint-basics", name: "Basics & Setup" },
       { id: "eslint-rules", name: "Rules Configuration" },
@@ -1703,6 +2190,12 @@ const techTopics = [
     icon: "🎨",
     color: "bg-pink-400",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "prettier-basics", name: "Basics & Setup" },
       { id: "prettier-config", name: "Configuration" },
@@ -1724,6 +2217,12 @@ const techTopics = [
     icon: "📋",
     color: "bg-blue-700",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "jira-basics", name: "Basics & Navigation" },
       { id: "jira-projects", name: "Projects & Issues" },
@@ -1745,6 +2244,12 @@ const techTopics = [
     icon: "📬",
     color: "bg-orange-400",
     category: "Tools",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.3,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "postman-basics", name: "Basics & Interface" },
       { id: "postman-requests", name: "Creating Requests" },
@@ -1760,13 +2265,18 @@ const techTopics = [
       { id: "postman-advanced", name: "Advanced Features" },
     ],
   },
-
   {
     id: "hadoop",
     name: "Hadoop",
     icon: "🐘",
     color: "bg-green-700",
     category: "Big Data",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "hadoop-architecture", name: "Hadoop Architecture" },
       { id: "hadoop-hdfs", name: "HDFS" },
@@ -1788,6 +2298,12 @@ const techTopics = [
     icon: "✨",
     color: "bg-red-600",
     category: "Big Data",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "spark-core", name: "Spark Core" },
       { id: "spark-rdd", name: "RDDs" },
@@ -1809,6 +2325,12 @@ const techTopics = [
     icon: "☕",
     color: "bg-red-700",
     category: "Big Data",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "kafka-basics", name: "Kafka Basics" },
       { id: "kafka-architecture", name: "Architecture" },
@@ -1824,13 +2346,18 @@ const techTopics = [
       { id: "kafka-security", name: "Security" },
     ],
   },
-
   {
     id: "solidity",
     name: "Solidity",
     icon: "🔷",
     color: "bg-blue-600",
     category: "Blockchain",
+    questionTypes: {
+      mcq: 0.3,
+      fill: 0.2,
+      code: 0.4,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "solidity-basics", name: "Syntax & Basics" },
       { id: "solidity-data-types", name: "Data Types" },
@@ -1852,6 +2379,12 @@ const techTopics = [
     icon: "⧫",
     color: "bg-purple-700",
     category: "Blockchain",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "ethereum-basics", name: "Ethereum Fundamentals" },
       { id: "ethereum-evm", name: "Ethereum Virtual Machine" },
@@ -1867,13 +2400,18 @@ const techTopics = [
       { id: "ethereum-oracles", name: "Oracles" },
     ],
   },
-
   {
     id: "figma",
     name: "Figma",
     icon: "🎨",
     color: "bg-purple-500",
     category: "Design",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "figma-basics", name: "Interface & Tools" },
       { id: "figma-design", name: "Design Basics" },
@@ -1895,6 +2433,12 @@ const techTopics = [
     icon: "✏️",
     color: "bg-red-600",
     category: "Design",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "xd-basics", name: "Interface & Tools" },
       { id: "xd-design", name: "Design & Layout" },
@@ -1916,6 +2460,12 @@ const techTopics = [
     icon: "✂️",
     color: "bg-yellow-500",
     category: "Design",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "sketch-basics", name: "Interface & Tools" },
       { id: "sketch-vectors", name: "Vector Editing" },
@@ -1931,13 +2481,18 @@ const techTopics = [
       { id: "sketch-workflow", name: "Design Workflow" },
     ],
   },
-
   {
     id: "quant-number-system",
     name: "Number System",
     icon: "🔢",
     color: "bg-blue-600",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -1946,6 +2501,12 @@ const techTopics = [
     icon: "➗",
     color: "bg-teal-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -1954,6 +2515,12 @@ const techTopics = [
     icon: "📊",
     color: "bg-orange-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -1962,6 +2529,12 @@ const techTopics = [
     icon: "⚖️",
     color: "bg-purple-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -1970,6 +2543,12 @@ const techTopics = [
     icon: "📏",
     color: "bg-pink-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -1978,6 +2557,12 @@ const techTopics = [
     icon: "🥤",
     color: "bg-green-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -1986,6 +2571,12 @@ const techTopics = [
     icon: "💰",
     color: "bg-yellow-600",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -1994,6 +2585,12 @@ const techTopics = [
     icon: "🏦",
     color: "bg-green-700",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2002,6 +2599,12 @@ const techTopics = [
     icon: "⏳",
     color: "bg-cyan-600",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2010,6 +2613,12 @@ const techTopics = [
     icon: "🚗",
     color: "bg-blue-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2018,6 +2627,12 @@ const techTopics = [
     icon: "🚰",
     color: "bg-indigo-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2026,6 +2641,12 @@ const techTopics = [
     icon: "📈",
     color: "bg-red-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2034,6 +2655,12 @@ const techTopics = [
     icon: "🤝",
     color: "bg-gray-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2042,6 +2669,12 @@ const techTopics = [
     icon: "🎂",
     color: "bg-purple-600",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2050,6 +2683,12 @@ const techTopics = [
     icon: "🚆",
     color: "bg-orange-600",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2058,6 +2697,12 @@ const techTopics = [
     icon: "🚤",
     color: "bg-blue-700",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2066,6 +2711,12 @@ const techTopics = [
     icon: "🎲",
     color: "bg-teal-700",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2074,6 +2725,12 @@ const techTopics = [
     icon: "🎯",
     color: "bg-purple-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2082,6 +2739,12 @@ const techTopics = [
     icon: "➕",
     color: "bg-green-600",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2090,6 +2753,12 @@ const techTopics = [
     icon: "📐",
     color: "bg-indigo-600",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2098,6 +2767,12 @@ const techTopics = [
     icon: "📏",
     color: "bg-yellow-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2106,6 +2781,12 @@ const techTopics = [
     icon: "📐",
     color: "bg-blue-500",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2114,6 +2795,12 @@ const techTopics = [
     icon: "📈",
     color: "bg-red-600",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2122,15 +2809,26 @@ const techTopics = [
     icon: "🔄",
     color: "bg-green-700",
     category: "Aptitude",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
-
   {
     id: "reasoning-puzzles",
     name: "Puzzles",
     icon: "🧩",
     color: "bg-yellow-500",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2139,6 +2837,12 @@ const techTopics = [
     icon: "🪑",
     color: "bg-purple-500",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2147,6 +2851,12 @@ const techTopics = [
     icon: "🧬",
     color: "bg-red-500",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2155,6 +2865,12 @@ const techTopics = [
     icon: "⚖️",
     color: "bg-indigo-500",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2163,6 +2879,12 @@ const techTopics = [
     icon: "🔢",
     color: "bg-blue-500",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2171,6 +2893,12 @@ const techTopics = [
     icon: "🔄",
     color: "bg-green-500",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2179,6 +2907,12 @@ const techTopics = [
     icon: "📝",
     color: "bg-cyan-500",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2187,6 +2921,12 @@ const techTopics = [
     icon: "📊",
     color: "bg-orange-500",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2195,6 +2935,12 @@ const techTopics = [
     icon: "⏰",
     color: "bg-gray-600",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2203,6 +2949,12 @@ const techTopics = [
     icon: "🧭",
     color: "bg-blue-700",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2211,15 +2963,26 @@ const techTopics = [
     icon: "🧠",
     color: "bg-purple-700",
     category: "Reasoning",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
-
   {
     id: "verbal-reading-comprehension",
     name: "Reading Comprehension",
     icon: "📖",
     color: "bg-green-600",
     category: "Verbal",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2228,6 +2991,12 @@ const techTopics = [
     icon: "🔄",
     color: "bg-blue-500",
     category: "Verbal",
+    questionTypes: {
+      mcq: 1.0,
+      fill: 0.0,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2236,6 +3005,12 @@ const techTopics = [
     icon: "🔁",
     color: "bg-red-500",
     category: "Verbal",
+    questionTypes: {
+      mcq: 1.0,
+      fill: 0.0,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2244,6 +3019,12 @@ const techTopics = [
     icon: "🚨",
     color: "bg-orange-500",
     category: "Verbal",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2252,6 +3033,12 @@ const techTopics = [
     icon: "✏️",
     color: "bg-purple-500",
     category: "Verbal",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2260,6 +3047,12 @@ const techTopics = [
     icon: "🪢",
     color: "bg-indigo-600",
     category: "Verbal",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2268,6 +3061,12 @@ const techTopics = [
     icon: "📝",
     color: "bg-yellow-500",
     category: "Verbal",
+    questionTypes: {
+      mcq: 0.0,
+      fill: 1.0,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2276,6 +3075,12 @@ const techTopics = [
     icon: "🗣️",
     color: "bg-teal-600",
     category: "Verbal",
+    questionTypes: {
+      mcq: 1.0,
+      fill: 0.0,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2284,6 +3089,12 @@ const techTopics = [
     icon: "💬",
     color: "bg-pink-500",
     category: "Verbal",
+    questionTypes: {
+      mcq: 1.0,
+      fill: 0.0,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2292,6 +3103,12 @@ const techTopics = [
     icon: "🔄",
     color: "bg-blue-700",
     category: "Verbal",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.3,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2300,15 +3117,26 @@ const techTopics = [
     icon: "🗨️",
     color: "bg-gray-600",
     category: "Verbal",
+    questionTypes: {
+      mcq: 0.7,
+      fill: 0.3,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
-
   {
     id: "resume-writing",
     name: "Resume Writing",
     icon: "📄",
     color: "bg-gray-600",
     category: "Interview Prep",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "resume-structure", name: "Resume Structure & Format" },
       { id: "resume-content", name: "Content Writing" },
@@ -2330,6 +3158,12 @@ const techTopics = [
     icon: "🗣️",
     color: "bg-yellow-600",
     category: "Interview Prep",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "gd-basics", name: "GD Fundamentals" },
       { id: "gd-types", name: "Types of GD" },
@@ -2351,6 +3185,12 @@ const techTopics = [
     icon: "🤝",
     color: "bg-green-500",
     category: "Interview Prep",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "hr-common-questions", name: "Common HR Questions" },
       { id: "hr-tell-me-about-yourself", name: "Tell Me About Yourself" },
@@ -2372,6 +3212,12 @@ const techTopics = [
     icon: "💻",
     color: "bg-blue-600",
     category: "Interview Prep",
+    questionTypes: {
+      mcq: 0.4,
+      fill: 0.2,
+      code: 0.3,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "tech-coding-problems", name: "Coding Problems" },
       { id: "tech-system-design", name: "System Design" },
@@ -2393,6 +3239,12 @@ const techTopics = [
     icon: "🧠",
     color: "bg-purple-500",
     category: "Interview Prep",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "behavioral-star-method", name: "STAR Method" },
       { id: "behavioral-teamwork", name: "Teamwork Examples" },
@@ -2414,6 +3266,12 @@ const techTopics = [
     icon: "🗨️",
     color: "bg-pink-500",
     category: "Soft Skills",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "comm-verbal", name: "Verbal Communication" },
       { id: "comm-non-verbal", name: "Non-Verbal Communication" },
@@ -2429,13 +3287,18 @@ const techTopics = [
       { id: "comm-networking", name: "Networking Skills" },
     ],
   },
-
   {
     id: "gk-current-affairs",
     name: "Current Affairs",
     icon: "📰",
     color: "bg-red-500",
     category: "GK",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2444,6 +3307,12 @@ const techTopics = [
     icon: "📚",
     color: "bg-blue-600",
     category: "GK",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "gk-history", name: "History" },
       { id: "gk-geography", name: "Geography" },
@@ -2457,6 +3326,12 @@ const techTopics = [
     icon: "💹",
     color: "bg-green-500",
     category: "GK",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "gk-finance", name: "Finance" },
       { id: "gk-banking", name: "Banking" },
@@ -2469,6 +3344,12 @@ const techTopics = [
     icon: "🔬",
     color: "bg-purple-500",
     category: "GK",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "gk-space", name: "Space Exploration" },
       { id: "gk-biotechnology", name: "Biotechnology" },
@@ -2481,6 +3362,12 @@ const techTopics = [
     icon: "🏆",
     color: "bg-yellow-500",
     category: "GK",
+    questionTypes: {
+      mcq: 1.0,
+      fill: 0.0,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2489,6 +3376,12 @@ const techTopics = [
     icon: "🏅",
     color: "bg-blue-400",
     category: "GK",
+    questionTypes: {
+      mcq: 1.0,
+      fill: 0.0,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2497,6 +3390,12 @@ const techTopics = [
     icon: "📜",
     color: "bg-indigo-600",
     category: "GK",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
   {
@@ -2505,15 +3404,26 @@ const techTopics = [
     icon: "🌱",
     color: "bg-green-700",
     category: "GK",
+    questionTypes: {
+      mcq: 0.9,
+      fill: 0.1,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [],
   },
-
   {
     id: "cybersecurity",
     name: "Cybersecurity",
     icon: "🛡️",
     color: "bg-red-700",
     category: "Security",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "cyber-basics", name: "Cybersecurity Basics" },
       { id: "cyber-cryptography", name: "Cryptography" },
@@ -2529,13 +3439,18 @@ const techTopics = [
       { id: "cyber-standards", name: "Security Standards & Compliance" },
     ],
   },
-
   {
     id: "blockchain",
     name: "Blockchain & Web3",
     icon: "⛓️",
     color: "bg-gray-800",
     category: "Blockchain",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "blockchain-basics", name: "Blockchain Basics" },
       { id: "blockchain-ethereum", name: "Ethereum" },
@@ -2551,13 +3466,18 @@ const techTopics = [
       { id: "blockchain-security", name: "Blockchain Security" },
     ],
   },
-
   {
     id: "data-science",
     name: "Data Science & Big Data",
     icon: "📊",
     color: "bg-blue-700",
     category: "Data",
+    questionTypes: {
+      mcq: 0.6,
+      fill: 0.2,
+      code: 0.1,
+      trueorfalse: 0.1,
+    },
     topics: [
       { id: "ds-data-analysis", name: "Data Analysis" },
       { id: "ds-visualization", name: "Data Visualization" },
@@ -2573,13 +3493,18 @@ const techTopics = [
       { id: "ds-cloud", name: "Cloud Data Platforms (AWS, GCP, Azure)" },
     ],
   },
-
   {
     id: "software-engineering",
     name: "Software Engineering",
     icon: "🛠️",
     color: "bg-green-600",
     category: "Engineering",
+    questionTypes: {
+      mcq: 0.8,
+      fill: 0.2,
+      code: 0.0,
+      trueorfalse: 0.0,
+    },
     topics: [
       { id: "se-sdlc", name: "Software Development Life Cycle" },
       { id: "se-agile", name: "Agile & Scrum" },
@@ -2596,5 +3521,4 @@ const techTopics = [
     ],
   },
 ];
-
 export default techTopics;
