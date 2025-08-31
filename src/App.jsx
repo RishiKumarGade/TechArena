@@ -30,12 +30,12 @@ import { GoogleGenAI } from "@google/genai";
 const GEMINI_API_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
-const defaultQuestionTypes = {
-  mcq: 0.4,
-  fill: 0.2,
-  code: 0.3,
-  trueorfalse: 0.1,
-};
+  const defaultQuestionTypes = {
+    mcq: 0.4,
+    fill: 0.2,
+    code: 0.3,
+    trueorfalse: 0.1,
+  };
 
 function buildGenerationPrompt(
   topicName,
@@ -214,6 +214,9 @@ export default function TechPrepApp() {
   const [settingsMessageType, setSettingsMessageType] = useState("info");
   const [selectedTopics, setSelectedTopics] = useState([]);
 
+  useEffect(()=>{
+    console.log('Questions updated:', questions);
+  },[questions])
   async function validateAndSaveKey(tempKey) {
     if (!tempKey.trim()) {
       setSettingsMessageType("error");
@@ -425,7 +428,7 @@ export default function TechPrepApp() {
               id: { type: "string" },
               type: {
                 type: "string",
-                enum: ["mcq", "truefalse", "fill", "code"],
+                enum: ["mcq", "trueorfalse", "fill", "code"],
               },
               q: { type: "string" },
               difficulty: { type: "integer" },
@@ -621,7 +624,7 @@ const generateQuestions = async () => {
           tag,
           options:
             q.options ||
-            (q.type === "truefalse" ? ["True", "False"] : ["A", "B", "C", "D"]),
+            (q.type === "trueorfalse" ? ["True", "False"] : ["A", "B", "C", "D"]),
           answerIndex: typeof q.answerIndex === "number" ? q.answerIndex : 0,
           answerText: q.answerText || null,
           explanation: q.explanation || "",
@@ -1678,7 +1681,7 @@ const generateQuestions = async () => {
                               className={`text-xs font-medium px-2 py-1 rounded-lg ${
                                 q.type === "mcq"
                                   ? "bg-blue-100 text-blue-800"
-                                  : q.type === "truefalse"
+                                  : q.type === "trueorfalse"
                                   ? "bg-green-100 text-green-800"
                                   : q.type === "fill"
                                   ? "bg-yellow-100 text-yellow-800"
@@ -1896,7 +1899,7 @@ const generateQuestions = async () => {
                     className={`text-xs px-2 py-1 rounded ${
                       currentQuestion.type === "mcq"
                         ? "bg-blue-100 text-blue-800"
-                        : currentQuestion.type === "truefalse"
+                        : currentQuestion.type === "trueorfalse"
                         ? "bg-green-100 text-green-800"
                         : currentQuestion.type === "fill"
                         ? "bg-yellow-100 text-yellow-800"
@@ -1954,7 +1957,7 @@ const generateQuestions = async () => {
               </h3>
 
               <div className="space-y-3">
-                {["mcq", "truefalse", "code"].includes(currentQuestion.type) &&
+                {["mcq", "trueorfalse", "code"].includes(currentQuestion.type) &&
                   currentQuestion.options && (
                     <div className="space-y-3">
                       {currentQuestion.options.map((opt, idx) => {
