@@ -39,13 +39,14 @@ const defaultQuestionTypes = {
 
 function buildGenerationPrompt(
   topicName,
+  topicDescription,
   subTopicNames,
+  subTopicDescriptions,
   difficulty,
   count,
   sessionSeed,
-  questionTypesProbabilities // New parameter
+  questionTypesProbabilities
 ) {
-  // First, get the list of allowed types from the probabilities object
   const allowedTypes = Object.keys(questionTypesProbabilities);
   const allowedTypesString = allowedTypes.map((type) => `"${type}"`).join(", ");
 
@@ -54,10 +55,18 @@ function buildGenerationPrompt(
       ? ` from the following sub-topics: ${subTopicNames.join(", ")}`
       : "";
 
-  // This part is crucial: we tell the AI exactly what ratio to use.
+  const subTopicDescriptionsText = subTopicDescriptions.length > 0
+    ? `
+The questions should specifically cover these areas:
+${subTopicDescriptions.join("\n- ")}`
+    : "";
+
   const probabilitiesString = JSON.stringify(questionTypesProbabilities);
 
   return `Generate exactly ${count} exam questions for topic "${topicName}"${subTopicList} (difficulty ${difficulty} on a scale of 1–10).
+The overall topic description is: "${topicDescription}"
+${subTopicDescriptionsText}
+
 The questions must be a mix of the following types: ${allowedTypesString}.
 The distribution of question types should closely follow the probabilities: ${probabilitiesString}. For example, if "fill" has a probability of 0.8, generate approximately 80% fill-in-the-blank questions. For "code", include a small, realistic code snippet. For "fill", leave a single blank for the answer.
 
@@ -439,42 +448,45 @@ export default function TechPrepApp() {
     };
   }
 
-  async function generateQuestionsViaLLM(
+ async function generateQuestionsViaLLM(
+  topicName,
+  topicDescription,
+  subTopicNames,
+  subTopicDescriptions,
+  difficulty,
+  count,
+  questionTypesProbabilities
+) {
+  const seed = Date.now();
+  const prompt = buildGenerationPrompt(
     topicName,
+    topicDescription,
     subTopicNames,
+    subTopicDescriptions,
     difficulty,
     count,
-    questionTypesProbabilities // New parameter
-  ) {
-    const seed = Date.now();
-    const prompt = buildGenerationPrompt(
-      topicName,
-      subTopicNames,
-      difficulty,
-      count,
-      seed,
-      questionTypesProbabilities
-    );
+    seed,
+    questionTypesProbabilities
+  );
 
-    const payload = {
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: Math.min(0.95, 0.2 + (difficulty / 10) * 0.6),
-        maxOutputTokens: 8192,
-        responseMimeType: "application/json",
-        responseSchema: buildQuestionSchema(count),
-      },
-    };
+  const payload = {
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: {
+      temperature: Math.min(0.95, 0.2 + (difficulty / 10) * 0.6),
+      maxOutputTokens: 8192,
+      responseMimeType: "application/json",
+      responseSchema: buildQuestionSchema(count),
+    },
+  };
 
-    const resp = await callLLM(payload);
-    const parsed = extractJSONFromResponse(resp);
+  const resp = await callLLM(payload);
+  const parsed = extractJSONFromResponse(resp);
 
-    if (!Array.isArray(parsed.questions)) {
-      throw new Error("No questions array found in response");
-    }
-    return parsed.questions;
+  if (!Array.isArray(parsed.questions)) {
+    throw new Error("No questions array found in response");
   }
-
+  return parsed.questions;
+}
   async function evaluateAnswerWithLLM(
     questionText,
     canonicalAnswer,
@@ -534,8 +546,7 @@ export default function TechPrepApp() {
       return null;
     }
   }
-
-  const generateQuestions = async () => {
+const generateQuestions = async () => {
     if (!selectedTech) {
       alert("Pick a topic first");
       return;
@@ -559,19 +570,31 @@ export default function TechPrepApp() {
 
     const tech = techTopics.find((t) => t.id === selectedTech);
     const topicName = tech?.name || selectedTech;
-    const subTopicNames = selectedTopics.map((id) => {
-      const subTopic = tech.topics.find((t) => t.id === id);
-      return subTopic ? subTopic.name : id;
-    });
+    const topicDescription = tech?.description || "";
+    
+    let subTopicNames = [];
+    let subTopicDescriptions = [];
 
-    // Use the topic's specific question types or the default
+    if (selectedTopics.length > 0) {
+      subTopicNames = selectedTopics.map((id) => {
+        const subTopic = tech.topics.find((t) => t.id === id);
+        return subTopic ? subTopic.name : id;
+      });
+      subTopicDescriptions = selectedTopics.map((id) => {
+        const subTopic = tech.topics.find((t) => t.id === id);
+        return subTopic ? subTopic.description : "";
+      });
+    }
+
     const questionTypesProbabilities =
       tech?.questionTypes || defaultQuestionTypes;
 
     try {
       const produced = await generateQuestionsViaLLM(
         topicName,
+        topicDescription,
         subTopicNames,
+        subTopicDescriptions,
         difficulty,
         questionCount,
         questionTypesProbabilities
@@ -2063,6 +2086,7 @@ export default function TechPrepApp() {
                   <button
                     key={idx}
                     onClick={() => {
+
                       if (evaluating) return;
                       if (!selectedAnswer) return;
                       if (idx > currentQuestionIndex + 1) return;
