@@ -347,7 +347,7 @@ export default function TechPrepApp() {
       apiKey: geminiApiKey,
     });
 
-    const model = payload.model || "gemini-2.0-flash";
+    const model = payload.model || "gemini-3-flash-preview";
     const config = {
       temperature: 1.0,
       topK: 40,
