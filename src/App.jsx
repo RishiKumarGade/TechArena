@@ -28,7 +28,7 @@ import techTopics from "./topics";
 import { GoogleGenAI } from "@google/genai";
 
 const GEMINI_API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.0-flash:generateContent";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent";
 
   const defaultQuestionTypes = {
     mcq: 0.4,
